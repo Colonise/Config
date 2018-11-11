@@ -1,2 +1,3 @@
-# semantic-release-config
-Shareable semantic-release Config for all Colonise packages
+# Config
+
+Shareable config for all Colonise packages
