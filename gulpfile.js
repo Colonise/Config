@@ -1,1 +1,1 @@
-export * from './dist/gulpfile';
+exports = require('./dist/gulpfile');
