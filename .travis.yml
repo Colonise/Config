@@ -32,4 +32,5 @@ deploy:
     provider: script
     skip_cleanup: true
     script:
+        - mv _gulpfile.js gulpfile.js
         - npx semantic-release
