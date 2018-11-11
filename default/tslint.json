@@ -1,0 +1,3 @@
+{
+    "extends": "@colonise/config/tslint"
+}
