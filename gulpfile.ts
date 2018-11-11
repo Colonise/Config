@@ -5,7 +5,6 @@ import GulpIstanbul from 'gulp-istanbul';
 import tslintPlugin from 'gulp-tslint';
 import * as typescript from 'gulp-typescript';
 import merge from 'merge-stream';
-import * as path from 'path';
 import streamToPromise from 'stream-to-promise';
 import { TapBark } from 'tap-bark';
 import { Default, Dependencies, Name, Project } from 'tsgulp';
@@ -17,8 +16,7 @@ enum TestOutput {
     Coverage
 }
 
-const dir =
-    __dirname.indexOf('\\node_modules') === -1 ? path.join(__dirname, '../') : __dirname.split('\\node_modules')[0];
+const dir = __dirname.indexOf('\\node_modules') === -1 ? __dirname : __dirname.split('\\node_modules')[0];
 
 // tslint:disable-next-line:no-var-requires
 const projectName = require(`${dir}/package.json`).name;
