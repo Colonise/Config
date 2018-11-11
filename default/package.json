@@ -1,19 +1,11 @@
 {
-    "name": "@colonise/config",
+    "name": "@colonise/CHANGEME",
     "version": "0.0.0",
-    "description": "Shareable config for all Colonise packages",
+    "description": "CHANGEME",
     "main": "dist/index.js",
     "typings": "dist/index.d.ts",
     "files": [
-        "dist/**/*.*",
-        "default/**/*.*",
-        ".gitignore",
-        ".npmignore",
-        ".travis.yml",
-        "LICENSE",
-        "README.md",
-        "tsconfig.json",
-        "tslint.json"
+        "dist/**/*.*"
     ],
     "scripts": {
         "build": "gulp build",
@@ -26,15 +18,15 @@
     },
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/Colonise/Config.git"
+        "url": "git+https://github.com/Colonise/CHANGEME.git"
     },
     "keywords": [],
     "author": "Patrick Stanford",
     "license": "MIT",
     "bugs": {
-        "url": "https://github.com/Colonise/Config/issues"
+        "url": "https://github.com/Colonise/CHANGEME/issues"
     },
-    "homepage": "https://github.com/Colonise/Config#readme",
+    "homepage": "https://github.com/Colonise/CHANGEME#readme",
     "devDependencies": {
         "@semantic-release/changelog": "^3.0.1",
         "@semantic-release/git": "^7.0.5",
@@ -63,7 +55,6 @@
         "typescript": "^3.1.6"
     },
     "dependencies": {
-        "@semantic-release/error": "^2.2.0",
         "tslib": "^1.9.3"
     },
     "nyc": {
@@ -88,6 +79,6 @@
         "all": true
     },
     "release": {
-        "extends": "./dist/semantic-release"
+        "extends": "@colonise/config/semantic-release"
     }
 }
