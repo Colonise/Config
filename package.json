@@ -90,6 +90,6 @@
         "all": true
     },
     "release": {
-        "extends": "./dist/semantic-release"
+        "extends": "./semantic-release"
     }
 }
