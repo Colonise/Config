@@ -27,10 +27,10 @@ after_script:
 
 before_deploy:
     - gulp distribute
+    - mv _gulpfile.js gulpfile.js
 
 deploy:
     provider: script
     skip_cleanup: true
     script:
-        - mv _gulpfile.js gulpfile.js
         - npx semantic-release
