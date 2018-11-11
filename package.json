@@ -10,8 +10,10 @@
         ".gitignore",
         ".npmignore",
         ".travis.yml",
+        "gulpfile.ts",
         "LICENSE",
         "README.md",
+        "semantic-release.ts",
         "tsconfig.json",
         "tslint.json"
     ],
