@@ -24,7 +24,8 @@
         "coverage": "gulp coverage",
         "debug": "gulp debug",
         "pack": "npm pack",
-        "dist": "gulp distribute"
+        "dist": "gulp distribute",
+        "prepublish": "mv _gulpfile.js gulpfile.js"
     },
     "repository": {
         "type": "git",
