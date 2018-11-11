@@ -1,1 +1,1 @@
-import '@colonise/comfig/gulpfile';
+import '@colonise/config/gulpfile';
