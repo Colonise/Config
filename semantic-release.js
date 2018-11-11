@@ -1,1 +1,1 @@
-export * from './dist/semantic-release';
+exports = require('./dist/semantic-release');
