@@ -1,1 +1,3 @@
-import './src/gulpfile';
+import * as Gulpfile from './src/gulpfile';
+
+export = Gulpfile;
