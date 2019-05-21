@@ -1,3 +1,3 @@
-import SemanticRelease from './src/semantic-release';
+import * as SemanticRelease from './src/semantic-release';
 
 export = SemanticRelease;

@@ -25,11 +25,8 @@ after_script:
   - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
   - greenkeeper-lockfile-upload
 
-before_deploy:
-  - gulp distribute
-
 deploy:
   provider: script
   skip_cleanup: true
   script:
-    - npx semantic-release
+    - gulp distribute

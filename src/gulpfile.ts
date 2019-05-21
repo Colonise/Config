@@ -5,6 +5,8 @@ import GulpIstanbul from 'gulp-istanbul';
 import tslintPlugin from 'gulp-tslint';
 import * as gulpTypescript from 'gulp-typescript';
 import merge from 'merge-stream';
+import * as path from 'path';
+import SemanticRelease from 'semantic-release';
 import streamToPromise from 'stream-to-promise';
 import { TapBark } from 'tap-bark';
 import * as TSlint from 'tslint';
@@ -107,6 +109,23 @@ function javascriptCopyToDistributeDirectory() {
     return GulpClient.src(distributeFiles).pipe(GulpClient.dest(distributeDirectiory));
 }
 
+async function semanticRelease() {
+    const folderPath = path.dirname(require && require.main ? require.main.filename : '.');
+    const filePath = path.join(folderPath, '/semantic-release.ts');
+
+    const config = require(filePath);
+
+    if (config) {
+        return SemanticRelease(config);
+    } else {
+        throw new SemanticReleaseError(
+            'Could not load the Semantic Release configuration.',
+            'ECONFIGLOADERROR',
+            `Folder Path: ${folderPath}
+File Path: ${filePath}`);
+    }
+}
+
 async function cleanBuildDirectory() {
     return del(distributeDirectiory);
 }
@@ -119,7 +138,7 @@ export const clean = GulpClient.parallel(cleanBuildDirectory, cleanDistributeDir
 
 export const build = GulpClient.series(clean, typescriptBuild);
 
-export const distribute = GulpClient.series(build, javascriptCopyToDistributeDirectory);
+export const distribute = GulpClient.series(build, javascriptCopyToDistributeDirectory, semanticRelease);
 
 export const lint = typescriptLint;
 
