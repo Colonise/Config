@@ -15,8 +15,8 @@ enum TestOutput {
     Coverage
 }
 
-const tsProject = gulpTypescript.createProject('./tsconfig.json');
-const tsLintProgram = TSlint.Linter.createProgram('./tsconfig.json');
+const tsProject = gulpTypescript.createProject('./src/tsconfig.json');
+const tsLintProgram = TSlint.Linter.createProgram('./src/tsconfig.json');
 
 const declarationFiles = './src/**/*.d.ts';
 const buildDirectiory = './build/';
