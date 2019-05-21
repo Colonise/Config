@@ -1,36 +1,35 @@
 language: node_js
 
 node_js:
-    - '10'
+  - "10"
 
 install:
-    - npm ci
+  - npm install
 
 before_script:
-    - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
-    - chmod +x ./cc-test-reporter
-    - ./cc-test-reporter before-build
-    - npm install -g npm
-    - npm install -g gulp
-    - npm install -g greenkeeper-lockfile
-    - greenkeeper-lockfile-update
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+  - chmod +x ./cc-test-reporter
+  - ./cc-test-reporter before-build
+  - npm install -g npm
+  - npm install -g gulp
+  - npm install -g greenkeeper-lockfile
+  - greenkeeper-lockfile-update
 
 script:
-    - gulp build
-    - gulp lint
-    - gulp test
-    - gulp coverage
+  - gulp build
+  - gulp lint
+  - gulp test
+  - gulp coverage
 
 after_script:
-    - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
-    - greenkeeper-lockfile-upload
+  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
+  - greenkeeper-lockfile-upload
 
 before_deploy:
-    - gulp distribute
-    - mv _gulpfile.js gulpfile.js
+  - gulp distribute
 
 deploy:
-    provider: script
-    skip_cleanup: true
-    script:
-        - npx semantic-release
+  provider: script
+  skip_cleanup: true
+  script:
+    - npx semantic-release
