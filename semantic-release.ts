@@ -1,1 +1,3 @@
-exports = require('./dist/semantic-release');
+import SemanticRelease from './src/semantic-release';
+
+export = SemanticRelease;
