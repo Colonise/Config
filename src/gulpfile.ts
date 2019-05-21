@@ -3,12 +3,10 @@ import del from 'del';
 import GulpClient from 'gulp';
 import GulpIstanbul from 'gulp-istanbul';
 import tslintPlugin from 'gulp-tslint';
-import * as typescript from 'gulp-typescript';
+import * as gulpTypescript from 'gulp-typescript';
 import merge from 'merge-stream';
-import * as path from 'path';
 import streamToPromise from 'stream-to-promise';
 import { TapBark } from 'tap-bark';
-import { Default, Dependencies, Name, Project } from 'tsgulp';
 import * as TSlint from 'tslint';
 
 enum TestOutput {
@@ -17,118 +15,128 @@ enum TestOutput {
     Coverage
 }
 
-const dir =
-    __dirname.indexOf('\\node_modules') === -1 ? path.join(__dirname, '../') : __dirname.split('\\node_modules')[0];
+const tsProject = gulpTypescript.createProject('./tsconfig.json');
+const tsLintProgram = TSlint.Linter.createProgram('./tsconfig.json');
 
-// tslint:disable-next-line:no-var-requires
-const projectName = require(`${dir}/package.json`).name;
+const declarationFiles = './src/**/*.d.ts';
+const buildDirectiory = './build/';
 
-@Project(projectName)
-// @ts-ignore: Allow unused class
-export class GulpFile {
-    public readonly tsProject = typescript.createProject('./src/tsconfig.json');
-    public readonly tsLintProgram = TSlint.Linter.createProgram('./src/tsconfig.json');
+const coverableFiles = ['./build/**/*.js', '!./build/**/*.spec.*'];
+const testFiles = './build/**/*.spec.js';
+const debugTestFiles = './src/**/*.spec.ts';
 
-    public readonly declarationFiles = './src/**/*.d.ts';
-    public readonly buildDirectiory = './build/';
+const distributeFiles = ['./build/**/*.*', '!./build/**/*.spec.*'];
+const distributeDirectiory = './dist/';
 
-    public readonly coverableFiles = ['./build/**/*.js', '!./build/**/*.spec.s*'];
-    public readonly testFiles = './build/**/*.spec.js';
-    public readonly debugTestFiles = './src/**/*.spec.ts';
+async function runAlsatian(output: TestOutput) {
+    const testRunner = new TestRunner();
 
-    public readonly distributeFiles = ['./build/**/*.*', '!./build/**/*.spec.*'];
-    public readonly distributeDirectiory = './dist/';
+    switch (output) {
+        case TestOutput.Result:
+            testRunner.outputStream.pipe(TapBark.create().getPipeable()).pipe(process.stdout);
+            break;
 
-    public async clean() {
-        await del(this.buildDirectiory);
-        await del(this.distributeDirectiory);
+        case TestOutput.Coverage:
+            await streamToPromise(
+                GulpClient
+                    .src(coverableFiles)
+                    .pipe(GulpIstanbul({ includeUntested: true }))
+                    .pipe(GulpIstanbul.hookRequire())
+            );
+            testRunner.outputStream.pipe(GulpIstanbul.writeReports({ dir: './coverage' }));
+            break;
+
+        default:
     }
 
-    @Dependencies('clean')
-    public build(): unknown {
-        return merge(
-            this.tsProject
-                .src()
-                .pipe(this.tsProject())
-                .pipe(GulpClient.dest(this.buildDirectiory)),
-            GulpClient.src(this.declarationFiles).pipe(GulpClient.dest(this.buildDirectiory))
-        );
-    }
+    const testSet = TestSet.create();
 
-    @Dependencies('clean', 'build')
-    public distribute() {
-        return GulpClient.src(this.distributeFiles).pipe(GulpClient.dest(this.distributeDirectiory));
-    }
+    testSet.addTestsFromFiles(testFiles);
 
-    public lint() {
-        return this.tsProject
-            .src()
-            .pipe(
-                tslintPlugin({
-                    fix: true,
-                    formatter: 'stylish',
-                    program: this.tsLintProgram
-                })
-            )
-            .pipe(tslintPlugin.report());
-    }
-
-    @Dependencies('build')
-    public async test() {
-        return this.runAlsatian(TestOutput.Result);
-    }
-
-    @Dependencies('build')
-    @Name('test-no-output')
-    public async testNoOutput() {
-        return this.runAlsatian(TestOutput.None);
-    }
-
-    @Dependencies('build')
-    public async coverage() {
-        return this.runAlsatian(TestOutput.Coverage);
-    }
-
-    public async debug() {
-        const testRunner = new TestRunner();
-
-        testRunner.outputStream.pipe(TapBark.create().getPipeable()).pipe(process.stdout);
-
-        const testSet = TestSet.create();
-
-        testSet.addTestsFromFiles(this.debugTestFiles);
-
-        return testRunner.run(testSet);
-    }
-
-    @Default()
-    @Dependencies('lint', 'build', 'test-no-output', 'coverage', 'distribute')
-    // tslint:disable-next-line:no-empty
-    public all() {}
-
-    private async runAlsatian(output: TestOutput) {
-        const testRunner = new TestRunner();
-
-        switch (output) {
-            case TestOutput.Result:
-                testRunner.outputStream.pipe(TapBark.create().getPipeable()).pipe(process.stdout);
-                break;
-
-            case TestOutput.Coverage:
-                await streamToPromise(
-                    GulpClient.src(this.coverableFiles)
-                        .pipe(GulpIstanbul({ includeUntested: true }))
-                        .pipe(GulpIstanbul.hookRequire())
-                );
-                testRunner.outputStream.pipe(GulpIstanbul.writeReports({ dir: './coverage' }));
-                break;
-            default:
-        }
-
-        const testSet = TestSet.create();
-
-        testSet.addTestsFromFiles(this.testFiles);
-
-        return testRunner.run(testSet);
-    }
+    return testRunner.run(testSet);
 }
+
+function typescriptBuild() {
+    return merge(
+        tsProject
+            .src()
+            .pipe(tsProject())
+            .pipe(GulpClient.dest(buildDirectiory)),
+        GulpClient.src(declarationFiles).pipe(GulpClient.dest(buildDirectiory))
+    );
+}
+
+function typescriptLint() {
+    return tsProject
+        .src()
+        .pipe(
+            tslintPlugin({
+                fix: true,
+                formatter: 'stylish',
+                program: tsLintProgram
+            })
+        )
+        .pipe(tslintPlugin.report());
+}
+
+async function typescriptTestOutputNone() {
+    return runAlsatian(TestOutput.None);
+}
+
+async function typescriptTestOutputResult() {
+    return runAlsatian(TestOutput.Result);
+}
+
+async function typescriptTestOutputCoverage() {
+    return runAlsatian(TestOutput.Coverage);
+}
+
+async function typescriptTestDebug() {
+    const testRunner = new TestRunner();
+
+    testRunner.outputStream.pipe(TapBark.create().getPipeable()).pipe(process.stdout);
+
+    const testSet = TestSet.create();
+
+    testSet.addTestsFromFiles(debugTestFiles);
+
+    return testRunner.run(testSet);
+}
+
+function javascriptCopyToDistributeDirectory() {
+    return GulpClient.src(distributeFiles).pipe(GulpClient.dest(distributeDirectiory));
+}
+
+async function cleanBuildDirectory() {
+    return del(distributeDirectiory);
+}
+
+async function cleanDistributeDirectory() {
+    return del(distributeDirectiory);
+}
+
+export const clean = GulpClient.parallel(cleanBuildDirectory, cleanDistributeDirectory);
+
+export const build = GulpClient.series(clean, typescriptBuild);
+
+export const distribute = GulpClient.series(build, javascriptCopyToDistributeDirectory);
+
+export const lint = typescriptLint;
+
+export const test = GulpClient.series(build, typescriptTestOutputResult);
+
+export const coverage = GulpClient.series(build, typescriptTestOutputCoverage);
+
+export const debug = typescriptTestDebug;
+
+export const all = GulpClient.series(
+    GulpClient.parallel(
+        lint,
+        clean
+    ),
+    typescriptBuild,
+    typescriptTestOutputNone,
+    javascriptCopyToDistributeDirectory
+);
+
+export default all;
