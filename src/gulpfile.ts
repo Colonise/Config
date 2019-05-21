@@ -112,7 +112,7 @@ function javascriptCopyToDistributeDirectory() {
 }
 
 async function semanticRelease() {
-    const filePath = path.join(appRootPath, '/semantic-release.ts');
+    const filePath = appRootPath.resolve('semantic-release.ts');
     let config: SemanticReleaseOptions | undefined;
 
     try {
@@ -127,7 +127,7 @@ async function semanticRelease() {
         throw new SemanticReleaseError(
             `Could not load the Semantic Release configuration from '${filePath}'.`,
             'ECONFIGLOADERROR',
-            `App Root Path: ${appRootPath}
+            `App Root Path: ${appRootPath.path}
 File Path: ${filePath}`);
     }
 }
