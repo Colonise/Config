@@ -1,17 +1,16 @@
 import SemanticReleaseError from '@semantic-release/error';
 import { TestRunner, TestSet } from 'alsatian';
+import RootPath from 'app-root-path';
 import del from 'del';
 import GulpClient from 'gulp';
 import GulpIstanbul from 'gulp-istanbul';
 import tslintPlugin from 'gulp-tslint';
 import * as gulpTypescript from 'gulp-typescript';
 import merge from 'merge-stream';
-import * as path from 'path';
 import SemanticRelease from 'semantic-release';
 import streamToPromise from 'stream-to-promise';
 import { TapBark } from 'tap-bark';
 import * as TSlint from 'tslint';
-import appRootPath from 'app-root-path';
 
 enum TestOutput {
     None,
@@ -112,7 +111,7 @@ function javascriptCopyToDistributeDirectory() {
 }
 
 async function semanticRelease() {
-    const filePath = appRootPath.resolve('semantic-release.ts');
+    const filePath = RootPath.resolve('semantic-release.ts');
     let config: SemanticReleaseOptions | undefined;
 
     try {
@@ -127,7 +126,7 @@ async function semanticRelease() {
         throw new SemanticReleaseError(
             `Could not load the Semantic Release configuration from '${filePath}'.`,
             'ECONFIGLOADERROR',
-            `App Root Path: ${appRootPath.path}
+            `App Root Path: ${RootPath.path}
 File Path: ${filePath}`);
     }
 }
