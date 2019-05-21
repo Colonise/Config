@@ -113,8 +113,13 @@ function javascriptCopyToDistributeDirectory() {
 async function semanticRelease() {
     const folderPath = path.dirname(require && require.main ? require.main.filename : '.');
     const filePath = path.join(folderPath, '/semantic-release.ts');
+    let config: SemanticReleaseOptions | undefined;
 
-    const config = require(filePath);
+    try {
+        config = require(filePath);
+    } catch (error) {
+        config = undefined;
+    }
 
     if (config) {
         return SemanticRelease(config);
