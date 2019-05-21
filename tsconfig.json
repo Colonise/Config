@@ -17,10 +17,13 @@
         "strictNullChecks": true,
         "strictPropertyInitialization": true,
         "target": "es6",
-        "typeRoots": [
-            "./node_modules/@types",
-            "./@types"
-        ]
+        "baseUrl": ".",
+        "paths": {
+            "*": [
+                "node_modules/*",
+                "@types/*"
+            ]
+        }
     },
     "include": [
         "gulpfile.ts"
