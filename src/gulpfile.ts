@@ -1,3 +1,4 @@
+import SemanticReleaseError from '@semantic-release/error';
 import { TestRunner, TestSet } from 'alsatian';
 import del from 'del';
 import GulpClient from 'gulp';
