@@ -11,6 +11,7 @@ import SemanticRelease from 'semantic-release';
 import streamToPromise from 'stream-to-promise';
 import { TapBark } from 'tap-bark';
 import * as TSlint from 'tslint';
+import appRootPath from 'app-root-path';
 
 enum TestOutput {
     None,
@@ -111,8 +112,7 @@ function javascriptCopyToDistributeDirectory() {
 }
 
 async function semanticRelease() {
-    const folderPath = path.dirname(require && require.main ? require.main.filename : '.');
-    const filePath = path.join(folderPath, '/semantic-release.ts');
+    const filePath = path.join(appRootPath, '/semantic-release.ts');
     let config: SemanticReleaseOptions | undefined;
 
     try {
@@ -125,9 +125,9 @@ async function semanticRelease() {
         return SemanticRelease(config);
     } else {
         throw new SemanticReleaseError(
-            'Could not load the Semantic Release configuration.',
+            `Could not load the Semantic Release configuration from '${filePath}'.`,
             'ECONFIGLOADERROR',
-            `Folder Path: ${folderPath}
+            `App Root Path: ${appRootPath}
 File Path: ${filePath}`);
     }
 }

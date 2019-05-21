@@ -47,6 +47,7 @@
         "@types/merge-stream": "^1.1.2",
         "@types/stream-to-promise": "^2.2.0",
         "alsatian": "^2.4.0",
+        "app-root-path": "^2.2.1",
         "del": "^4.0.0",
         "gulp": "^4.0.2",
         "gulp-istanbul": "^1.1.3",
