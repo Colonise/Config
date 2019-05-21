@@ -16,7 +16,13 @@
         "strictFunctionTypes": true,
         "strictNullChecks": true,
         "strictPropertyInitialization": true,
-        "target": "es6"
+        "target": "es6",
+        "typeRoots": [
+            "./node_modules/@types",
+            "./@types"
+        ]
     },
-    "include": ["gulpfile.ts"]
+    "include": [
+        "gulpfile.ts"
+    ]
 }
