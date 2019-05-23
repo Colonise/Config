@@ -7,7 +7,7 @@ gulpfile.ts
 tslint.json
 tsconfig.json
 
-# Test Coverage
+# Test
 coverage/
 
 # Documentation
