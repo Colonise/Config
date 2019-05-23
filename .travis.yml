@@ -24,10 +24,16 @@ jobs:
         - gulp build
       after_script:
         - greenkeeper-lockfile-upload
-    - name: Unit Tests
-      node_js:
-        - 10
-        - 12
+    - name: Unit Tests (Node 10)
+      node_js: 10
+      script:
+        - gulp test
+    - name: Unit Tests (Node 11)
+      node_js: 11
+      script:
+        - gulp test
+    - name: Unit Tests (Node 12)
+      node_js: 12
       script:
         - gulp test
     - name: Test Coverage
