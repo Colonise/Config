@@ -1,35 +1,53 @@
 language: node_js
 
-node_js:
-  - "10"
-  - "12"
+node_js: 10
 
 cache: npm
 
-install:
-  - npm install
+install: npm install
 
 before_script:
-  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
-  - chmod +x ./cc-test-reporter
-  - ./cc-test-reporter before-build
   - npm install -g npm
   - npm install -g gulp
-  - npm install -g greenkeeper-lockfile
-  - greenkeeper-lockfile-update
 
-script:
-  - gulp build
-  - gulp lint
-  - gulp test
-  - gulp coverage
-
-after_script:
-  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
-  - greenkeeper-lockfile-upload
-
-deploy:
-  provider: script
-  skip_cleanup: true
-  script:
-    - gulp distribute
+jobs:
+  include:
+    - stage: Test
+      name: Lint
+      script:
+        - gulp lint
+    - name: Build
+      before_script:
+        - npm install -g greenkeeper-lockfile
+        - greenkeeper-lockfile-update
+      script:
+        - gulp build
+      after_script:
+        - greenkeeper-lockfile-upload
+    - name: Unit Tests (Node 10)
+      node_js: 10
+      script:
+        - gulp test
+    - name: Unit Tests (Node 11)
+      node_js: 11
+      script:
+        - gulp test
+    - name: Unit Tests (Node 12)
+      node_js: 12
+      script:
+        - gulp test
+    - name: Test Coverage
+      before_script:
+        - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+        - chmod +x ./cc-test-reporter
+        - ./cc-test-reporter before-build
+      script:
+        - gulp coverage
+      after_script:
+        - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
+    - stage: Deploy
+      deploy:
+        provider: script
+        skip_cleanup: true
+        script:
+          - gulp distribute
