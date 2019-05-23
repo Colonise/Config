@@ -2,7 +2,16 @@
 src/
 
 # Build
-build
+build/
 gulpfile.ts
 tslint.json
 tsconfig.json
+
+# Test Coverage
+coverage/
+
+# Documentation
+documentation/
+
+# VSCode Settings
+.vscode/
