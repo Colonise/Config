@@ -6,25 +6,22 @@
     "typings": "dist/index.d.ts",
     "files": [
         "dist/**/*.*",
-        "default/**/*.*",
         ".gitignore",
         ".npmignore",
         ".travis.yml",
         "gulpfile.js",
-        "LICENSE",
-        "README.md",
         "semantic-release.js",
         "tsconfig.json",
         "tslint.json"
     ],
     "scripts": {
+        "postinstall": "gulp install",
         "build": "gulp build",
         "lint": "gulp lint",
         "test": "gulp test",
         "coverage": "gulp coverage",
         "debug": "gulp debug",
-        "pack": "npm pack",
-        "dist": "gulp distribute"
+        "distribute": "gulp distribute"
     },
     "repository": {
         "type": "git",
@@ -39,10 +36,12 @@
     "homepage": "https://github.com/Colonise/Config#readme",
     "devDependencies": {
         "@semantic-release/changelog": "^3.0.2",
+        "@semantic-release/error": "^2.2.0",
         "@semantic-release/git": "^7.0.8",
         "@semantic-release/github": "^5.2.10",
         "@semantic-release/npm": "^5.1.7",
         "@types/app-root-path": "^1.2.4",
+        "@types/glob": "^7.1.1",
         "@types/gulp": "^4.0.6",
         "@types/gulp-istanbul": "^0.9.32",
         "@types/merge-stream": "^1.1.2",
@@ -50,44 +49,17 @@
         "alsatian": "^2.4.0",
         "app-root-path": "^2.2.1",
         "del": "^4.0.0",
+        "glob": "^7.1.4",
         "gulp": "^4.0.2",
         "gulp-istanbul": "^1.1.3",
         "gulp-tslint": "^8.1.4",
         "gulp-typescript": "^5.0.1",
         "merge-stream": "^1.0.1",
-        "nyc": "^13.3.0",
         "semantic-release": "^15.13.12",
         "stream-to-promise": "^2.2.0",
         "ts-node": "^8.1.0",
+        "tslib": "^1.9.3",
         "tslint": "^5.14.0",
         "typescript": "~3.3.1"
-    },
-    "dependencies": {
-        "@semantic-release/error": "^2.2.0",
-        "tslib": "^1.9.3"
-    },
-    "nyc": {
-        "check-coverage": true,
-        "per-file": true,
-        "include": [
-            "dist/**/*.js"
-        ],
-        "exclude": [
-            "dist/**/*.spec.js",
-            "dist/**/index.js"
-        ],
-        "reporter": [
-            "lcov",
-            "html"
-        ],
-        "require": [],
-        "extension": [
-            ".js"
-        ],
-        "cache": true,
-        "all": true
-    },
-    "release": {
-        "extends": "./semantic-release"
     }
 }
