@@ -1,6 +1,4 @@
-interface SemanticReleasePlugin {
-    path: string;
-}
+type SemanticReleasePlugin = [string, {}];
 
 interface SemanticReleaseOptions {
     plugins: SemanticReleasePlugin[];
