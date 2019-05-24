@@ -7,6 +7,7 @@
 [![npm version][npm-version-badge]][npm-version-url]
 [![npm bundle size \(minified\)][npm-minified-badge]][npm-minified-url]
 [![npm bundle size \(minified, zipped\)][npm-minified-minzipped-badge]][npm-minified-minzipped-url]
+[![Greenkeeper][greenkeeper-badge]][greenkeeper-url]
 
 > A shareable config for all Colonise packages.
 
@@ -58,3 +59,6 @@ Config is part of Colonise's Open Source Software, and is made with love by the 
 
 [npm-minified-minzipped-badge]: https://img.shields.io/bundlephobia/minzip/@colonise/config.svg
 [npm-minified-minzipped-url]: https://bundlephobia.com/result?p=@colonise/config
+
+[greenkeeper-badge]: https://badges.greenkeeper.io/Colonise/Config.svg
+[greenkeeper-url]: https://greenkeeper.io/
