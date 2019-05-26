@@ -6,11 +6,10 @@
     "typings": "dist/index.d.ts",
     "files": [
         "dist/**/*.*",
-        ".gitignore",
-        ".npmignore",
-        ".travis.yml",
-        "gulpfile.js",
-        "semantic-release.js",
+        "default/**/*.*",
+        "install.js",
+        "gulpfile.ts",
+        "release.config.js",
         "tsconfig.json",
         "tslint.json"
     ],
@@ -36,10 +35,12 @@
     "homepage": "https://github.com/Colonise/Config#readme",
     "devDependencies": {
         "@semantic-release/changelog": "^3.0.2",
+        "@semantic-release/commit-analyzer": "^6.1.0",
         "@semantic-release/error": "^2.2.0",
         "@semantic-release/git": "^7.0.8",
         "@semantic-release/github": "^5.2.10",
         "@semantic-release/npm": "^5.1.7",
+        "@semantic-release/release-notes-generator": "^7.1.4",
         "@types/app-root-path": "^1.2.4",
         "@types/glob": "^7.1.1",
         "@types/gulp": "^4.0.6",
@@ -55,11 +56,11 @@
         "gulp-tslint": "^8.1.4",
         "gulp-typescript": "^5.0.1",
         "merge-stream": "^2.0.0",
-        "semantic-release": "^15.13.12",
         "stream-to-promise": "^2.2.0",
         "ts-node": "^8.1.0",
         "tslib": "^1.9.3",
         "tslint": "^5.14.0",
         "typescript": "~3.4.5"
-    }
+    },
+    "dependencies": {}
 }

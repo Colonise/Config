@@ -1,16 +1,10 @@
-import SemanticReleaseError from '@semantic-release/error';
 import { TestRunner, TestSet } from 'alsatian';
-import RootPath from 'app-root-path';
 import del from 'del';
-import * as fs from 'fs';
-import glob from 'glob'; // tslint:disable-line: match-default-export-name
 import GulpClient from 'gulp';
 import GulpIstanbul from 'gulp-istanbul';
 import tslintPlugin from 'gulp-tslint';
 import * as gulpTypescript from 'gulp-typescript';
 import merge from 'merge-stream';
-import * as path from 'path';
-import SemanticRelease from 'semantic-release';
 import streamToPromise from 'stream-to-promise';
 import { TapBark } from 'tap-bark';
 import * as TSlint from 'tslint';
@@ -113,27 +107,6 @@ function javascriptCopyToDistributeDirectory() {
     return GulpClient.src(distributeFiles).pipe(GulpClient.dest(distributeDirectiory));
 }
 
-async function semanticRelease() {
-    const filePath = RootPath.resolve('semantic-release.ts');
-    let config: SemanticReleaseOptions | undefined;
-
-    try {
-        config = require(filePath);
-    } catch (error) {
-        config = undefined;
-    }
-
-    if (config) {
-        return SemanticRelease(config);
-    } else {
-        throw new SemanticReleaseError(
-            `Could not load the Semantic Release configuration from '${filePath}'.`,
-            'ECONFIGLOADERROR',
-            `App Root Path: ${RootPath.path}
-File Path: ${filePath}`);
-    }
-}
-
 async function cleanBuildDirectory() {
     return del(distributeDirectiory);
 }
@@ -142,46 +115,11 @@ async function cleanDistributeDirectory() {
     return del(distributeDirectiory);
 }
 
-async function copyDefaultFiles() {
-    const base = __filename.includes('node_modules')
-        ? path.join(RootPath.path, '/node_modules/@colonise/config')
-        : RootPath.path;
-
-    const defaultFolderPath = path.join(base, '/default');
-
-    if (!fs.existsSync(defaultFolderPath)) {
-        throw new Error(`Could not find default configuration path '${defaultFolderPath}'.`);
-    }
-
-    const defaultFilesGlob = path.join(defaultFolderPath, '/**/*.*');
-
-    const defaultFilePaths = await new Promise<string[]>((resolve, reject) => {
-        glob(defaultFilesGlob, (error, matches) => {
-            if (error) {
-                reject(error);
-            } else {
-                resolve(matches.map(filePath => path.resolve(filePath)));
-            }
-        });
-    });
-
-    for (const defaultFilePath of defaultFilePaths) {
-        const relativeFilePath = defaultFilePath.replace(defaultFolderPath, '');
-        const absoluteFilePath = path.join(RootPath.path, relativeFilePath);
-
-        if (!fs.existsSync(absoluteFilePath)) {
-            await fs.promises.copyFile(defaultFilePath, absoluteFilePath);
-        }
-    }
-}
-
-export const install = copyDefaultFiles;
-
 export const clean = GulpClient.parallel(cleanBuildDirectory, cleanDistributeDirectory);
 
 export const build = GulpClient.series(clean, typescriptBuild);
 
-export const distribute = GulpClient.series(build, javascriptCopyToDistributeDirectory, semanticRelease);
+export const distribute = GulpClient.series(build, javascriptCopyToDistributeDirectory);
 
 export const lint = typescriptLint;
 
