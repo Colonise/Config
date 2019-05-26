@@ -47,8 +47,6 @@ jobs:
       after_script:
         - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
     - stage: Deploy
-      before_script:
-        - npm i -g semantic-release
       script:
         - gulp distribute
       deploy:
