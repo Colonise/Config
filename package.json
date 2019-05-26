@@ -14,7 +14,7 @@
         "tslint.json"
     ],
     "scripts": {
-        "postinstall": "node install",
+        "postinstall": "ts-node install",
         "build": "gulp build",
         "lint": "gulp lint",
         "test": "gulp test",

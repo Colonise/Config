@@ -16,7 +16,7 @@ async function install() {
 
     const defaultFilesGlob = path.join(defaultFolderPath, '/**/*.*');
 
-    const defaultFilePaths = await new Promise((resolve, reject) => {
+    const defaultFilePaths = await new Promise<string[]>((resolve, reject) => {
         glob(defaultFilesGlob, (error, matches) => {
             if (error) {
                 reject(error);
