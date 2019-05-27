@@ -7,14 +7,13 @@
     "files": [
         "dist/**/*.*",
         "default/**/*.*",
-        "install.js",
         "gulpfile.ts",
         "release.config.js",
         "tsconfig.json",
         "tslint.json"
     ],
     "scripts": {
-        "postinstall": "ts-node install",
+        "postinstall": "node ./dist/install",
         "build": "gulp build",
         "lint": "gulp lint",
         "test": "gulp test",
