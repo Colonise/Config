@@ -1,5 +1,4 @@
 import SemanticReleaseError from '@semantic-release/error';
-import RootPath from 'app-root-path';
 
 const packageName = process.env.COLONISE_PACKAGE_NAME;
 
@@ -12,8 +11,6 @@ if (!packageName) {
 }
 
 const packageNameLower = packageName.toLowerCase();
-
-const rootPackageJson = RootPath.require('./package.json');
 
 const changelog = [
     '@semantic-release/changelog',
