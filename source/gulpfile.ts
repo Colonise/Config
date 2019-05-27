@@ -19,6 +19,8 @@ enum TestOutput {
     Coverage
 }
 
+const packageJsonPath = './package.json';
+
 const tsProject = gulpTypescript.createProject('./source/tsconfig.json');
 const tsLintProgram = TSlint.Linter.createProgram('./source/tsconfig.json');
 
@@ -50,6 +52,7 @@ const distributeDirectory = './distribute/';
 const distributeBuildDirectory = distributeDirectory;
 const distributeDefaultDirectory = path.join(distributeDirectory, '/default');
 const distributeEssentialDirectory = distributeDirectory;
+const distributePackageJsonPath = path.join(distributeDirectory, packageJsonPath);
 
 async function runAlsatian(output: TestOutput) {
     const testRunner = new TestRunner();
@@ -135,8 +138,7 @@ function copyFilesToDistributeDirectory() {
 }
 
 async function packageJsonModifyProperties() {
-    const packageJsonPath = path.join(distributeDirectory, '/package.json');
-    const packageJsonString = fs.readFileSync(packageJsonPath, 'utf8');
+    const packageJsonString = fs.readFileSync(distributePackageJsonPath, 'utf8');
     const packageJsonData = JSON.parse(packageJsonString);
 
     packageJsonData.scripts.postinstall = 'gulp install';
@@ -192,6 +194,10 @@ async function copyDefaultFiles() {
     }
 }
 
+async function copyModifiedFiles() {
+    fs.copyFileSync(distributePackageJsonPath, packageJsonPath);
+}
+
 export const install = copyDefaultFiles;
 
 export const clean = GulpClient.parallel(cleanBuildDirectory, cleanDistributeDirectory);
@@ -199,6 +205,8 @@ export const clean = GulpClient.parallel(cleanBuildDirectory, cleanDistributeDir
 export const build = GulpClient.series(clean, typescriptBuild);
 
 export const distribute = GulpClient.series(build, copyFilesToDistributeDirectory, packageJsonModifyProperties);
+
+export const publish = copyModifiedFiles;
 
 export const lint = typescriptLint;
 

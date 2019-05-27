@@ -2,8 +2,8 @@
     "name": "@colonise/config",
     "version": "0.0.0",
     "description": "Shareable config for all Colonise packages",
-    "main": "distribute/index.js",
-    "typings": "distribute/index.d.ts",
+    "main": "index.js",
+    "typings": "index.d.ts",
     "files": [
         "**/*.*"
     ],
@@ -13,7 +13,8 @@
         "test": "gulp test",
         "coverage": "gulp coverage",
         "debug": "gulp debug",
-        "distribute": "gulp distribute"
+        "distribute": "gulp distribute",
+        "postpublish": "gulp publish"
     },
     "repository": {
         "type": "git",
