@@ -5,12 +5,13 @@
     "main": "dist/index.js",
     "typings": "dist/index.d.ts",
     "files": [
-        "dist/**/*.*",
-        "default/**/*.*",
-        "gulpfile.ts",
-        "release.config.js",
-        "tsconfig.json",
-        "tslint.json"
+        "./dist/**/*.*",
+        "./default/**/*.*",
+        "./install.js",
+        "./gulpfile.ts",
+        "./release.config.js",
+        "./tsconfig.json",
+        "./tslint.json"
     ],
     "scripts": {
         "postinstall": "node ./install.js",
