@@ -1,10 +1,12 @@
 import { TestRunner, TestSet } from 'alsatian';
 import del from 'del';
+import * as fs from 'fs';
 import GulpClient from 'gulp';
 import GulpIstanbul from 'gulp-istanbul';
 import tslintPlugin from 'gulp-tslint';
 import * as gulpTypescript from 'gulp-typescript';
 import merge from 'merge-stream';
+import * as path from 'path';
 import streamToPromise from 'stream-to-promise';
 import { TapBark } from 'tap-bark';
 import * as TSlint from 'tslint';
@@ -25,8 +27,27 @@ const coverableFiles = ['./build/**/*.js', '!./build/**/*.spec.*'];
 const testFiles = './build/**/*.spec.js';
 const debugTestFiles = './source/**/*.spec.ts';
 
-const distributeFiles = ['./build/**/*.*', '!./build/**/*.spec.*'];
-const distributeDirectiory = './distribute/';
+const distributeBuildFiles = [
+    './build/**/*.*',
+    '!./build/**/*.spec.*'
+
+];
+const distributeDefaultFiles = [
+    './default/**/*.*'
+
+];
+const distributeEssentialFiles = [
+    './package.json',
+    './tsconfig.json',
+    './tslint.json',
+    './LICENSE',
+    './README.md'
+
+];
+const distributeDirectory = './distribute/';
+const distributeBuildDirectory = distributeDirectory;
+const distributeDefaultDirectory = path.join(distributeDirectory, '/default');
+const distributeEssentialDirectory = distributeDirectory;
 
 async function runAlsatian(output: TestOutput) {
     const testRunner = new TestRunner();
@@ -103,23 +124,39 @@ async function typescriptTestDebug() {
     return testRunner.run(testSet);
 }
 
-function javascriptCopyToDistributeDirectory() {
-    return GulpClient.src(distributeFiles).pipe(GulpClient.dest(distributeDirectiory));
+function copyFilesToDistributeDirectory() {
+    return merge(
+        GulpClient.src(distributeBuildFiles).pipe(GulpClient.dest(distributeBuildDirectory)),
+        GulpClient.src(distributeDefaultFiles).pipe(GulpClient.dest(distributeDefaultDirectory)),
+        GulpClient.src(distributeEssentialFiles).pipe(GulpClient.dest(distributeEssentialDirectory))
+    );
+}
+
+async function packageJsonModifyProperties() {
+    const packageJsonPath = path.join(distributeDirectory, '/package.json');
+    const packageJsonString = await fs.promises.readFile(packageJsonPath, 'utf8');
+    const packageJsonData = JSON.parse(packageJsonString);
+
+    packageJsonData.scripts.postinstall = 'node install.js';
+
+    const modifiedPackageJsonString = JSON.stringify(packageJsonData);
+
+    return fs.promises.writeFile(packageJsonPath, modifiedPackageJsonString);
 }
 
 async function cleanBuildDirectory() {
-    return del(distributeDirectiory);
+    return del(distributeDirectory);
 }
 
 async function cleanDistributeDirectory() {
-    return del(distributeDirectiory);
+    return del(distributeDirectory);
 }
 
 export const clean = GulpClient.parallel(cleanBuildDirectory, cleanDistributeDirectory);
 
 export const build = GulpClient.series(clean, typescriptBuild);
 
-export const distribute = GulpClient.series(build, javascriptCopyToDistributeDirectory);
+export const distribute = GulpClient.series(build, copyFilesToDistributeDirectory, packageJsonModifyProperties);
 
 export const lint = typescriptLint;
 
@@ -136,7 +173,7 @@ export const all = GulpClient.series(
     ),
     typescriptBuild,
     typescriptTestOutputNone,
-    javascriptCopyToDistributeDirectory
+    copyFilesToDistributeDirectory
 );
 
 export default all;
