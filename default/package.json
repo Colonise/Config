@@ -13,7 +13,8 @@
         "test": "gulp test",
         "coverage": "gulp coverage",
         "debug": "gulp debug",
-        "distribute": "gulp distribute"
+        "distribute": "gulp distribute",
+        "postpublish": "gulp publish"
     },
     "repository": {
         "type": "git",
