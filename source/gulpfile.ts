@@ -132,16 +132,16 @@ function copyFilesToDistributeDirectory() {
     );
 }
 
-async function packageJsonModifyProperties() {
+function packageJsonModifyProperties() {
     const packageJsonPath = path.join(distributeDirectory, '/package.json');
-    const packageJsonString = await fs.promises.readFile(packageJsonPath, 'utf8');
+    const packageJsonString = fs.readFileSync(packageJsonPath, 'utf8');
     const packageJsonData = JSON.parse(packageJsonString);
 
     packageJsonData.scripts.postinstall = 'node install.js';
 
     const modifiedPackageJsonString = JSON.stringify(packageJsonData);
 
-    return fs.promises.writeFile(packageJsonPath, modifiedPackageJsonString);
+    fs.writeFileSync(packageJsonPath, modifiedPackageJsonString);
 }
 
 async function cleanBuildDirectory() {
