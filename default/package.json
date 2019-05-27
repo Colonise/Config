@@ -2,10 +2,10 @@
     "name": "@colonise/CHANGEME",
     "version": "0.0.0",
     "description": "CHANGEME",
-    "main": "distribute/index.js",
-    "typings": "distribute/index.d.ts",
+    "main": "index.js",
+    "typings": "index.d.ts",
     "files": [
-        "./distribute/**/*.*"
+        "**/*.*"
     ],
     "scripts": {
         "build": "gulp build",
