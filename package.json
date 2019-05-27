@@ -2,10 +2,10 @@
     "name": "@colonise/config",
     "version": "0.0.0",
     "description": "Shareable config for all Colonise packages",
-    "main": "dist/index.js",
-    "typings": "dist/index.d.ts",
+    "main": "distribute/index.js",
+    "typings": "distribute/index.d.ts",
     "files": [
-        "dist/**/*.*",
+        "distribute/**/*.*",
         "default/**/*.*",
         "install.js",
         "gulpfile.ts",

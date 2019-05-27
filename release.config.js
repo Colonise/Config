@@ -1,1 +1,1 @@
-module.exports = require('./dist/semantic-release');
+module.exports = require('./distribute/semantic-release');
