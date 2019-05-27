@@ -3,7 +3,7 @@ src/
 
 # Build
 build/
-gulpfile.ts
+#gulpfile.ts
 #tslint.json
 #tsconfig.json
 
