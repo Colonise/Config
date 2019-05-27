@@ -1,1 +1,63 @@
-{"name":"@colonise/config","version":"0.0.0","description":"Shareable config for all Colonise packages","main":"index.js","typings":"index.d.ts","files":["**/*.*"],"scripts":{"build":"gulp build","lint":"gulp lint","test":"gulp test","coverage":"gulp coverage","debug":"gulp debug","distribute":"gulp distribute","postpublish":"gulp publish","postinstall":"gulp install"},"repository":{"type":"git","url":"git+https://github.com/Colonise/Config.git"},"keywords":[],"author":"Patrick Stanford","license":"MIT","bugs":{"url":"https://github.com/Colonise/Config/issues"},"homepage":"https://github.com/Colonise/Config#readme","devDependencies":{"@types/app-root-path":"^1.2.4","@types/glob":"^7.1.1","@types/gulp":"^4.0.6","@types/gulp-istanbul":"^0.9.32","@types/merge-stream":"^1.1.2","@types/stream-to-promise":"^2.2.0"},"dependencies":{"@semantic-release/changelog":"^3.0.2","@semantic-release/commit-analyzer":"^6.1.0","@semantic-release/error":"^2.2.0","@semantic-release/git":"^7.0.12","@semantic-release/github":"^5.2.10","@semantic-release/npm":"^5.1.7","@semantic-release/release-notes-generator":"^7.1.4","alsatian":"^2.4.0","app-root-path":"^2.2.1","del":"^4.0.0","glob":"^7.1.4","gulp":"^4.0.2","gulp-istanbul":"^1.1.3","gulp-tslint":"^8.1.4","gulp-typescript":"^5.0.1","merge-stream":"^2.0.0","semantic-release":"^15.13.14","stream-to-promise":"^2.2.0","ts-node":"^8.1.0","tslib":"^1.9.3","tslint":"^5.14.0","typescript":"~3.4.5"}}
+{
+    "name": "@colonise/config",
+    "version": "0.0.0",
+    "description": "Shareable config for all Colonise packages",
+    "main": "index.js",
+    "typings": "index.d.ts",
+    "files": [
+        "**/*.*"
+    ],
+    "scripts": {
+        "build": "gulp build",
+        "lint": "gulp lint",
+        "test": "gulp test",
+        "coverage": "gulp coverage",
+        "debug": "gulp debug",
+        "distribute": "gulp distribute",
+        "postpublish": "gulp publish",
+        "postinstall": "gulp install"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/Colonise/Config.git"
+    },
+    "keywords": [],
+    "author": "Patrick Stanford",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/Colonise/Config/issues"
+    },
+    "homepage": "https://github.com/Colonise/Config#readme",
+    "devDependencies": {
+        "@types/app-root-path": "^1.2.4",
+        "@types/glob": "^7.1.1",
+        "@types/gulp": "^4.0.6",
+        "@types/gulp-istanbul": "^0.9.32",
+        "@types/merge-stream": "^1.1.2",
+        "@types/stream-to-promise": "^2.2.0"
+    },
+    "dependencies": {
+        "@semantic-release/changelog": "^3.0.2",
+        "@semantic-release/commit-analyzer": "^6.1.0",
+        "@semantic-release/error": "^2.2.0",
+        "@semantic-release/git": "^7.0.12",
+        "@semantic-release/github": "^5.2.10",
+        "@semantic-release/npm": "^5.1.7",
+        "@semantic-release/release-notes-generator": "^7.1.4",
+        "alsatian": "^2.4.0",
+        "app-root-path": "^2.2.1",
+        "del": "^4.0.0",
+        "glob": "^7.1.4",
+        "gulp": "^4.0.2",
+        "gulp-istanbul": "^1.1.3",
+        "gulp-tslint": "^8.1.4",
+        "gulp-typescript": "^5.0.1",
+        "merge-stream": "^2.0.0",
+        "semantic-release": "^15.13.14",
+        "stream-to-promise": "^2.2.0",
+        "ts-node": "^8.1.0",
+        "tslib": "^1.9.3",
+        "tslint": "^5.14.0",
+        "typescript": "~3.4.5"
+    }
+}
