@@ -26,7 +26,7 @@ const testFiles = './build/**/*.spec.js';
 const debugTestFiles = './source/**/*.spec.ts';
 
 const distributeFiles = ['./build/**/*.*', '!./build/**/*.spec.*'];
-const distributeDirectiory = './dist/';
+const distributeDirectiory = './distribute/';
 
 async function runAlsatian(output: TestOutput) {
     const testRunner = new TestRunner();
