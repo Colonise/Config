@@ -15,15 +15,15 @@ enum TestOutput {
     Coverage
 }
 
-const tsProject = gulpTypescript.createProject('./src/tsconfig.json');
-const tsLintProgram = TSlint.Linter.createProgram('./src/tsconfig.json');
+const tsProject = gulpTypescript.createProject('./source/tsconfig.json');
+const tsLintProgram = TSlint.Linter.createProgram('./source/tsconfig.json');
 
-const declarationFiles = './src/**/*.d.ts';
+const declarationFiles = './source/**/*.d.ts';
 const buildDirectiory = './build/';
 
 const coverableFiles = ['./build/**/*.js', '!./build/**/*.spec.*'];
 const testFiles = './build/**/*.spec.js';
-const debugTestFiles = './src/**/*.spec.ts';
+const debugTestFiles = './source/**/*.spec.ts';
 
 const distributeFiles = ['./build/**/*.*', '!./build/**/*.spec.*'];
 const distributeDirectiory = './dist/';
