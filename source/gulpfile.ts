@@ -21,23 +21,33 @@ enum TestOutput {
 
 const packageJsonPath = './package.json';
 
-const tsProject = gulpTypescript.createProject('./source/tsconfig.json');
-const tsLintProgram = TSlint.Linter.createProgram('./source/tsconfig.json');
+const relativeSourceDirectory = './source';
+const relativeBuildDirectory = './build';
+const relativeDefaultDirectory = './default';
+const relativeCoverageDirectory = './coverage';
+const relativeDistributeDirectory = './distribute';
 
-const declarationFiles = './source/**/*.d.ts';
-const buildDirectiory = './build/';
+const absoluteSourceDirectory = RootPath.resolve(relativeSourceDirectory);
+const absoluteBuildDirectory = RootPath.resolve(relativeBuildDirectory);
+const absoluteDefaultDirectory = RootPath.resolve(relativeDefaultDirectory);
+const absoluteDistributeDirectory = RootPath.resolve(relativeDistributeDirectory);
 
-const coverableFiles = ['./build/**/*.js', '!./build/**/*.spec.*'];
-const testFiles = './build/**/*.spec.js';
-const debugTestFiles = './source/**/*.spec.ts';
+const declarationFiles = RootPath.resolve(`${absoluteSourceDirectory}/**/*.d.ts`);
+
+const tsProject = gulpTypescript.createProject(`${absoluteSourceDirectory}/tsconfig.json`);
+const tsLintProgram = TSlint.Linter.createProgram(`${absoluteSourceDirectory}/tsconfig.json`);
+
+const coverableFiles = [`${absoluteBuildDirectory}/**/*.js`, `!${absoluteBuildDirectory}/**/*.spec.*`];
+const testFiles = `${absoluteBuildDirectory}/**/*.spec.js`;
+const debugTestFiles = `${absoluteSourceDirectory}/**/*.spec.ts`;
 
 const distributeBuildFiles = [
-    './build/**/*.*',
-    '!./build/**/*.spec.*'
+    `${absoluteBuildDirectory}/**/*.*`,
+    `!${absoluteBuildDirectory}/**/*.spec.*`
 
 ];
 const distributeDefaultFiles = [
-    './default/**/*.*'
+    `${absoluteDefaultDirectory}/**/*.*`
 
 ];
 const distributeEssentialFiles = [
@@ -48,11 +58,10 @@ const distributeEssentialFiles = [
     './README.md'
 
 ];
-const distributeDirectory = './distribute/';
-const distributeBuildDirectory = distributeDirectory;
-const distributeDefaultDirectory = path.join(distributeDirectory, '/default');
-const distributeEssentialDirectory = distributeDirectory;
-const distributePackageJsonPath = path.join(distributeDirectory, packageJsonPath);
+const distributeBuildDirectory = absoluteDistributeDirectory;
+const distributeDefaultDirectory = path.join(absoluteDistributeDirectory, relativeDefaultDirectory);
+const distributeEssentialDirectory = absoluteDistributeDirectory;
+const distributePackageJsonPath = path.join(absoluteDistributeDirectory, packageJsonPath);
 
 async function runAlsatian(output: TestOutput) {
     const testRunner = new TestRunner();
@@ -69,7 +78,7 @@ async function runAlsatian(output: TestOutput) {
                     .pipe(GulpIstanbul({ includeUntested: true }))
                     .pipe(GulpIstanbul.hookRequire())
             );
-            testRunner.outputStream.pipe(GulpIstanbul.writeReports({ dir: './coverage' }));
+            testRunner.outputStream.pipe(GulpIstanbul.writeReports({ dir: relativeCoverageDirectory }));
             break;
 
         default:
@@ -87,8 +96,8 @@ function typescriptBuild() {
         tsProject
             .src()
             .pipe(tsProject())
-            .pipe(GulpClient.dest(buildDirectiory)),
-        GulpClient.src(declarationFiles).pipe(GulpClient.dest(buildDirectiory))
+            .pipe(GulpClient.dest(absoluteBuildDirectory)),
+        GulpClient.src(declarationFiles).pipe(GulpClient.dest(absoluteBuildDirectory))
     );
 }
 
@@ -143,25 +152,25 @@ async function packageJsonModifyProperties() {
 
     packageJsonData.scripts.postinstall = 'gulp install';
 
-    const modifiedPackageJsonString = JSON.stringify(packageJsonData);
+    const modifiedPackageJsonString = JSON.stringify(packageJsonData, undefined, 4);
 
     fs.writeFileSync(packageJsonPath, modifiedPackageJsonString);
 }
 
 async function cleanBuildDirectory() {
-    return del(distributeDirectory);
+    return del(absoluteBuildDirectory);
 }
 
 async function cleanDistributeDirectory() {
-    return del(distributeDirectory);
+    return del(absoluteDistributeDirectory);
 }
 
 async function copyDefaultFiles() {
-    const base = __filename.includes('node_modules')
+    const baseDirectory = __filename.includes('node_modules')
         ? path.join(RootPath.path, '/node_modules/@colonise/config')
         : RootPath.path;
 
-    const defaultFolderPath = path.join(base, '/default');
+    const defaultFolderPath = path.join(baseDirectory, relativeDefaultDirectory);
 
     if (!fs.existsSync(defaultFolderPath)) {
         throw new Error(`Could not find default configuration path '${defaultFolderPath}'.`);
