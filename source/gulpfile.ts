@@ -1,6 +1,8 @@
 import { TestRunner, TestSet } from 'alsatian';
+import RootPath from 'app-root-path';
 import del from 'del';
 import * as fs from 'fs';
+import { default as glob } from 'glob';
 import GulpClient from 'gulp';
 import GulpIstanbul from 'gulp-istanbul';
 import tslintPlugin from 'gulp-tslint';
@@ -137,7 +139,7 @@ async function packageJsonModifyProperties() {
     const packageJsonString = fs.readFileSync(packageJsonPath, 'utf8');
     const packageJsonData = JSON.parse(packageJsonString);
 
-    packageJsonData.scripts.postinstall = 'node install.js';
+    packageJsonData.scripts.postinstall = 'gulp install';
 
     const modifiedPackageJsonString = JSON.stringify(packageJsonData);
 
@@ -151,6 +153,46 @@ async function cleanBuildDirectory() {
 async function cleanDistributeDirectory() {
     return del(distributeDirectory);
 }
+
+async function copyDefaultFiles() {
+    const base = __filename.includes('node_modules')
+        ? path.join(RootPath.path, '/node_modules/@colonise/config')
+        : RootPath.path;
+
+    const defaultFolderPath = path.join(base, '/default');
+
+    if (!fs.existsSync(defaultFolderPath)) {
+        throw new Error(`Could not find default configuration path '${defaultFolderPath}'.`);
+    }
+
+    const defaultFilesGlob = path.join(defaultFolderPath, '/**/*.*');
+
+    const defaultFilePaths = await new Promise<string[]>((resolve, reject) => {
+        glob(defaultFilesGlob, (error, matches) => {
+            if (error) {
+                reject(error);
+            } else {
+                resolve(matches.map(filePath => path.resolve(filePath)));
+            }
+        });
+    });
+
+    for (const defaultFilePath of defaultFilePaths) {
+        const relativeFilePath = defaultFilePath.replace(defaultFolderPath, '');
+        const absoluteFilePath = path.join(RootPath.path, relativeFilePath);
+
+        if (!fs.existsSync(absoluteFilePath)) {
+            fs.copyFileSync(defaultFilePath, absoluteFilePath);
+            // tslint:disable-next-line: no-console
+            console.log(`Successfully copied file '${relativeFilePath}'.`);
+        } else {
+            // tslint:disable-next-line: no-console
+            console.warn(`Failed to copy file '${relativeFilePath}', because it already exists. A manual update may be required.`);
+        }
+    }
+}
+
+export const install = copyDefaultFiles;
 
 export const clean = GulpClient.parallel(cleanBuildDirectory, cleanDistributeDirectory);
 
