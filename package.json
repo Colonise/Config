@@ -13,7 +13,7 @@
         "tslint.json"
     ],
     "scripts": {
-        "postinstall": "node ./dist/install",
+        "postinstall": "node ./install.js",
         "build": "gulp build",
         "lint": "gulp lint",
         "test": "gulp test",
