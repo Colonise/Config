@@ -132,7 +132,7 @@ function copyFilesToDistributeDirectory() {
     );
 }
 
-function packageJsonModifyProperties() {
+async function packageJsonModifyProperties() {
     const packageJsonPath = path.join(distributeDirectory, '/package.json');
     const packageJsonString = fs.readFileSync(packageJsonPath, 'utf8');
     const packageJsonData = JSON.parse(packageJsonString);
