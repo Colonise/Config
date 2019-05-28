@@ -32,6 +32,8 @@ const absoluteBuildDirectory = RootPath.resolve(relativeBuildDirectory);
 const absoluteDefaultDirectory = RootPath.resolve(relativeDefaultDirectory);
 const absoluteDistributeDirectory = RootPath.resolve(relativeDistributeDirectory);
 
+const absolutePackageJsonPath = RootPath.resolve(packageJsonPath);
+
 const declarationFiles = RootPath.resolve(`${absoluteSourceDirectory}/**/*.d.ts`);
 
 const tsProject = gulpTypescript.createProject(`${absoluteSourceDirectory}/tsconfig.json`);
@@ -204,7 +206,7 @@ async function copyDefaultFiles() {
 }
 
 async function copyModifiedFiles() {
-    fs.copyFileSync(distributePackageJsonPath, packageJsonPath);
+    fs.copyFileSync(distributePackageJsonPath, absolutePackageJsonPath);
 }
 
 export const install = copyDefaultFiles;
