@@ -36,9 +36,6 @@ const absolutePackageJsonPath = RootPath.resolve(packageJsonPath);
 
 const declarationFiles = RootPath.resolve(`${absoluteSourceDirectory}/**/*.d.ts`);
 
-const tsProject = gulpTypescript.createProject(`${absoluteSourceDirectory}/tsconfig.json`);
-const tsLintProgram = TSlint.Linter.createProgram(`${absoluteSourceDirectory}/tsconfig.json`);
-
 const coverableFiles = [`${absoluteBuildDirectory}/**/*.js`, `!${absoluteBuildDirectory}/**/*.spec.*`];
 const testFiles = `${absoluteBuildDirectory}/**/*.spec.js`;
 const debugTestFiles = `${absoluteSourceDirectory}/**/*.spec.ts`;
@@ -94,6 +91,8 @@ async function runAlsatian(output: TestOutput) {
 }
 
 function typescriptBuild() {
+    const tsProject = gulpTypescript.createProject(`${absoluteSourceDirectory}/tsconfig.json`);
+
     return merge(
         tsProject
             .src()
@@ -104,6 +103,9 @@ function typescriptBuild() {
 }
 
 function typescriptLint() {
+    const tsProject = gulpTypescript.createProject(`${absoluteSourceDirectory}/tsconfig.json`);
+    const tsLintProgram = TSlint.Linter.createProgram(`${absoluteSourceDirectory}/tsconfig.json`);
+
     return tsProject
         .src()
         .pipe(
