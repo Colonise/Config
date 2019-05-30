@@ -63,7 +63,7 @@ jobs:
     - stage: Deploy
       before_install:
         # Decrypt the git_gpg_keys.asc.enc key into git_gpg_keys.asc
-        - gpg --output /tmp/git_gpg_keys.asc --decrypt --pinentry-mode loopback --passphrase ${GPG_DECRYPT_PASSPHRASE} git_gpg_keys.asc.enc
+        - gpg --output git_gpg_keys.asc --decrypt --batch --passphrase ${GPG_DECRYPT_PASSPHRASE} git_gpg_keys.asc.enc
         # Make sure only the current user can read the keys
         - chmod 600 git_gpg_keys.asc
         # Import the gpg key
