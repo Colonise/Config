@@ -203,6 +203,9 @@ async function copyDefaultFiles() {
         const absoluteFilePath = path.join(RootPath.path, relativeFilePath);
 
         if (!fs.existsSync(absoluteFilePath)) {
+            const directoryPath = path.dirname(absoluteFilePath);
+
+            fs.mkdirSync(directoryPath, { recursive: true });
             fs.copyFileSync(defaultFilePath, absoluteFilePath);
             // tslint:disable-next-line: no-console
             console.log(`Successfully copied file '${relativeFilePath}'.`);
