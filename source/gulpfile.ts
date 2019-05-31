@@ -58,11 +58,11 @@ const absoluteRootTestFilesGlob = `${absoluteRootBuildDirectory}/**/*.spec.js`;
 const absoluteRootDebugTestFilesGlob = `${absoluteRootSourceDirectory}/**/*.spec.ts`;
 
 const absoluteRootBuildFilesGlobs = [
-    `${absoluteRootBuildDirectory}/**/*.*`,
+    `${absoluteRootBuildDirectory}/**/*`,
     `!${absoluteRootBuildDirectory}/**/*.spec.*`
 
 ];
-const absoluteRootDefaultFilesGlob = `${absoluteRootDefaultDirectory}/**/*.*`;
+const absoluteRootDefaultFilesGlob = `${absoluteRootDefaultDirectory}/**/*`;
 const absoluteRootEssentialFilesGlobs = [
     absoluteRootPackageJsonPath,
     absoluteRootTsconfigJsonPath,
@@ -75,6 +75,18 @@ const absoluteRootDistributeBuildDirectory = absoluteRootDistributeDirectory;
 const absoluteRootDistributeDefaultDirectory = path.join(absoluteRootDistributeDirectory, relativeDefaultDirectory);
 const absoluteRootDistributeEssentialDirectory = absoluteRootDistributeDirectory;
 const absoluteRootDistributePackageJsonPath = path.join(absoluteRootDistributeDirectory, relativePackageJsonPath);
+
+async function getFilePaths(pattern: string): Promise<string[]> {
+    return new Promise<string[]>((resolve, reject) => {
+        glob(pattern, { dot: true, nodir: true }, (error, matches) => {
+            if (error) {
+                reject(error);
+            } else {
+                resolve(matches.map(filePath => path.resolve(filePath)));
+            }
+        });
+    });
+}
 
 async function runAlsatian(output: TestOutput) {
     const testRunner = new TestRunner();
@@ -158,9 +170,24 @@ async function typescriptTestDebug() {
 
 function copyFilesToDistributeDirectory() {
     return merge(
-        GulpClient.src(absoluteRootBuildFilesGlobs).pipe(GulpClient.dest(absoluteRootDistributeBuildDirectory)),
-        GulpClient.src(absoluteRootDefaultFilesGlob).pipe(GulpClient.dest(absoluteRootDistributeDefaultDirectory)),
-        GulpClient.src(absoluteRootEssentialFilesGlobs).pipe(GulpClient.dest(absoluteRootDistributeEssentialDirectory))
+        GulpClient.src(
+            absoluteRootBuildFilesGlobs,
+            { dot: true }
+        ).pipe(
+            GulpClient.dest(absoluteRootDistributeBuildDirectory)
+        ),
+        GulpClient.src(
+            absoluteRootDefaultFilesGlob,
+            { dot: true }
+        ).pipe(
+            GulpClient.dest(absoluteRootDistributeDefaultDirectory)
+        ),
+        GulpClient.src(
+            absoluteRootEssentialFilesGlobs,
+            { dot: true }
+        ).pipe(
+            GulpClient.dest(absoluteRootDistributeEssentialDirectory)
+        )
     );
 }
 
@@ -190,17 +217,9 @@ async function renameDistributeDefaultFiles() {
         relativeDefaultDirectory
     );
 
-    const currentDefaultFilesGlob = path.join(currentDefaultDirectory, '/**/*.*');
+    const currentDefaultFilesGlob = path.join(currentDefaultDirectory, '/**/*');
 
-    const distributeDefaultFilePaths = await new Promise<string[]>((resolve, reject) => {
-        glob(currentDefaultFilesGlob, (error, matches) => {
-            if (error) {
-                reject(error);
-            } else {
-                resolve(matches.map(filePath => path.resolve(filePath)));
-            }
-        });
-    });
+    const distributeDefaultFilePaths = await getFilePaths(currentDefaultFilesGlob);
 
     for (const filePathToRename of distributeDefaultFilePaths) {
         const parsedPath = path.parse(filePathToRename);
@@ -211,27 +230,23 @@ async function renameDistributeDefaultFiles() {
     }
 }
 
-async function unrenameDefaultFiles() {
-    const currentDefaultDirectory = path.join(absoluteCurrentDirectory, relativeDefaultDirectory);
+async function unrenameDistributeDefaultFiles() {
+    const currentDistributeDefaultDirectory = path.join(
+        absoluteCurrentDirectory,
+        relativeDistributeDirectory,
+        relativeDefaultDirectory
+    );
 
-    if (!fs.existsSync(currentDefaultDirectory)) {
-        throw new Error(`Could not find default configuration path '${currentDefaultDirectory}'.`);
+    if (!fs.existsSync(currentDistributeDefaultDirectory)) {
+        throw new Error(`Could not find default configuration path '${currentDistributeDefaultDirectory}'.`);
     }
 
-    const currentDefaultFilesGlob = path.join(currentDefaultDirectory, '/**/*.*');
+    const currentDefaultFilesGlob = path.join(currentDistributeDefaultDirectory, '/**/*');
 
-    const absoluteDefaultFilePaths = await new Promise<string[]>((resolve, reject) => {
-        glob(currentDefaultFilesGlob, (error, matches) => {
-            if (error) {
-                reject(error);
-            } else {
-                resolve(matches.map(filePath => path.resolve(filePath)));
-            }
-        });
-    });
+    const absoluteDefaultFilePaths = await getFilePaths(currentDefaultFilesGlob);
 
     for (const absoluteDefaultFilePath of absoluteDefaultFilePaths) {
-        const relativeFilePath = absoluteDefaultFilePath.replace(currentDefaultDirectory, '');
+        const relativeFilePath = absoluteDefaultFilePath.replace(currentDistributeDefaultDirectory, '');
         const unrenamedRelativeFilePath = relativeFilePath.replace(renamedPrefix, '');
         const unrenamedAbsoluteFilePath = path.join(RootPath.path, unrenamedRelativeFilePath);
 
@@ -246,17 +261,9 @@ async function copyDefaultFilesToRoot() {
         throw new Error(`Could not find default configuration path '${currentDefaultDirectory}'.`);
     }
 
-    const currentDefaultFilesGlob = path.join(currentDefaultDirectory, '/**/*.*');
+    const currentDefaultFilesGlob = path.join(currentDefaultDirectory, '/**/*');
 
-    const absoluteDefaultFilePaths = await new Promise<string[]>((resolve, reject) => {
-        glob(currentDefaultFilesGlob, (error, matches) => {
-            if (error) {
-                reject(error);
-            } else {
-                resolve(matches.map(filePath => path.resolve(filePath)));
-            }
-        });
-    });
+    const absoluteDefaultFilePaths = await getFilePaths(currentDefaultFilesGlob);
 
     for (const absoluteDefaultFilePath of absoluteDefaultFilePaths) {
         const relativeFilePath = absoluteDefaultFilePath.replace(currentDefaultDirectory, '');
@@ -301,7 +308,7 @@ export const debug = typescriptTestDebug;
 
 export const publish = packageJsonCopyModifiedDistributeToRoot;
 
-export const install = GulpClient.series(unrenameDefaultFiles, copyDefaultFilesToRoot);
+export const install = GulpClient.series(unrenameDistributeDefaultFiles, copyDefaultFilesToRoot);
 
 export const all = GulpClient.series(
     GulpClient.parallel(
