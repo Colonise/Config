@@ -14,8 +14,7 @@
         "coverage": "gulp coverage",
         "debug": "gulp debug",
         "distribute": "gulp distribute",
-        "postpublish": "gulp publish",
-        "postinstall": "gulp install"
+        "postpublish": "gulp publish"
     },
     "repository": {
         "type": "git",
