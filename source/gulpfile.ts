@@ -19,7 +19,11 @@ enum TestOutput {
     Coverage
 }
 
-const packageJsonPath = './package.json';
+const relativePackageJsonPath = './package.json';
+const relativeTsconfigJsonPath = './tsconfig.json';
+const relativeTslintJsonPath = './tslint.json';
+const relativeLicensePath = './LICENSE';
+const relativeReadmeMarkdownPath = './README.md';
 
 const relativeSourceDirectory = './source';
 const relativeBuildDirectory = './build';
@@ -27,40 +31,50 @@ const relativeDefaultDirectory = './default';
 const relativeCoverageDirectory = './coverage';
 const relativeDistributeDirectory = './distribute';
 
-const absoluteSourceDirectory = RootPath.resolve(relativeSourceDirectory);
-const absoluteBuildDirectory = RootPath.resolve(relativeBuildDirectory);
-const absoluteDefaultDirectory = RootPath.resolve(relativeDefaultDirectory);
-const absoluteDistributeDirectory = RootPath.resolve(relativeDistributeDirectory);
+const renamedPrefix = '_RENAMED_';
 
-const absolutePackageJsonPath = RootPath.resolve(packageJsonPath);
+const absoluteCurrentDirectory = __dirname.includes('node_modules')
+    ? path.join(RootPath.path, '/node_modules/@colonise/config')
+    : RootPath.path;
 
-const declarationFiles = RootPath.resolve(`${absoluteSourceDirectory}/**/*.d.ts`);
+const absoluteRootSourceDirectory = RootPath.resolve(relativeSourceDirectory);
+const absoluteRootBuildDirectory = RootPath.resolve(relativeBuildDirectory);
+const absoluteRootDefaultDirectory = RootPath.resolve(relativeDefaultDirectory);
+const absoluteRootDistributeDirectory = RootPath.resolve(relativeDistributeDirectory);
 
-const coverableFiles = [`${absoluteBuildDirectory}/**/*.js`, `!${absoluteBuildDirectory}/**/*.spec.*`];
-const testFiles = `${absoluteBuildDirectory}/**/*.spec.js`;
-const debugTestFiles = `${absoluteSourceDirectory}/**/*.spec.ts`;
+const absoluteRootPackageJsonPath = RootPath.resolve(relativePackageJsonPath);
+const absoluteRootTsconfigJsonPath = RootPath.resolve(relativeTsconfigJsonPath);
+const absoluteRootTslintJsonPath = RootPath.resolve(relativeTslintJsonPath);
+const absoluteRootLicensePath = RootPath.resolve(relativeLicensePath);
+const absoluteRootReadmeMarkdownPath = RootPath.resolve(relativeReadmeMarkdownPath);
 
-const distributeBuildFiles = [
-    `${absoluteBuildDirectory}/**/*.*`,
-    `!${absoluteBuildDirectory}/**/*.spec.*`
+const absoluteRootDeclarationFileGlob = `${absoluteRootSourceDirectory}/**/*.d.ts`;
+
+const absoluteRootCoverableFilesGlobs = [
+    `${absoluteRootBuildDirectory}/**/*.js`,
+    `!${absoluteRootBuildDirectory}/**/*.spec.*`
+];
+const absoluteRootTestFilesGlob = `${absoluteRootBuildDirectory}/**/*.spec.js`;
+const absoluteRootDebugTestFilesGlob = `${absoluteRootSourceDirectory}/**/*.spec.ts`;
+
+const absoluteRootBuildFilesGlobs = [
+    `${absoluteRootBuildDirectory}/**/*.*`,
+    `!${absoluteRootBuildDirectory}/**/*.spec.*`
 
 ];
-const distributeDefaultFiles = [
-    `${absoluteDefaultDirectory}/**/*.*`
+const absoluteRootDefaultFilesGlob = `${absoluteRootDefaultDirectory}/**/*.*`;
+const absoluteRootEssentialFilesGlobs = [
+    absoluteRootPackageJsonPath,
+    absoluteRootTsconfigJsonPath,
+    absoluteRootTslintJsonPath,
+    absoluteRootLicensePath,
+    absoluteRootReadmeMarkdownPath
 
 ];
-const distributeEssentialFiles = [
-    './package.json',
-    './tsconfig.json',
-    './tslint.json',
-    './LICENSE',
-    './README.md'
-
-];
-const distributeBuildDirectory = absoluteDistributeDirectory;
-const distributeDefaultDirectory = path.join(absoluteDistributeDirectory, relativeDefaultDirectory);
-const distributeEssentialDirectory = absoluteDistributeDirectory;
-const distributePackageJsonPath = path.join(absoluteDistributeDirectory, packageJsonPath);
+const absoluteRootDistributeBuildDirectory = absoluteRootDistributeDirectory;
+const absoluteRootDistributeDefaultDirectory = path.join(absoluteRootDistributeDirectory, relativeDefaultDirectory);
+const absoluteRootDistributeEssentialDirectory = absoluteRootDistributeDirectory;
+const absoluteRootDistributePackageJsonPath = path.join(absoluteRootDistributeDirectory, relativePackageJsonPath);
 
 async function runAlsatian(output: TestOutput) {
     const testRunner = new TestRunner();
@@ -73,7 +87,7 @@ async function runAlsatian(output: TestOutput) {
         case TestOutput.Coverage:
             await streamToPromise(
                 GulpClient
-                    .src(coverableFiles)
+                    .src(absoluteRootCoverableFilesGlobs)
                     .pipe(GulpIstanbul({ includeUntested: true }))
                     .pipe(GulpIstanbul.hookRequire())
             );
@@ -85,26 +99,26 @@ async function runAlsatian(output: TestOutput) {
 
     const testSet = TestSet.create();
 
-    testSet.addTestsFromFiles(testFiles);
+    testSet.addTestsFromFiles(absoluteRootTestFilesGlob);
 
     return testRunner.run(testSet);
 }
 
 function typescriptBuild() {
-    const tsProject = gulpTypescript.createProject(`${absoluteSourceDirectory}/tsconfig.json`);
+    const tsProject = gulpTypescript.createProject(`${absoluteRootSourceDirectory}/tsconfig.json`);
 
     return merge(
         tsProject
             .src()
             .pipe(tsProject())
-            .pipe(GulpClient.dest(absoluteBuildDirectory)),
-        GulpClient.src(declarationFiles).pipe(GulpClient.dest(absoluteBuildDirectory))
+            .pipe(GulpClient.dest(absoluteRootBuildDirectory)),
+        GulpClient.src(absoluteRootDeclarationFileGlob).pipe(GulpClient.dest(absoluteRootBuildDirectory))
     );
 }
 
 function typescriptLint() {
-    const tsProject = gulpTypescript.createProject(`${absoluteSourceDirectory}/tsconfig.json`);
-    const tsLintProgram = TSlint.Linter.createProgram(`${absoluteSourceDirectory}/tsconfig.json`);
+    const tsProject = gulpTypescript.createProject(`${absoluteRootSourceDirectory}/tsconfig.json`);
+    const tsLintProgram = TSlint.Linter.createProgram(`${absoluteRootSourceDirectory}/tsconfig.json`);
 
     return tsProject
         .src()
@@ -137,59 +151,77 @@ async function typescriptTestDebug() {
 
     const testSet = TestSet.create();
 
-    testSet.addTestsFromFiles(debugTestFiles);
+    testSet.addTestsFromFiles(absoluteRootDebugTestFilesGlob);
 
     return testRunner.run(testSet);
 }
 
 function copyFilesToDistributeDirectory() {
     return merge(
-        GulpClient.src(distributeBuildFiles).pipe(GulpClient.dest(distributeBuildDirectory)),
-        GulpClient.src(distributeDefaultFiles).pipe(GulpClient.dest(distributeDefaultDirectory)),
-        GulpClient.src(distributeEssentialFiles).pipe(GulpClient.dest(distributeEssentialDirectory))
+        GulpClient.src(absoluteRootBuildFilesGlobs).pipe(GulpClient.dest(absoluteRootDistributeBuildDirectory)),
+        GulpClient.src(absoluteRootDefaultFilesGlob).pipe(GulpClient.dest(absoluteRootDistributeDefaultDirectory)),
+        GulpClient.src(absoluteRootEssentialFilesGlobs).pipe(GulpClient.dest(absoluteRootDistributeEssentialDirectory))
     );
 }
 
-async function packageJsonAddInstallScript() {
-    const packageJsonString = fs.readFileSync(distributePackageJsonPath, 'utf8');
+async function packageJsonAddInstallScriptToDistribute() {
+    const packageJsonString = fs.readFileSync(absoluteRootDistributePackageJsonPath, 'utf8');
     const packageJsonData = JSON.parse(packageJsonString);
 
     packageJsonData.scripts.postinstall = 'gulp install';
 
     const modifiedPackageJsonString = JSON.stringify(packageJsonData, undefined, 4);
 
-    fs.writeFileSync(distributePackageJsonPath, modifiedPackageJsonString);
-}
-
-async function packageJsonCopyModifiedProperties() {
-    const packageJsonString = fs.readFileSync(distributePackageJsonPath, 'utf8');
-
-    fs.writeFileSync(packageJsonPath, packageJsonString);
+    fs.writeFileSync(absoluteRootDistributePackageJsonPath, modifiedPackageJsonString);
 }
 
 async function cleanBuildDirectory() {
-    return del(absoluteBuildDirectory);
+    return del(absoluteRootBuildDirectory);
 }
 
 async function cleanDistributeDirectory() {
-    return del(absoluteDistributeDirectory);
+    return del(absoluteRootDistributeDirectory);
 }
 
-async function copyDefaultFiles() {
-    const baseDirectory = __filename.includes('node_modules')
-        ? path.join(RootPath.path, '/node_modules/@colonise/config')
-        : RootPath.path;
+async function renameDistributeDefaultFiles() {
+    const currentDefaultDirectory = path.join(
+        absoluteCurrentDirectory,
+        relativeDistributeDirectory,
+        relativeDefaultDirectory
+    );
 
-    const defaultFolderPath = path.join(baseDirectory, relativeDefaultDirectory);
+    const currentDefaultFilesGlob = path.join(currentDefaultDirectory, '/**/*.*');
 
-    if (!fs.existsSync(defaultFolderPath)) {
-        throw new Error(`Could not find default configuration path '${defaultFolderPath}'.`);
+    const distributeDefaultFilePaths = await new Promise<string[]>((resolve, reject) => {
+        glob(currentDefaultFilesGlob, (error, matches) => {
+            if (error) {
+                reject(error);
+            } else {
+                resolve(matches.map(filePath => path.resolve(filePath)));
+            }
+        });
+    });
+
+    for (const filePathToRename of distributeDefaultFilePaths) {
+        const parsedPath = path.parse(filePathToRename);
+        const renamedFileName = renamedPrefix + parsedPath.base;
+        const renamedFilePath = path.join(parsedPath.dir, renamedFileName);
+
+        fs.renameSync(filePathToRename, renamedFilePath);
+    }
+}
+
+async function copyDefaultFilesToRoot() {
+    const currentDefaultDirectory = path.join(absoluteCurrentDirectory, relativeDefaultDirectory);
+
+    if (!fs.existsSync(currentDefaultDirectory)) {
+        throw new Error(`Could not find default configuration path '${currentDefaultDirectory}'.`);
     }
 
-    const defaultFilesGlob = path.join(defaultFolderPath, '/**/*.*');
+    const currentDefaultFilesGlob = path.join(currentDefaultDirectory, '/**/*.*');
 
     const defaultFilePaths = await new Promise<string[]>((resolve, reject) => {
-        glob(defaultFilesGlob, (error, matches) => {
+        glob(currentDefaultFilesGlob, (error, matches) => {
             if (error) {
                 reject(error);
             } else {
@@ -199,8 +231,9 @@ async function copyDefaultFiles() {
     });
 
     for (const defaultFilePath of defaultFilePaths) {
-        const relativeFilePath = defaultFilePath.replace(defaultFolderPath, '');
-        const absoluteFilePath = path.join(RootPath.path, relativeFilePath);
+        const relativeFilePath = defaultFilePath.replace(currentDefaultDirectory, '');
+        const unrenamedRelativeFilePath = relativeFilePath.replace(renamedPrefix, '');
+        const absoluteFilePath = path.join(RootPath.path, unrenamedRelativeFilePath);
 
         if (!fs.existsSync(absoluteFilePath)) {
             const directoryPath = path.dirname(absoluteFilePath);
@@ -216,11 +249,11 @@ async function copyDefaultFiles() {
     }
 }
 
-async function copyModifiedFiles() {
-    fs.copyFileSync(distributePackageJsonPath, absolutePackageJsonPath);
+async function packageJsonCopyModifiedDistributeToRoot() {
+    fs.copyFileSync(absoluteRootDistributePackageJsonPath, absoluteRootPackageJsonPath);
 }
 
-export const install = copyDefaultFiles;
+export const install = copyDefaultFilesToRoot;
 
 export const clean = GulpClient.parallel(cleanBuildDirectory, cleanDistributeDirectory);
 
@@ -229,11 +262,11 @@ export const build = GulpClient.series(clean, typescriptBuild);
 export const distribute = GulpClient.series(
     build,
     copyFilesToDistributeDirectory,
-    packageJsonCopyModifiedProperties,
-    packageJsonAddInstallScript
+    renameDistributeDefaultFiles,
+    packageJsonAddInstallScriptToDistribute
 );
 
-export const publish = copyModifiedFiles;
+export const publish = packageJsonCopyModifiedDistributeToRoot;
 
 export const lint = typescriptLint;
 
