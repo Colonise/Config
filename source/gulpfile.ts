@@ -31,6 +31,8 @@ const relativeDefaultDirectory = './default';
 const relativeCoverageDirectory = './coverage';
 const relativeDistributeDirectory = './distribute';
 
+const renamedPrefix = '_RENAMED_';
+
 const absoluteCurrentDirectory = __dirname.includes('node_modules')
     ? path.join(RootPath.path, '/node_modules/@colonise/config')
     : RootPath.path;
@@ -208,6 +210,50 @@ async function cleanDistributeDirectory() {
     return del(absoluteRootDistributeDirectory);
 }
 
+async function renameDistributeDefaultFiles() {
+    const currentDefaultDirectory = path.join(
+        absoluteCurrentDirectory,
+        relativeDistributeDirectory,
+        relativeDefaultDirectory
+    );
+
+    const currentDefaultFilesGlob = path.join(currentDefaultDirectory, '/**/*');
+
+    const distributeDefaultFilePaths = await getFilePaths(currentDefaultFilesGlob);
+
+    for (const filePathToRename of distributeDefaultFilePaths) {
+        const parsedPath = path.parse(filePathToRename);
+        const renamedFileName = renamedPrefix + parsedPath.base;
+        const renamedFilePath = path.join(parsedPath.dir, renamedFileName);
+
+        fs.renameSync(filePathToRename, renamedFilePath);
+    }
+}
+
+async function unrenameDistributeDefaultFiles() {
+    const currentDistributeDefaultDirectory = path.join(
+        absoluteCurrentDirectory,
+        relativeDistributeDirectory,
+        relativeDefaultDirectory
+    );
+
+    if (!fs.existsSync(currentDistributeDefaultDirectory)) {
+        throw new Error(`Could not find default configuration path '${currentDistributeDefaultDirectory}'.`);
+    }
+
+    const currentDefaultFilesGlob = path.join(currentDistributeDefaultDirectory, '/**/*');
+
+    const absoluteDefaultFilePaths = await getFilePaths(currentDefaultFilesGlob);
+
+    for (const absoluteDefaultFilePath of absoluteDefaultFilePaths) {
+        const relativeFilePath = absoluteDefaultFilePath.replace(currentDistributeDefaultDirectory, '');
+        const unrenamedRelativeFilePath = relativeFilePath.replace(renamedPrefix, '');
+        const unrenamedAbsoluteFilePath = path.join(RootPath.path, unrenamedRelativeFilePath);
+
+        fs.renameSync(absoluteDefaultFilePath, unrenamedAbsoluteFilePath);
+    }
+}
+
 async function copyDefaultFilesToRoot() {
     const currentDefaultDirectory = path.join(absoluteCurrentDirectory, relativeDefaultDirectory);
 
@@ -248,6 +294,7 @@ export const build = GulpClient.series(clean, typescriptBuild);
 export const distribute = GulpClient.series(
     build,
     copyFilesToDistributeDirectory,
+    renameDistributeDefaultFiles,
     packageJsonAddInstallScriptToDistribute
 );
 
@@ -261,7 +308,7 @@ export const debug = typescriptTestDebug;
 
 export const publish = packageJsonCopyModifiedDistributeToRoot;
 
-export const install = copyDefaultFilesToRoot;
+export const install = GulpClient.series(unrenameDistributeDefaultFiles, copyDefaultFilesToRoot);
 
 export const all = GulpClient.series(
     GulpClient.parallel(
