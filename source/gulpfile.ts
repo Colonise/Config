@@ -150,7 +150,7 @@ function copyFilesToDistributeDirectory() {
     );
 }
 
-async function packageJsonModifyProperties() {
+async function packageJsonAddInstallScript() {
     const packageJsonString = fs.readFileSync(distributePackageJsonPath, 'utf8');
     const packageJsonData = JSON.parse(packageJsonString);
 
@@ -158,7 +158,13 @@ async function packageJsonModifyProperties() {
 
     const modifiedPackageJsonString = JSON.stringify(packageJsonData, undefined, 4);
 
-    fs.writeFileSync(packageJsonPath, modifiedPackageJsonString);
+    fs.writeFileSync(distributePackageJsonPath, modifiedPackageJsonString);
+}
+
+async function packageJsonCopyModifiedProperties() {
+    const packageJsonString = fs.readFileSync(distributePackageJsonPath, 'utf8');
+
+    fs.writeFileSync(packageJsonPath, packageJsonString);
 }
 
 async function cleanBuildDirectory() {
@@ -217,7 +223,12 @@ export const clean = GulpClient.parallel(cleanBuildDirectory, cleanDistributeDir
 
 export const build = GulpClient.series(clean, typescriptBuild);
 
-export const distribute = GulpClient.series(build, copyFilesToDistributeDirectory, packageJsonModifyProperties);
+export const distribute = GulpClient.series(
+    build,
+    copyFilesToDistributeDirectory,
+    packageJsonCopyModifiedProperties,
+    packageJsonAddInstallScript
+);
 
 export const publish = copyModifiedFiles;
 
