@@ -211,7 +211,7 @@ async function renameDistributeDefaultFiles() {
     }
 }
 
-async function copyDefaultFilesToRoot() {
+async function unrenameDefaultFiles() {
     const currentDefaultDirectory = path.join(absoluteCurrentDirectory, relativeDefaultDirectory);
 
     if (!fs.existsSync(currentDefaultDirectory)) {
@@ -220,7 +220,7 @@ async function copyDefaultFilesToRoot() {
 
     const currentDefaultFilesGlob = path.join(currentDefaultDirectory, '/**/*.*');
 
-    const defaultFilePaths = await new Promise<string[]>((resolve, reject) => {
+    const absoluteDefaultFilePaths = await new Promise<string[]>((resolve, reject) => {
         glob(currentDefaultFilesGlob, (error, matches) => {
             if (error) {
                 reject(error);
@@ -230,16 +230,43 @@ async function copyDefaultFilesToRoot() {
         });
     });
 
-    for (const defaultFilePath of defaultFilePaths) {
-        const relativeFilePath = defaultFilePath.replace(currentDefaultDirectory, '');
+    for (const absoluteDefaultFilePath of absoluteDefaultFilePaths) {
+        const relativeFilePath = absoluteDefaultFilePath.replace(currentDefaultDirectory, '');
         const unrenamedRelativeFilePath = relativeFilePath.replace(renamedPrefix, '');
-        const absoluteFilePath = path.join(RootPath.path, unrenamedRelativeFilePath);
+        const unrenamedAbsoluteFilePath = path.join(RootPath.path, unrenamedRelativeFilePath);
+
+        fs.renameSync(absoluteDefaultFilePath, unrenamedAbsoluteFilePath);
+    }
+}
+
+async function copyDefaultFilesToRoot() {
+    const currentDefaultDirectory = path.join(absoluteCurrentDirectory, relativeDefaultDirectory);
+
+    if (!fs.existsSync(currentDefaultDirectory)) {
+        throw new Error(`Could not find default configuration path '${currentDefaultDirectory}'.`);
+    }
+
+    const currentDefaultFilesGlob = path.join(currentDefaultDirectory, '/**/*.*');
+
+    const absoluteDefaultFilePaths = await new Promise<string[]>((resolve, reject) => {
+        glob(currentDefaultFilesGlob, (error, matches) => {
+            if (error) {
+                reject(error);
+            } else {
+                resolve(matches.map(filePath => path.resolve(filePath)));
+            }
+        });
+    });
+
+    for (const absoluteDefaultFilePath of absoluteDefaultFilePaths) {
+        const relativeFilePath = absoluteDefaultFilePath.replace(currentDefaultDirectory, '');
+        const absoluteFilePath = path.join(RootPath.path, relativeFilePath);
 
         if (!fs.existsSync(absoluteFilePath)) {
             const directoryPath = path.dirname(absoluteFilePath);
 
             fs.mkdirSync(directoryPath, { recursive: true });
-            fs.copyFileSync(defaultFilePath, absoluteFilePath);
+            fs.copyFileSync(absoluteDefaultFilePath, absoluteFilePath);
             // tslint:disable-next-line: no-console
             console.log(`Successfully copied file '${relativeFilePath}'.`);
         } else {
@@ -253,8 +280,6 @@ async function packageJsonCopyModifiedDistributeToRoot() {
     fs.copyFileSync(absoluteRootDistributePackageJsonPath, absoluteRootPackageJsonPath);
 }
 
-export const install = copyDefaultFilesToRoot;
-
 export const clean = GulpClient.parallel(cleanBuildDirectory, cleanDistributeDirectory);
 
 export const build = GulpClient.series(clean, typescriptBuild);
@@ -266,8 +291,6 @@ export const distribute = GulpClient.series(
     packageJsonAddInstallScriptToDistribute
 );
 
-export const publish = packageJsonCopyModifiedDistributeToRoot;
-
 export const lint = typescriptLint;
 
 export const test = GulpClient.series(build, typescriptTestOutputResult);
@@ -275,6 +298,10 @@ export const test = GulpClient.series(build, typescriptTestOutputResult);
 export const coverage = GulpClient.series(build, typescriptTestOutputCoverage);
 
 export const debug = typescriptTestDebug;
+
+export const publish = packageJsonCopyModifiedDistributeToRoot;
+
+export const install = GulpClient.series(unrenameDefaultFiles, copyDefaultFilesToRoot);
 
 export const all = GulpClient.series(
     GulpClient.parallel(
