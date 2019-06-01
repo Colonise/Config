@@ -221,40 +221,43 @@ async function renameDistributeDefaultFiles() {
 
     const distributeDefaultFilePaths = await getFilePaths(currentDefaultFilesGlob);
 
-    for (const filePathToRename of distributeDefaultFilePaths) {
-        const parsedPath = path.parse(filePathToRename);
+    for (const defaultFilePath of distributeDefaultFilePaths) {
+        const parsedPath = path.parse(defaultFilePath);
         const renamedFileName = renamedPrefix + parsedPath.base;
         const renamedFilePath = path.join(parsedPath.dir, renamedFileName);
 
-        fs.renameSync(filePathToRename, renamedFilePath);
+        fs.renameSync(defaultFilePath, renamedFilePath);
     }
 }
 
 async function unrenameDistributeDefaultFiles() {
-    const currentDistributeDefaultDirectory = path.join(
+    const currentDefaultDirectory = path.join(
         absoluteCurrentDirectory,
         relativeDefaultDirectory
     );
 
-    if (!fs.existsSync(currentDistributeDefaultDirectory)) {
-        throw new Error(`Could not find default configuration path '${currentDistributeDefaultDirectory}'.`);
+    if (!fs.existsSync(currentDefaultDirectory)) {
+        throw new Error(`Could not find default configuration path '${currentDefaultDirectory}'.`);
     }
 
-    const currentDefaultFilesGlob = path.join(currentDistributeDefaultDirectory, '/**/*');
+    const currentDefaultFilesGlob = path.join(currentDefaultDirectory, '/**/*');
 
-    const absoluteDefaultFilePaths = await getFilePaths(currentDefaultFilesGlob);
+    const defaultFilePaths = await getFilePaths(currentDefaultFilesGlob);
 
-    for (const absoluteDefaultFilePath of absoluteDefaultFilePaths) {
-        const relativeFilePath = absoluteDefaultFilePath.replace(currentDistributeDefaultDirectory, '');
-        const unrenamedRelativeFilePath = relativeFilePath.replace(renamedPrefix, '');
-        const unrenamedAbsoluteFilePath = path.join(RootPath.path, unrenamedRelativeFilePath);
+    for (const defaultFilePath of defaultFilePaths) {
+        const parsedPath = path.parse(defaultFilePath);
+        const unrenamedFileName = parsedPath.base.replace(renamedPrefix, '');
+        const unrenamedFilePath = path.join(parsedPath.dir, unrenamedFileName);
 
-        fs.renameSync(absoluteDefaultFilePath, unrenamedAbsoluteFilePath);
+        fs.renameSync(defaultFilePath, unrenamedFilePath);
     }
 }
 
 async function copyDefaultFilesToRoot() {
-    const currentDefaultDirectory = path.join(absoluteCurrentDirectory, relativeDefaultDirectory);
+    const currentDefaultDirectory = path.join(
+        absoluteCurrentDirectory,
+        relativeDefaultDirectory
+    );
 
     if (!fs.existsSync(currentDefaultDirectory)) {
         throw new Error(`Could not find default configuration path '${currentDefaultDirectory}'.`);
