@@ -233,7 +233,6 @@ async function renameDistributeDefaultFiles() {
 async function unrenameDistributeDefaultFiles() {
     const currentDistributeDefaultDirectory = path.join(
         absoluteCurrentDirectory,
-        relativeDistributeDirectory,
         relativeDefaultDirectory
     );
 
