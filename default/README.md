@@ -7,6 +7,7 @@
 [![npm version][npm-version-badge]][npm-version-url]
 [![npm bundle size \(minified\)][npm-minified-badge]][npm-minified-url]
 [![npm bundle size \(minified, zipped\)][npm-minified-minzipped-badge]][npm-minified-minzipped-url]
+[![Greenkeeper][greenkeeper-badge]][greenkeeper-url]
 
 > TODO
 
@@ -58,3 +59,6 @@ CHANGEME is part of Colonise's Open Source Software, and is made with love by th
 
 [npm-minified-minzipped-badge]: https://img.shields.io/bundlephobia/minzip/@colonise/changeme.svg
 [npm-minified-minzipped-url]: https://bundlephobia.com/result?p=@colonise/changeme
+
+[greenkeeper-badge]: https://badges.greenkeeper.io/Colonise/CHANGEME.svg
+[greenkeeper-url]: https://greenkeeper.io/
