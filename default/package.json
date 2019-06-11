@@ -1,7 +1,7 @@
 {
-    "name": "@colonise/CHANGEME",
+    "name": "@colonise/changeme",
     "version": "0.0.0",
-    "description": "CHANGEME",
+    "description": "TODO",
     "main": "index.js",
     "typings": "index.d.ts",
     "files": [
