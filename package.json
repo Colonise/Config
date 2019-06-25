@@ -11,7 +11,7 @@
         "build": "gulp build",
         "lint": "gulp lint",
         "test": "gulp test",
-        "coverage": "gulp coverage",
+        "coverage": "nyc gulp coverage",
         "debug": "gulp debug",
         "distribute": "gulp distribute",
         "postpublish": "gulp publish"
@@ -33,7 +33,8 @@
         "@types/gulp": "^4.0.6",
         "@types/gulp-istanbul": "^0.9.32",
         "@types/merge-stream": "^1.1.2",
-        "@types/stream-to-promise": "^2.2.0"
+        "@types/stream-to-promise": "^2.2.0",
+        "nyc": "^14.1.1"
     },
     "dependencies": {
         "@semantic-release/changelog": "^3.0.2",

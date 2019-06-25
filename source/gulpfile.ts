@@ -4,12 +4,10 @@ import del from 'del';
 import * as fs from 'fs';
 import { default as glob } from 'glob';
 import GulpClient from 'gulp';
-import GulpIstanbul from 'gulp-istanbul';
 import tslintPlugin from 'gulp-tslint';
 import * as gulpTypescript from 'gulp-typescript';
 import merge from 'merge-stream';
 import * as path from 'path';
-import streamToPromise from 'stream-to-promise';
 import { TapBark } from 'tap-bark';
 import * as TSlint from 'tslint';
 
@@ -28,7 +26,6 @@ const relativeReadmeMarkdownPath = './README.md';
 const relativeSourceDirectory = './source';
 const relativeBuildDirectory = './build';
 const relativeDefaultDirectory = './default';
-const relativeCoverageDirectory = './coverage';
 const relativeDistributeDirectory = './distribute';
 
 const renamedPrefix = '_RENAMED_';
@@ -50,10 +47,6 @@ const absoluteRootReadmeMarkdownPath = RootPath.resolve(relativeReadmeMarkdownPa
 
 const absoluteRootDeclarationFileGlob = `${absoluteRootSourceDirectory}/**/*.d.ts`;
 
-const absoluteRootCoverableFilesGlobs = [
-    `${absoluteRootBuildDirectory}/**/*.js`,
-    `!${absoluteRootBuildDirectory}/**/*.spec.*`
-];
 const absoluteRootTestFilesGlob = `${absoluteRootBuildDirectory}/**/*.spec.js`;
 const absoluteRootDebugTestFilesGlob = `${absoluteRootSourceDirectory}/**/*.spec.ts`;
 
@@ -97,15 +90,7 @@ async function runAlsatian(output: TestOutput) {
             break;
 
         case TestOutput.Coverage:
-            await streamToPromise(
-                GulpClient
-                    .src(absoluteRootCoverableFilesGlobs)
-                    .pipe(GulpIstanbul({ includeUntested: true }))
-                    .pipe(GulpIstanbul.hookRequire())
-            );
-            testRunner.outputStream.pipe(GulpIstanbul.writeReports({ dir: relativeCoverageDirectory }));
-            break;
-
+        case TestOutput.None:
         default:
     }
 
