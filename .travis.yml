@@ -56,7 +56,7 @@ jobs:
         - ./cc-test-reporter before-build
       script:
         # Run Gulp Coverage task
-        - gulp coverage
+        - nyc gulp coverage
       after_script:
         # Report Test Coverage results to Code Climate
         - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
