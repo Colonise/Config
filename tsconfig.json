@@ -1,6 +1,7 @@
 {
     "compilerOptions": {
         "alwaysStrict": true,
+        "baseUrl": ".",
         "declaration": true,
         "esModuleInterop": true,
         "experimentalDecorators": true,
@@ -12,18 +13,18 @@
         "noImplicitThis": true,
         "noUnusedLocals": true,
         "noUnusedParameters": true,
-        "strict": true,
-        "strictFunctionTypes": true,
-        "strictNullChecks": true,
-        "strictPropertyInitialization": true,
-        "target": "es6",
-        "baseUrl": ".",
         "paths": {
             "*": [
                 "node_modules/*",
                 "@types/*"
             ]
-        }
+        },
+        "strict": true,
+        "strictBindCallApply": true,
+        "strictFunctionTypes": true,
+        "strictNullChecks": true,
+        "strictPropertyInitialization": true,
+        "target": "es6"
     },
     "include": [
         "gulpfile.ts"
