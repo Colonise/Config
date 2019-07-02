@@ -43,7 +43,7 @@
         "@semantic-release/release-notes-generator": "^7.2.1",
         "alsatian": "^2.4.0",
         "app-root-path": "^2.2.1",
-        "del": "^4.0.0",
+        "del": "^5.0.0",
         "glob": "^7.1.4",
         "gulp": "^4.0.2",
         "gulp-tslint": "^8.1.4",
