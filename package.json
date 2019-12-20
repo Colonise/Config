@@ -2,20 +2,6 @@
     "name": "@colonise/config",
     "version": "0.0.0",
     "description": "Shareable config for all Colonise packages",
-    "main": "index.js",
-    "typings": "index.d.ts",
-    "files": [
-        "**/*.*"
-    ],
-    "scripts": {
-        "build": "gulp build",
-        "lint": "gulp lint",
-        "test": "gulp test",
-        "coverage": "nyc gulp coverage",
-        "debug": "gulp debug",
-        "distribute": "gulp distribute",
-        "postpublish": "gulp publish"
-    },
     "repository": {
         "type": "git",
         "url": "git+https://github.com/Colonise/Config.git"
@@ -27,33 +13,47 @@
         "url": "https://github.com/Colonise/Config/issues"
     },
     "homepage": "https://github.com/Colonise/Config#readme",
+    "main": "index.js",
+    "typings": "index.d.ts",
+    "files": [
+        "**/*.*"
+    ],
+    "bin": {
+        "colonise-config": "./cli.js"
+    },
+    "scripts": {
+        "clean": "ts-node ./source/clean",
+        "build": "ts-node ./source/build",
+        "lint": "ts-node ./source/lint",
+        "test": "ts-node ./source/test",
+        "coverage": "ts-node ./source/coverage",
+        "distribute": "ts-node ./source/distribute"
+    },
     "devDependencies": {
         "@types/app-root-path": "^1.2.4",
+        "@types/cross-spawn": "^6.0.1",
         "@types/glob": "^7.1.1",
-        "@types/gulp": "^4.0.6",
-        "@types/merge-stream": "^1.1.2"
+        "@types/mocha": "^5.2.7",
+        "@types/node": "^12.12.21"
     },
     "dependencies": {
-        "@semantic-release/changelog": "^3.0.4",
-        "@semantic-release/commit-analyzer": "^6.2.0",
+        "@semantic-release/changelog": "^3.0.6",
+        "@semantic-release/commit-analyzer": "^6.3.3",
         "@semantic-release/error": "^2.2.0",
-        "@semantic-release/git": "^7.0.14",
-        "@semantic-release/github": "^5.4.0",
-        "@semantic-release/npm": "^5.1.13",
-        "@semantic-release/release-notes-generator": "^7.2.1",
-        "alsatian": "^2.4.0",
-        "app-root-path": "^2.2.1",
-        "del": "^4.0.0",
-        "glob": "^7.1.4",
-        "gulp": "^4.0.2",
-        "gulp-tslint": "^8.1.4",
-        "gulp-typescript": "^5.0.1",
-        "merge-stream": "^2.0.0",
+        "@semantic-release/git": "^7.0.18",
+        "@semantic-release/github": "^5.5.5",
+        "@semantic-release/npm": "^5.3.4",
+        "@semantic-release/release-notes-generator": "^7.3.5",
+        "app-root-path": "^3.0.0",
+        "cross-spawn": "^7.0.1",
+        "del": "^5.1.0",
+        "glob": "^7.1.6",
+        "mocha": "^6.2.2",
         "nyc": "^14.1.1",
-        "semantic-release": "^15.13.18",
-        "ts-node": "^8.3.0",
+        "semantic-release": "^15.13.31",
+        "ts-node": "^8.5.4",
         "tslib": "^1.10.0",
-        "tslint": "^5.18.0",
-        "typescript": "^3.5.2"
+        "tslint": "^5.20.1",
+        "typescript": "^3.7.3"
     }
 }
