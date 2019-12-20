@@ -1,9 +1,7 @@
-import { Expect, Test, TestFixture } from 'alsatian';
+import * as assert from 'assert';
 
-@TestFixture('Stub')
-export class Stub {
-    @Test('stub')
-    public stub() {
-        Expect(true).toBe(true);
-    }
-}
+describe('Stub', () => {
+    it('Stub', () => {
+        assert.strictEqual(true, true);
+    });
+});

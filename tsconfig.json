@@ -27,6 +27,6 @@
         "target": "es6"
     },
     "include": [
-        "gulpfile.ts"
+        "source/**/*.ts"
     ]
 }

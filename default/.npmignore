@@ -3,7 +3,6 @@ source/
 
 # Build
 build/
-gulpfile.ts
 tslint.json
 tsconfig.json
 
