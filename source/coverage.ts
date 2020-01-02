@@ -1,3 +1,4 @@
+import { build } from './build';
 import { cleanCoverageDirectory } from './clean';
 import { executeCommand, log, wasCalledFromCLI } from './helpers';
 
@@ -13,6 +14,7 @@ export function coverageTypescriptBuild() {
 
 export function coverage() {
     cleanCoverageDirectory();
+    build();
     coverageTypescriptBuild();
 }
 
