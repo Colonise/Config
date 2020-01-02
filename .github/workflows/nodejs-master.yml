@@ -151,7 +151,7 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Configure Git Signing Key
+      - name: Set Git Signing Key
         run: |
           # Decrypt the git_gpg_keys.asc.enc key into git_gpg_keys.asc
           gpg --output /tmp/git_gpg_keys.asc --decrypt --batch --passphrase ${{ secrets.GPG_DECRYPT_PASSPHRASE }} git_gpg_keys.asc.enc
@@ -169,6 +169,11 @@ jobs:
           git config commit.gpgsign true
           # Configure git to use your GPG key
           git config --global user.signingkey ${{ secrets.GPG_KEY_ID }}
+
+      - name: Run Build
+        run: |
+          # Run NPM build script
+          npm run build
 
       - name: Release
         run: |
