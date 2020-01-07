@@ -39,6 +39,7 @@ function copyDefaultFilesToRoot() {
 
     for (const absoluteDefaultFilePath of absoluteDefaultFilePaths) {
         const relativeFilePath = absoluteDefaultFilePath.replace(currentDefaultDirectory, '');
+
         const absoluteFilePath = path.join(RootPath.path, relativeFilePath);
 
         if (!fs.existsSync(absoluteFilePath)) {
