@@ -1,17 +1,17 @@
 import RootPath from 'app-root-path';
 import * as path from 'path';
 
-export const relativePackageJsonPath = './package.json';
-export const relativeTsconfigJsonPath = './tsconfig.json';
-export const relativeTslintJsonPath = './tslint.json';
-export const relativeLicensePath = './LICENSE';
-export const relativeReadmeMarkdownPath = './README.md';
+export const relativePackageJsonPath = path.normalize('./package.json');
+export const relativeTsconfigJsonPath = path.normalize('./tsconfig.json');
+export const relativeTslintJsonPath = path.normalize('./tslint.json');
+export const relativeLicensePath = path.normalize('./LICENSE');
+export const relativeReadmeMarkdownPath = path.normalize('./README.md');
 
-export const relativeSourceDirectory = './source';
-export const relativeBuildDirectory = './build';
-export const relativeDefaultDirectory = './default';
-export const relativeDistributeDirectory = './distribute';
-export const relativeCoverageDirectory = './coverage';
+export const relativeSourceDirectory = path.normalize('./source');
+export const relativeBuildDirectory = path.normalize('./build');
+export const relativeDefaultDirectory = path.normalize('./default');
+export const relativeDistributeDirectory = path.normalize('./distribute');
+export const relativeCoverageDirectory = path.normalize('./coverage');
 
 export const renamedPrefix = '_RENAMED_';
 

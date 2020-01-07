@@ -1,5 +1,6 @@
 import spawn from 'cross-spawn';
 import { default as glob, IOptions } from 'glob';
+import * as path from 'path';
 
 export function log(message: string): void {
     // tslint:disable-next-line: no-console
@@ -16,11 +17,15 @@ export function wasCalledFromCLI(otherModule: NodeModule): boolean {
 }
 
 export function getFilePaths(pattern: string): string[] {
-    return (<(pattern: string, options: IOptions) => string[]>(<unknown>glob))(pattern, {
+    const filePaths = (<(pattern: string, options: IOptions) => string[]>(<unknown>glob))(pattern, {
         dot: true,
         nodir: true,
         sync: true
     });
+
+    const normalizedFilePaths = filePaths.map(filePath => path.normalize(filePath));
+
+    return normalizedFilePaths;
 }
 
 export function executeCommand(command: string, parameters: string[]) {
