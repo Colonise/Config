@@ -1,7 +1,8 @@
-import * as assert from 'assert';
+const expect = chai.expect;
 
 describe('Stub', () => {
     it('Stub', () => {
-        assert.strictEqual(true, true);
+        // tslint:disable-next-line: no-unused-expression
+        expect(true).to.equal(true);
     });
 });

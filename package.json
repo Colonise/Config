@@ -32,9 +32,7 @@
     "devDependencies": {
         "@types/app-root-path": "^1.2.4",
         "@types/cross-spawn": "^6.0.1",
-        "@types/glob": "^7.1.1",
-        "@types/mocha": "^5.2.7",
-        "@types/node": "^12.12.21"
+        "@types/glob": "^7.1.1"
     },
     "dependencies": {
         "@semantic-release/changelog": "^3.0.6",
@@ -44,7 +42,11 @@
         "@semantic-release/github": "^5.5.5",
         "@semantic-release/npm": "^5.3.4",
         "@semantic-release/release-notes-generator": "^7.3.5",
+        "@types/chai": "^4.2.7",
+        "@types/mocha": "^5.2.7",
+        "@types/node": "^12.12.21",
         "app-root-path": "^3.0.0",
+        "chai": "^4.2.0",
         "cross-spawn": "^7.0.1",
         "del": "^5.1.0",
         "glob": "^7.1.6",
