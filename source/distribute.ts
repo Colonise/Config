@@ -76,14 +76,17 @@ function renameDistributeDefaultFiles() {
 }
 
 function packageJsonAddInstallScriptToDistribute() {
-    const packageJsonString = fs.readFileSync(absoluteRootDistributePackageJsonPath, 'utf8');
-    const packageJsonData = JSON.parse(packageJsonString);
+    // Only add install script to Config package
+    if (process.env.COLONISE_PACKAGE === 'Config') {
+        const packageJsonString = fs.readFileSync(absoluteRootDistributePackageJsonPath, 'utf8');
+        const packageJsonData = JSON.parse(packageJsonString);
 
-    packageJsonData.scripts.postinstall = 'colonise-config install';
+        packageJsonData.scripts.postinstall = 'colonise-config install';
 
-    const modifiedPackageJsonString = JSON.stringify(packageJsonData, undefined, 4);
+        const modifiedPackageJsonString = JSON.stringify(packageJsonData, undefined, 4);
 
-    fs.writeFileSync(absoluteRootDistributePackageJsonPath, modifiedPackageJsonString);
+        fs.writeFileSync(absoluteRootDistributePackageJsonPath, modifiedPackageJsonString);
+    }
 }
 
 export function distributeFiles() {
