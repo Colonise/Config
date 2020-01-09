@@ -12,13 +12,6 @@ env:
   CI: true
   CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
   COLONISE_PACKAGE_NAME: ${{ secrets.COLONISE_PACKAGE_NAME }}
-  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  GIT_AUTHOR_EMAIL: ${{ secrets.GIT_AUTHOR_EMAIL }}
-  GIT_AUTHOR_NAME: ${{ secrets.GIT_AUTHOR_NAME }}
-  GIT_COMMITTER_EMAIL: ${{ secrets.GIT_AUTHOR_EMAIL }}
-  GIT_COMMITTER_NAME: ${{ secrets.GIT_AUTHOR_NAME }}
-  GIT_EMAIL: ${{ secrets.GIT_EMAIL }}
-  GIT_USERNAME: ${{ secrets.GIT_USERNAME }}
   NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
 jobs:
