@@ -12,6 +12,7 @@ env:
   CI: true
   CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
   COLONISE_PACKAGE_NAME: ${{ secrets.COLONISE_PACKAGE_NAME }}
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
 jobs:
