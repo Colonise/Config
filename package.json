@@ -31,8 +31,7 @@
     },
     "devDependencies": {
         "@types/app-root-path": "^1.2.4",
-        "@types/cross-spawn": "^6.0.1",
-        "@types/glob": "^7.1.1"
+        "@types/cross-spawn": "^6.0.1"
     },
     "dependencies": {
         "@semantic-release/changelog": "^3.0.6",
@@ -49,7 +48,7 @@
         "chai": "^4.2.0",
         "cross-spawn": "^7.0.1",
         "del": "^5.1.0",
-        "glob": "^7.1.6",
+        "globby": "^11.0.0",
         "mocha": "^6.2.2",
         "nyc": "^14.1.1",
         "semantic-release": "^15.13.31",

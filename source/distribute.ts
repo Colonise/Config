@@ -13,7 +13,7 @@ import {
     absoluteRootDistributeDefaultFilesGlob,
     absoluteRootDistributeEssentialDirectory,
     absoluteRootDistributePackageJsonPath,
-    absoluteRootEssentialDirectory,
+    absoluteRootDirectory,
     absoluteRootEssentialFilesGlobs,
     renamedPrefix
 } from './variables';
@@ -25,26 +25,18 @@ function copyFiles(
     originDirectory: string,
     destinationDirectory: string
 ): void {
-    const targetPatterns = Array.isArray(targetPatternOrTargetPatterns)
-        ? targetPatternOrTargetPatterns
-        : [
-              targetPatternOrTargetPatterns
-          ];
+    const filePaths = getFilePaths(<string[]>targetPatternOrTargetPatterns);
 
-    for (const targetPattern of targetPatterns) {
-        const filePaths = getFilePaths(targetPattern);
+    for (const filePath of filePaths) {
+        const relativeFilePath = path.relative(originDirectory, filePath);
+        const destinationFilePath = path.join(destinationDirectory, relativeFilePath);
+        const directory = path.dirname(destinationFilePath);
 
-        for (const filePath of filePaths) {
-            const relativeFilePath = path.relative(originDirectory, filePath);
-            const destinationFilePath = path.join(destinationDirectory, relativeFilePath);
-            const directory = path.dirname(destinationFilePath);
+        fs.mkdirSync(directory, { recursive: true });
 
-            fs.mkdirSync(directory, { recursive: true });
+        log(`Copying file '${filePath}' to '${destinationFilePath}'.`);
 
-            log(`Copying file '${filePath}' to '${destinationFilePath}'.`);
-
-            fs.copyFileSync(filePath, destinationFilePath);
-        }
+        fs.copyFileSync(filePath, destinationFilePath);
     }
 }
 
@@ -53,7 +45,7 @@ function copyFilesToDistributeDirectory() {
     copyFiles(absoluteRootDefaultFilesGlob, absoluteRootDefaultDirectory, absoluteRootDistributeDefaultDirectory);
     copyFiles(
         absoluteRootEssentialFilesGlobs,
-        absoluteRootEssentialDirectory,
+        absoluteRootDirectory,
         absoluteRootDistributeEssentialDirectory
     );
 }
