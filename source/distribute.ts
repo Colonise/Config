@@ -39,7 +39,7 @@ function renameDistributeDefaultFiles() {
 
 function packageJsonAddInstallScriptToDistribute() {
     // Only add install script to Config package
-    if (process.env.COLONISE_PACKAGE === 'Config') {
+    if (process.env.COLONISE_PACKAGE_NAME === 'Config') {
         const packageJsonString = fs.readFileSync(absoluteRootDistributePackageJsonPath, 'utf8');
         const packageJsonData = JSON.parse(packageJsonString);
 
