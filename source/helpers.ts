@@ -1,5 +1,5 @@
 import spawn from 'cross-spawn';
-import { default as glob, IOptions } from 'glob';
+import globby from 'globby';
 import * as path from 'path';
 
 export function log(message: string): void {
@@ -16,12 +16,19 @@ export function wasCalledFromCLI(otherModule: NodeModule): boolean {
     return require.main === otherModule;
 }
 
-export function getFilePaths(pattern: string): string[] {
-    const filePaths = (<(pattern: string, options: IOptions) => string[]>(<unknown>glob))(pattern, {
-        dot: true,
-        nodir: true,
-        sync: true
-    });
+export function getFilePaths(pattern: string): string[];
+export function getFilePaths(patterns: string[]): string[];
+export function getFilePaths(patternOrPatterns: string | string[]): string[] {
+    const patterns = Array.isArray(patternOrPatterns)
+        ? patternOrPatterns
+        : [
+              patternOrPatterns
+          ];
+
+    // https://github.com/mrmlnc/fast-glob#pattern-syntax
+    const fixedPatterns = patterns.map(pattern => pattern.replace(/\\/g, '/'));
+
+    const filePaths = globby.sync(fixedPatterns);
 
     const normalizedFilePaths = filePaths.map(filePath => path.normalize(filePath));
 
