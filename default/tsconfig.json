@@ -1,6 +1,3 @@
 {
-    "extends": "@colonise/config/tsconfig",
-    "include": [
-        "source/**/*.ts"
-    ]
+    "extends": "@colonise/config/tsconfig"
 }

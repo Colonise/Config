@@ -26,7 +26,7 @@ export const absoluteRootSourceDirectory = RootPath.resolve(relativeSourceDirect
 
 export const absoluteRootSourceTestFilesGlob = path.join(absoluteRootSourceDirectory, '/**/*.spec.ts');
 export const absoluteRootSourceTypescriptFilesGlob = path.join(absoluteRootSourceDirectory, '/**/*.ts');
-export const absoluteRootSourceDeclarationFileGlob = path.join(absoluteRootSourceDirectory, '/**/*.d.ts');
+export const absoluteRootSourceDeclarationFilesGlob = path.join(absoluteRootSourceDirectory, '/**/*.d.ts');
 
 // Build
 
