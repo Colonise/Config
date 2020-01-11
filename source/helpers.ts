@@ -29,7 +29,7 @@ export function getFilePaths(patternOrPatterns: string | string[]): string[] {
     // https://github.com/mrmlnc/fast-glob#pattern-syntax
     const fixedPatterns = patterns.map(pattern => pattern.replace(/\\/g, '/'));
 
-    const filePaths = globby.sync(fixedPatterns);
+    const filePaths = globby.sync(fixedPatterns, { dot: true });
 
     const normalizedFilePaths = filePaths.map(filePath => path.normalize(filePath));
 
