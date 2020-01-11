@@ -62,9 +62,7 @@ typings/
 
 # Build
 build
-
-# Test
-coverage
+tsconfig.generated.json
 
 # Distribute
 distribute

@@ -58,22 +58,10 @@ jobs:
         # Run NPM Clean Install
         npm ci
 
-    # - name: Install and Update Greenkeeper Lockfile
-    #   run: |
-    #     # Install Greenkeeper Lockfile
-    #     npm install -g greenkeeper-lockfile
-    #     # Update Greenkeeper Lockfile
-    #     greenkeeper-lockfile-update
-
     - name: Run Build
       run: |
         # Run NPM build script
         npm run build
-
-    # - name: Upload Greenkeeper lockfile
-    #   run: |
-    #     # Upload Greenkeeper Lockfile Results
-    #     greenkeeper-lockfile-upload
 
   test:
     name: Test
@@ -163,11 +151,6 @@ jobs:
           git config commit.gpgsign true
           # Configure git to use your GPG key
           git config --global user.signingkey ${{ secrets.GPG_KEY_ID }}
-
-      - name: Run Build
-        run: |
-          # Run NPM build script
-          npm run build
 
       - name: Release
         run: |

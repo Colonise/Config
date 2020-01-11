@@ -2,52 +2,22 @@ import * as fs from 'fs';
 import * as path from 'path';
 import { buildTypeScriptDistribute } from './build';
 import { cleanDistributeDirectory } from './clean';
-import { getFilePaths, log, wasCalledFromCLI } from './helpers';
+import { copyFiles, getFilePaths, log, wasCalledFromCLI } from './helpers';
 import {
-    absoluteRootBuildDirectory,
-    absoluteRootBuildFilesGlobs,
     absoluteRootDefaultDirectory,
     absoluteRootDefaultFilesGlob,
-    absoluteRootDistributeBuildDirectory,
+    absoluteRootDirectory,
     absoluteRootDistributeDefaultDirectory,
     absoluteRootDistributeDefaultFilesGlob,
     absoluteRootDistributeEssentialDirectory,
     absoluteRootDistributePackageJsonPath,
-    absoluteRootDirectory,
     absoluteRootEssentialFilesGlobs,
     renamedPrefix
 } from './variables';
 
-function copyFiles(targetPattern: string, originDirectory: string, destinationDirectory: string): void;
-function copyFiles(targetPatterns: string[], originDirectory: string, destinationDirectory: string): void;
-function copyFiles(
-    targetPatternOrTargetPatterns: string | string[],
-    originDirectory: string,
-    destinationDirectory: string
-): void {
-    const filePaths = getFilePaths(<string[]>targetPatternOrTargetPatterns);
-
-    for (const filePath of filePaths) {
-        const relativeFilePath = path.relative(originDirectory, filePath);
-        const destinationFilePath = path.join(destinationDirectory, relativeFilePath);
-        const directory = path.dirname(destinationFilePath);
-
-        fs.mkdirSync(directory, { recursive: true });
-
-        log(`Copying file '${filePath}' to '${destinationFilePath}'.`);
-
-        fs.copyFileSync(filePath, destinationFilePath);
-    }
-}
-
 function copyFilesToDistributeDirectory() {
-    copyFiles(absoluteRootBuildFilesGlobs, absoluteRootBuildDirectory, absoluteRootDistributeBuildDirectory);
     copyFiles(absoluteRootDefaultFilesGlob, absoluteRootDefaultDirectory, absoluteRootDistributeDefaultDirectory);
-    copyFiles(
-        absoluteRootEssentialFilesGlobs,
-        absoluteRootDirectory,
-        absoluteRootDistributeEssentialDirectory
-    );
+    copyFiles(absoluteRootEssentialFilesGlobs, absoluteRootDirectory, absoluteRootDistributeEssentialDirectory);
 }
 
 /**
@@ -88,8 +58,8 @@ export function distributeFiles() {
 }
 
 export function distribute() {
-    buildTypeScriptDistribute();
     cleanDistributeDirectory();
+    buildTypeScriptDistribute();
     distributeFiles();
 }
 

@@ -1,4 +1,5 @@
 import spawn from 'cross-spawn';
+import * as fs from 'fs';
 import globby from 'globby';
 import * as path from 'path';
 
@@ -33,6 +34,28 @@ export function getFilePaths(patternOrPatterns: string | string[]): string[] {
     const normalizedFilePaths = filePaths.map(filePath => path.normalize(filePath));
 
     return normalizedFilePaths;
+}
+
+export function copyFiles(targetPattern: string, originDirectory: string, destinationDirectory: string): void;
+export function copyFiles(targetPatterns: string[], originDirectory: string, destinationDirectory: string): void;
+export function copyFiles(
+    targetPatternOrTargetPatterns: string | string[],
+    originDirectory: string,
+    destinationDirectory: string
+): void {
+    const filePaths = getFilePaths(<string[]>targetPatternOrTargetPatterns);
+
+    for (const filePath of filePaths) {
+        const relativeFilePath = path.relative(originDirectory, filePath);
+        const destinationFilePath = path.join(destinationDirectory, relativeFilePath);
+        const directory = path.dirname(destinationFilePath);
+
+        fs.mkdirSync(directory, { recursive: true });
+
+        log(`Copying file '${filePath}' to '${destinationFilePath}'.`);
+
+        fs.copyFileSync(filePath, destinationFilePath);
+    }
 }
 
 export function executeCommand(command: string, parameters: string[]) {
