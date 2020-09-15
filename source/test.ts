@@ -1,8 +1,12 @@
 import { build } from './build';
-import { executeCommand, log, wasCalledFromCLI } from './helpers';
+import {
+    executeCommand,
+    log,
+    wasCalledFromCLI
+} from './helpers';
 
-export function testTypescriptBuild() {
-    log(`Running TypeScript unit tests.`);
+export function testTypeScriptBuild(): void {
+    log('Running TypeScript unit tests.');
 
     executeCommand('mocha', [
         '--recursive',
@@ -10,9 +14,10 @@ export function testTypescriptBuild() {
     ]);
 }
 
-export function test() {
+// eslint-disable-next-line @typescript-eslint/no-shadow
+export function test(): void {
     build();
-    testTypescriptBuild();
+    testTypeScriptBuild();
 }
 
 if (wasCalledFromCLI(module)) {

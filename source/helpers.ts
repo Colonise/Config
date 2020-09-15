@@ -1,16 +1,21 @@
-import spawn from 'cross-spawn';
 import * as fs from 'fs';
-import globby from 'globby';
 import * as path from 'path';
+import globby from 'globby';
+import spawn from 'cross-spawn';
 
 export function log(message: string): void {
-    // tslint:disable-next-line: no-console
+    // eslint-disable-next-line no-console
     console.log(message);
 }
 
 export function warn(message: string): void {
-    // tslint:disable-next-line: no-console
+    // eslint-disable-next-line no-console
     console.warn(message);
+}
+
+export function error(message: string): void {
+    // eslint-disable-next-line no-console
+    console.error(message);
 }
 
 export function wasCalledFromCLI(otherModule: NodeModule): boolean {
@@ -23,11 +28,11 @@ export function getFilePaths(patternOrPatterns: string | string[]): string[] {
     const patterns = Array.isArray(patternOrPatterns)
         ? patternOrPatterns
         : [
-              patternOrPatterns
-          ];
+            patternOrPatterns
+        ];
 
     // https://github.com/mrmlnc/fast-glob#pattern-syntax
-    const fixedPatterns = patterns.map(pattern => pattern.replace(/\\/g, '/'));
+    const fixedPatterns = patterns.map(pattern => pattern.replace(/\\/gu, '/'));
 
     const filePaths = globby.sync(fixedPatterns, { dot: true });
 
@@ -37,7 +42,11 @@ export function getFilePaths(patternOrPatterns: string | string[]): string[] {
 }
 
 export function copyFiles(targetPattern: string, originDirectory: string, destinationDirectory: string): void;
-export function copyFiles(targetPatterns: string[], originDirectory: string, destinationDirectory: string): void;
+export function copyFiles(
+    targetPatterns: string[],
+    originDirectory: string,
+    destinationDirectory: string
+): void;
 export function copyFiles(
     targetPatternOrTargetPatterns: string | string[],
     originDirectory: string,
@@ -58,7 +67,7 @@ export function copyFiles(
     }
 }
 
-export function executeCommand(command: string, parameters: string[]) {
+export function executeCommand(command: string, parameters: string[]): void {
     spawn.sync(command, parameters, {
         shell: true,
         stdio: 'inherit'
