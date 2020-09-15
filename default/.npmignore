@@ -3,8 +3,8 @@ source/
 
 # Build
 build/
-tslint.json
 tsconfig.json
+.eslintrc.js
 
 # Test
 coverage/
