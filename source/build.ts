@@ -1,38 +1,58 @@
 import * as fs from 'fs';
+import * as path from 'path';
 import { cleanBuildDirectory } from './clean';
-import { copyFiles, executeCommand, getFilePaths, log, wasCalledFromCLI } from './helpers';
 import {
+    absoluteRootDirectory,
     absoluteRootGeneratedTsconfigJsonPath,
     absoluteRootSourceDeclarationFilesGlob,
     absoluteRootSourceDirectory,
     absoluteRootSourceTestFilesGlob,
-    absoluteRootSourceTypescriptFilesGlob,
+    absoluteRootSourceTypeScriptFilesGlob,
     absoluteRootTsconfigJsonPath
 } from './variables';
+import {
+    copyFiles,
+    executeCommand,
+    getFilePaths,
+    log,
+    wasCalledFromCLI
+} from './helpers';
 
-function generateTsconfig(includeTestFiles: boolean = false) {
+interface TSConfig {
+    files?: string[];
+}
+
+function generateTsconfig(includeTestFiles = false): void {
     const tsconfigString = fs.readFileSync(absoluteRootTsconfigJsonPath, 'utf8');
-    const tsconfigData = JSON.parse(tsconfigString);
+    const tsconfigData = <TSConfig>JSON.parse(tsconfigString);
 
     const filesGlob = includeTestFiles
         ? [
-              absoluteRootSourceTypescriptFilesGlob
-          ]
+            absoluteRootSourceTypeScriptFilesGlob
+        ]
         : [
-              absoluteRootSourceTypescriptFilesGlob,
-              `!${absoluteRootSourceTestFilesGlob}`
-          ];
+            absoluteRootSourceTypeScriptFilesGlob,
+            `!${absoluteRootSourceTestFilesGlob}`
+        ];
 
     const files = getFilePaths(filesGlob);
 
-    tsconfigData.files = files;
+    if (Array.isArray(tsconfigData.files)) {
+        tsconfigData.files = tsconfigData.files.map(file => path.join(absoluteRootDirectory, file));
+    }
+    else {
+        tsconfigData.files = [];
+    }
 
+    tsconfigData.files = tsconfigData.files.concat(files);
+
+    // eslint-disable-next-line @typescript-eslint/no-magic-numbers
     const modifiedTsconfigData = JSON.stringify(tsconfigData, undefined, 4);
 
     fs.writeFileSync(absoluteRootGeneratedTsconfigJsonPath, modifiedTsconfigData);
 }
 
-function buildTypeScript(outputDirectoryPath: string, includeTestFiles: boolean = false): void {
+function buildTypeScript(outputDirectoryPath: string, includeTestFiles = false): void {
     log(`Generating TSConfig file to '${absoluteRootGeneratedTsconfigJsonPath}'.`);
 
     generateTsconfig(includeTestFiles);

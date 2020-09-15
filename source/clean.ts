@@ -1,12 +1,15 @@
 import del from 'del';
-import { log, wasCalledFromCLI } from './helpers';
 import {
     absoluteRootBuildDirectory,
     absoluteRootCoverageDirectory,
     absoluteRootDistributeDirectory
 } from './variables';
+import {
+    log,
+    wasCalledFromCLI
+} from './helpers';
 
-function cleanDirectory(directoryPath: string) {
+function cleanDirectory(directoryPath: string): string[] {
     log(`Cleaning directory '${directoryPath}'.`);
 
     const result = del.sync(directoryPath);

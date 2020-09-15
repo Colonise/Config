@@ -1,9 +1,13 @@
 import { build } from './build';
 import { cleanCoverageDirectory } from './clean';
-import { executeCommand, log, wasCalledFromCLI } from './helpers';
+import {
+    executeCommand,
+    log,
+    wasCalledFromCLI
+} from './helpers';
 
-export function coverageTypescriptBuild() {
-    log(`Checking coverage of TypeScript unit tests.`);
+export function coverageTypeScriptBuild(): void {
+    log('Checking coverage of TypeScript unit tests.');
 
     executeCommand('nyc', [
         'mocha',
@@ -12,10 +16,10 @@ export function coverageTypescriptBuild() {
     ]);
 }
 
-export function coverage() {
+export function coverage(): void {
     cleanCoverageDirectory();
     build();
-    coverageTypescriptBuild();
+    coverageTypeScriptBuild();
 }
 
 if (wasCalledFromCLI(module)) {

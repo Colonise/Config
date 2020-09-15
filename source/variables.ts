@@ -1,10 +1,11 @@
-import RootPath from 'app-root-path';
 import * as path from 'path';
+import RootPath from 'app-root-path';
 
 export const relativePackageJsonPath = path.normalize('./package.json');
 export const relativeTsconfigJsonPath = path.normalize('./tsconfig.json');
 export const relativeGeneratedTsconfigJsonPath = path.normalize('./tsconfig.generated.json');
-export const relativeTslintJsonPath = path.normalize('./tslint.json');
+export const relativeEslintRCPath = path.normalize('./.eslintrc.js');
+export const relativeEslintPath = path.normalize('./eslint.js');
 export const relativeLicensePath = path.normalize('./LICENSE');
 export const relativeReadmeMarkdownPath = path.normalize('./README.md');
 
@@ -25,7 +26,7 @@ export const absoluteCurrentDirectory = __dirname.includes('node_modules')
 export const absoluteRootSourceDirectory = RootPath.resolve(relativeSourceDirectory);
 
 export const absoluteRootSourceTestFilesGlob = path.join(absoluteRootSourceDirectory, '/**/*.spec.ts');
-export const absoluteRootSourceTypescriptFilesGlob = path.join(absoluteRootSourceDirectory, '/**/*.ts');
+export const absoluteRootSourceTypeScriptFilesGlob = path.join(absoluteRootSourceDirectory, '/**/*.ts');
 export const absoluteRootSourceDeclarationFilesGlob = path.join(absoluteRootSourceDirectory, '/**/*.d.ts');
 
 // Build
@@ -50,19 +51,20 @@ export const absoluteRootDirectory = RootPath.path;
 
 export const absoluteRootPackageJsonPath = path.join(absoluteRootDirectory, relativePackageJsonPath);
 export const absoluteRootTsconfigJsonPath = path.join(absoluteRootDirectory, relativeTsconfigJsonPath);
-// tslint:disable-next-line: max-line-length
 export const absoluteRootGeneratedTsconfigJsonPath = path.join(
     absoluteRootDirectory,
     relativeGeneratedTsconfigJsonPath
 );
-export const absoluteRootTslintJsonPath = path.join(absoluteRootDirectory, relativeTslintJsonPath);
+export const absoluteRootEslintRCPath = path.join(absoluteRootDirectory, relativeEslintRCPath);
+export const absoluteRootEslintPath = path.join(absoluteRootDirectory, relativeEslintPath);
 export const absoluteRootLicensePath = path.join(absoluteRootDirectory, relativeLicensePath);
 export const absoluteRootReadmeMarkdownPath = path.join(absoluteRootDirectory, relativeReadmeMarkdownPath);
 
 export const absoluteRootEssentialFilesGlobs = [
     absoluteRootPackageJsonPath,
     absoluteRootTsconfigJsonPath,
-    absoluteRootTslintJsonPath,
+    absoluteRootEslintRCPath,
+    absoluteRootEslintPath,
     absoluteRootLicensePath,
     absoluteRootReadmeMarkdownPath
 ];

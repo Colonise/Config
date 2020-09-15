@@ -1,10 +1,19 @@
-import RootPath from 'app-root-path';
 import * as fs from 'fs';
 import * as path from 'path';
-import { getFilePaths, log, warn, wasCalledFromCLI } from './helpers';
-import { absoluteCurrentDirectory, relativeDefaultDirectory, renamedPrefix } from './variables';
+import { default as rootPath } from 'app-root-path';
+import {
+    absoluteCurrentDirectory,
+    relativeDefaultDirectory,
+    renamedPrefix
+} from './variables';
+import {
+    getFilePaths,
+    log,
+    warn,
+    wasCalledFromCLI
+} from './helpers';
 
-function unrenameDistributeDefaultFiles() {
+function unrenameDistributeDefaultFiles(): void {
     const currentDefaultDirectory = path.join(absoluteCurrentDirectory, relativeDefaultDirectory);
 
     if (!fs.existsSync(currentDefaultDirectory)) {
@@ -26,7 +35,7 @@ function unrenameDistributeDefaultFiles() {
     }
 }
 
-function copyDefaultFilesToRoot() {
+function copyDefaultFilesToRoot(): void {
     const currentDefaultDirectory = path.join(absoluteCurrentDirectory, relativeDefaultDirectory);
 
     if (!fs.existsSync(currentDefaultDirectory)) {
@@ -40,9 +49,12 @@ function copyDefaultFilesToRoot() {
     for (const absoluteDefaultFilePath of absoluteDefaultFilePaths) {
         const relativeFilePath = absoluteDefaultFilePath.replace(currentDefaultDirectory, '');
 
-        const absoluteFilePath = path.join(RootPath.path, relativeFilePath);
+        const absoluteFilePath = path.join(rootPath.path, relativeFilePath);
 
-        if (!fs.existsSync(absoluteFilePath)) {
+        if (fs.existsSync(absoluteFilePath)) {
+            warn(`Failed to copy file '${relativeFilePath}' because it already exists. A manual update may be required.`);
+        }
+        else {
             const directoryPath = path.dirname(absoluteFilePath);
 
             fs.mkdirSync(directoryPath, { recursive: true });
@@ -51,15 +63,10 @@ function copyDefaultFilesToRoot() {
 
             fs.copyFileSync(absoluteDefaultFilePath, absoluteFilePath);
         }
-        else {
-            warn(
-                `Failed to copy file '${relativeFilePath}' because it already exists. A manual update may be required.`
-            );
-        }
     }
 }
 
-export function install() {
+export function install(): void {
     unrenameDistributeDefaultFiles();
     copyDefaultFilesToRoot();
 }
