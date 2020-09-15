@@ -1,13 +1,12 @@
 # Config
 
-[![Travis CI Build][travis-ci-badge]][travis-ci-url]
+[![Build][build-badge]][build-url]
 [![Code Climate Test Coverage][code-climate-coverage-badge]][code-climate-coverage-url]
 [![Code Climate Maintainability][code-climate-maintainability-badge]][code-climate-maintainability-url]
 [![License][license-badge]][license-url]
 [![npm version][npm-version-badge]][npm-version-url]
 [![npm bundle size \(minified\)][npm-minified-badge]][npm-minified-url]
 [![npm bundle size \(minified, zipped\)][npm-minified-minzipped-badge]][npm-minified-minzipped-url]
-[![Greenkeeper][greenkeeper-badge]][greenkeeper-url]
 
 > A shareable config for all Colonise packages.
 
@@ -39,8 +38,8 @@ Config is part of Colonise's Open Source Software, and is made with love by the 
 [colonise-logo]: /documentation/assets/colonise256.png
 [colonise-url]: https://colonise.org/
 
-[travis-ci-badge]: https://img.shields.io/travis/Colonise/Config.svg
-[travis-ci-url]: https://travis-ci.com/Colonise/Config
+[build-badge]: https://img.shields.io/github/workflow/status/colonise/config/Node.js%20CI
+[build-url]: https://github.com/Colonise/Config/actions?query=workflow%3A%22Node.js+CI%22
 
 [code-climate-coverage-badge]: https://img.shields.io/codeclimate/coverage/Colonise/Config.svg
 [code-climate-coverage-url]: https://codeclimate.com/github/Colonise/Config
@@ -59,6 +58,3 @@ Config is part of Colonise's Open Source Software, and is made with love by the 
 
 [npm-minified-minzipped-badge]: https://img.shields.io/bundlephobia/minzip/@colonise/config.svg
 [npm-minified-minzipped-url]: https://bundlephobia.com/result?p=@colonise/config
-
-[greenkeeper-badge]: https://badges.greenkeeper.io/Colonise/Config.svg
-[greenkeeper-url]: https://greenkeeper.io/

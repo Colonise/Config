@@ -1,13 +1,12 @@
 # CHANGEME
 
-[![Travis CI Build][travis-ci-badge]][travis-ci-url]
+[![Build][build-badge]][build-url]
 [![Code Climate Test Coverage][code-climate-coverage-badge]][code-climate-coverage-url]
 [![Code Climate Maintainability][code-climate-maintainability-badge]][code-climate-maintainability-url]
 [![License][license-badge]][license-url]
 [![npm version][npm-version-badge]][npm-version-url]
 [![npm bundle size \(minified\)][npm-minified-badge]][npm-minified-url]
 [![npm bundle size \(minified, zipped\)][npm-minified-minzipped-badge]][npm-minified-minzipped-url]
-[![Greenkeeper][greenkeeper-badge]][greenkeeper-url]
 
 > TODO
 
@@ -39,8 +38,8 @@ CHANGEME is part of Colonise's Open Source Software, and is made with love by th
 [colonise-logo]: /documentation/assets/colonise256.png
 [colonise-url]: https://colonise.org/
 
-[travis-ci-badge]: https://img.shields.io/travis/Colonise/CHANGEME.svg
-[travis-ci-url]: https://travis-ci.com/Colonise/CHANGEME
+[build-badge]: https://img.shields.io/github/workflow/status/colonise/CHANGEME/Node.js%20CI
+[build-url]: https://github.com/Colonise/CHANGEME/actions?query=workflow%3A%22Node.js+CI%22
 
 [code-climate-coverage-badge]: https://img.shields.io/codeclimate/coverage/Colonise/CHANGEME.svg
 [code-climate-coverage-url]: https://codeclimate.com/github/Colonise/CHANGEME
@@ -59,6 +58,3 @@ CHANGEME is part of Colonise's Open Source Software, and is made with love by th
 
 [npm-minified-minzipped-badge]: https://img.shields.io/bundlephobia/minzip/@colonise/changeme.svg
 [npm-minified-minzipped-url]: https://bundlephobia.com/result?p=@colonise/changeme
-
-[greenkeeper-badge]: https://badges.greenkeeper.io/Colonise/CHANGEME.svg
-[greenkeeper-url]: https://greenkeeper.io/
