@@ -1,0 +1,18 @@
+# nyc test coverage
+.nyc_output/
+
+# Dependency directories
+node_modules/
+
+# Configuration
+.vscode/
+
+# Coverage directory used by tools like istanbul
+coverage/
+
+default/
+
+# Build
+build/
+distribute/
+documentation/

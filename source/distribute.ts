@@ -2,7 +2,6 @@ import * as fs from 'fs';
 import * as path from 'path';
 import { buildTypeScriptDistribute } from './build';
 import { cleanDistributeDirectory } from './clean';
-import { copyFiles, getFilePaths, log, wasCalledFromCLI } from './helpers';
 import {
     absoluteRootDefaultDirectory,
     absoluteRootDefaultFilesGlob,
@@ -14,8 +13,18 @@ import {
     absoluteRootEssentialFilesGlobs,
     renamedPrefix
 } from './variables';
+import {
+    copyFiles,
+    getFilePaths,
+    log,
+    wasCalledFromCLI
+} from './helpers';
 
-function copyFilesToDistributeDirectory() {
+interface PackageJson {
+    scripts?: { [key: string]: string; };
+}
+
+function copyFilesToDistributeDirectory(): void {
     copyFiles(absoluteRootDefaultFilesGlob, absoluteRootDefaultDirectory, absoluteRootDistributeDefaultDirectory);
     copyFiles(absoluteRootEssentialFilesGlobs, absoluteRootDirectory, absoluteRootDistributeEssentialDirectory);
 }
@@ -23,7 +32,7 @@ function copyFilesToDistributeDirectory() {
 /**
  * Rename all default files because NPM ignores some files by default and cannot be overrided.
  */
-function renameDistributeDefaultFiles() {
+function renameDistributeDefaultFiles(): void {
     const distributeDefaultFilePaths = getFilePaths(absoluteRootDistributeDefaultFilesGlob);
 
     for (const defaultFilePath of distributeDefaultFilePaths) {
@@ -37,27 +46,29 @@ function renameDistributeDefaultFiles() {
     }
 }
 
-function packageJsonAddInstallScriptToDistribute() {
+function packageJsonAddInstallScriptToDistribute(): void {
     // Only add install script to Config package
     if (process.env.COLONISE_PACKAGE_NAME === 'Config') {
         const packageJsonString = fs.readFileSync(absoluteRootDistributePackageJsonPath, 'utf8');
-        const packageJsonData = JSON.parse(packageJsonString);
+        const packageJsonData = <PackageJson>JSON.parse(packageJsonString);
 
+        packageJsonData.scripts = packageJsonData.scripts ?? {};
         packageJsonData.scripts.postinstall = 'colonise-config install';
 
+        // eslint-disable-next-line @typescript-eslint/no-magic-numbers
         const modifiedPackageJsonString = JSON.stringify(packageJsonData, undefined, 4);
 
         fs.writeFileSync(absoluteRootDistributePackageJsonPath, modifiedPackageJsonString);
     }
 }
 
-export function distributeFiles() {
+export function distributeFiles(): void {
     copyFilesToDistributeDirectory();
     renameDistributeDefaultFiles();
     packageJsonAddInstallScriptToDistribute();
 }
 
-export function distribute() {
+export function distribute(): void {
     cleanDistributeDirectory();
     buildTypeScriptDistribute();
     distributeFiles();

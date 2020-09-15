@@ -4,13 +4,18 @@ import { build } from './build';
 import { clean } from './clean';
 import { coverage } from './coverage';
 import { distribute } from './distribute';
-import { wasCalledFromCLI } from './helpers';
 import { install } from './install';
 import { lint } from './lint';
+// eslint-disable-next-line @typescript-eslint/no-shadow
 import { test } from './test';
+import { wasCalledFromCLI } from './helpers';
 
 if (wasCalledFromCLI(module)) {
-    const command = process.argv[2];
+    const [
+        ,
+        ,
+        command
+    ] = process.argv;
 
     switch (command) {
         case 'clean':
