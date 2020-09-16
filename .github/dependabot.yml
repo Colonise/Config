@@ -1,0 +1,22 @@
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "daily"
+    target-branch: "master"
+    reviewers:
+      - "pathurs"
+    assignees:
+      - "pathurs"
+    labels:
+      - "dependencies"
+    commit-message:
+      prefix: "npm prod"
+      prefix-development: "npm dev"
+      include: "scope"
+    open-pull-requests-limit: 10
+    pull-request-branch-name:
+      separator: "-"
+    rebase-strategy: "auto"
+    versioning-strategy: "increase"
