@@ -5,6 +5,11 @@ updates:
     schedule:
       interval: "daily"
     target-branch: "master"
+    rebase-strategy: "auto"
+    open-pull-requests-limit: 10
+    pull-request-branch-name:
+      separator: "-"
+    versioning-strategy: "increase"
     reviewers:
       - "pathurs"
     assignees:
@@ -12,11 +17,24 @@ updates:
     labels:
       - "dependencies"
     commit-message:
-      prefix: "npm prod"
-      prefix-development: "npm dev"
+      prefix: "chore"
       include: "scope"
+
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "daily"
+    target-branch: "master"
+    rebase-strategy: "auto"
     open-pull-requests-limit: 10
     pull-request-branch-name:
       separator: "-"
-    rebase-strategy: "auto"
-    versioning-strategy: "increase"
+    reviewers:
+      - "pathurs"
+    assignees:
+      - "pathurs"
+    labels:
+      - "github-actions"
+    commit-message:
+      prefix: "chore"
+      include: "scope"

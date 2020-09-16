@@ -17,8 +17,7 @@ updates:
     labels:
       - "dependencies"
     commit-message:
-      prefix: "npm prod"
-      prefix-development: "npm dev"
+      prefix: "chore"
       include: "scope"
 
   - package-ecosystem: "github-actions"
@@ -37,6 +36,5 @@ updates:
     labels:
       - "github-actions"
     commit-message:
-      prefix: "npm prod"
-      prefix-development: "npm dev"
+      prefix: "chore"
       include: "scope"
