@@ -19,7 +19,6 @@ updates:
     commit-message:
       prefix: "deps"
       prefix-development: "chore"
-      include: "scope"
 
   - package-ecosystem: "github-actions"
     directory: "/"
@@ -39,4 +38,3 @@ updates:
     commit-message:
       prefix: "deps"
       prefix-development: "chore"
-      include: "scope"
