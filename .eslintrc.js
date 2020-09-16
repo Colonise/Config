@@ -1322,14 +1322,9 @@ const eslintRules = {
             allowSeparatedGroups: false
         }
     ],
+    // Do not sort keys
     'sort-keys': [
-        'error',
-        'asc',
-        {
-            caseSensitive: true,
-            minKeys: 2,
-            natural: true,
-        }
+        'off'
     ],
     'sort-vars': [
         'error',
