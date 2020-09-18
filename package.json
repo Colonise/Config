@@ -59,7 +59,7 @@
         "globby": "^11.0.1",
         "mocha": "^8.1.1",
         "nyc": "^15.1.0",
-        "semantic-release": "^17.1.1",
+        "semantic-release": "^17.1.2",
         "ts-node": "^9.0.0",
         "tslib": "^2.0.1",
         "typescript": "^4.0.2"
