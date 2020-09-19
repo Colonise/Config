@@ -13,8 +13,7 @@ if (!packageName) {
 const packageNameLower = packageName.toLowerCase();
 
 const parserOpts = {
-    // eslint-disable-next-line no-useless-escape
-    headerPattern: /^(\w*)(?:\(([\w\$\.\-\* ]*)\))?\: (.*)$/u,
+    headerPattern: /^(\w*)(?:\(([\w$.\-* ]*)\))?: (.*)$/u,
     headerCorrespondence: [
         'type',
         'scope',
