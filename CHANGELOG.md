@@ -1,5 +1,17 @@
 Changelog
 
+# [3.7.0](https://github.com/Colonise/Config/compare/v3.6.3...v3.7.0) (2020-09-20)
+
+
+### Bug Fixes
+
+* add issue templates to default ([4eec507](https://github.com/Colonise/Config/commit/4eec507d7b75aaf7be13ff010434967b92a592a7))
+
+
+### Features
+
+* add issue templates ([505eee1](https://github.com/Colonise/Config/commit/505eee18d8008c95914be3b9dd66e90cef5181ba))
+
 ## [3.6.3](https://github.com/Colonise/Config/compare/v3.6.2...v3.6.3) (2020-09-20)
 
 
