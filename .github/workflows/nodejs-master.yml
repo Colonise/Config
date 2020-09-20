@@ -140,5 +140,8 @@ jobs:
       - name: Run Build
         run: npm run distribute
 
+      - nam: Zip Build
+        run: zip -r build.zip ./distribute/
+
       - name: Run Semantic Release
         run: npx semantic-release
