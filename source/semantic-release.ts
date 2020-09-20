@@ -115,13 +115,9 @@ const git = [
 
 <%= nextRelease.notes %>`,
         assets: [
-            'README.md',
             'package.json',
             'package-lock.json',
-            'CHANGELOG.md',
-            'LICENSE',
-            './distribute/**/*.js',
-            './distribute/**/*.d.ts'
+            'CHANGELOG.md'
         ]
     }
 ];
