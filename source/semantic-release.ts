@@ -129,7 +129,7 @@ const github = [
             {
                 label: `Colonise ${packageName} <%= nextRelease.gitTag %> NPM package`,
                 name: `colonise-${packageNameLower}-<%= nextRelease.gitTag %>.tgz`,
-                path: `colonise-${packageNameLower}-<%= nextRelease.version %>.tgz`
+                path: `colonise-${packageNameLower}-*.tgz`
             },
             {
                 label: `Colonise ${packageName} <%= nextRelease.gitTag %> distribution`,
