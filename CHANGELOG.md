@@ -1,5 +1,20 @@
 Changelog
 
+# [3.6.0](https://github.com/Colonise/Config/compare/v3.5.0...v3.6.0) (2020-09-20)
+
+
+### Bug Fixes
+
+* **github-actions:** build on multiple node versions ([d8fee11](https://github.com/Colonise/Config/commit/d8fee1158413fba96e958bf25339d7d290235d14))
+* **semantic-release:** only commit package.json and changelog ([9bd6032](https://github.com/Colonise/Config/commit/9bd603298a3c715bd2dd5077806bfbf32e0fb2e1))
+* remove accidental inclusion of /distribute files ([2e9b024](https://github.com/Colonise/Config/commit/2e9b024b3298fdee26c96c0538d54b40d0d6fe32))
+* **github-action:** typo ([3451b1d](https://github.com/Colonise/Config/commit/3451b1db301c1465742917c3efe6b2a7bc6c7912))
+
+
+### Features
+
+* **github:** add distribution zip file ([803aefa](https://github.com/Colonise/Config/commit/803aefabcb203e733231753eadff1a64155323cb))
+
 # [3.5.0](https://github.com/Colonise/Config/compare/v3.4.3...v3.5.0) (2020-09-20)
 
 
