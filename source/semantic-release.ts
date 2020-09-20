@@ -127,8 +127,14 @@ const github = [
     {
         assets: [
             {
-                label: 'NPM package (.tgz)',
-                path: 'colonise-config-*.tgz'
+                label: `Colonise ${packageName} <%= nextRelease.gitTag %> NPM package`,
+                name: `colonise-${packageNameLower}-<%= nextRelease.gitTag %>.tgz`,
+                path: `colonise-${packageNameLower}-<%= nextRelease.gitTag %>.tgz`
+            },
+            {
+                label: `Colonise ${packageName} <%= nextRelease.gitTag %> distribution`,
+                name: `colonise-${packageNameLower}-<%= nextRelease.gitTag %>.zip`,
+                path: './build.zip'
             }
         ],
         successComment: `This <%= issue.pull_request ? 'pull request has been included in' : 'issue has been resolved in' %> **[release <%= nextRelease.gitTag %>](https://github.com/Colonise/${packageName}/releases/tag/<%= nextRelease.gitTag %>)**!
