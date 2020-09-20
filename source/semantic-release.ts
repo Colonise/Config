@@ -62,7 +62,7 @@ const writerOpts = {
     reverse: false,
     includeDetails: false,
     ignoreReverted: true,
-    doFlush: true,
+    doFlush: true
 };
 
 const commitAnalyzer = [
