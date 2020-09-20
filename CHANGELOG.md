@@ -1,5 +1,12 @@
 Changelog
 
+## [3.6.3](https://github.com/Colonise/Config/compare/v3.6.2...v3.6.3) (2020-09-20)
+
+
+### Bug Fixes
+
+* **semantic-release:** github npm package asset ([4dee177](https://github.com/Colonise/Config/commit/4dee177cc32ad1037523db4006f8f99b899a2891))
+
 ## [3.6.2](https://github.com/Colonise/Config/compare/v3.6.1...v3.6.2) (2020-09-20)
 
 ## [3.6.1](https://github.com/Colonise/Config/compare/v3.6.0...v3.6.1) (2020-09-20)
