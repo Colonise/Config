@@ -17,8 +17,8 @@ updates:
     labels:
       - "dependencies"
     commit-message:
-      prefix: "chore"
-      include: "scope"
+      prefix: "deps"
+      prefix-development: "chore"
 
   - package-ecosystem: "github-actions"
     directory: "/"
@@ -36,5 +36,5 @@ updates:
     labels:
       - "github-actions"
     commit-message:
-      prefix: "chore"
-      include: "scope"
+      prefix: "deps"
+      prefix-development: "chore"
