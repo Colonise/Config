@@ -2201,7 +2201,7 @@ const typescriptEslintRules = {
             overrides: {
                 arrow: {
                     before: true,
-                    fter: true
+                    after: true
                 }
             }
         }
