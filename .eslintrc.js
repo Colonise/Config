@@ -253,7 +253,11 @@ const eslintRules = {
             min: 3,
             max: 64,
             properties: 'always',
-            exceptions: []
+            exceptions: [
+                'i',
+                'x',
+                'y'
+            ]
         }
     ],
     // Replaced by @typescript-eslint/naming-convention
@@ -840,12 +844,7 @@ const eslintRules = {
         'error'
     ],
     'no-restricted-syntax': [
-        'error',
-        // Disallow use of 'null'
-        {
-            selector: `Literal[raw='null']`,
-            message: `Use 'undefined' instead of 'null'`
-        }
+        'error'
     ],
     'no-return-assign': [
         'error',
@@ -920,8 +919,9 @@ const eslintRules = {
     'no-undef': [
         'off'
     ],
+    // We prefer initialisation
     'no-undef-init': [
-        'error'
+        'off'
     ],
     // We prefer undefined
     'no-undefined': [
@@ -1098,100 +1098,100 @@ const eslintRules = {
         'error',
         'never'
     ],
-    // TODO: Look into adding more
+    // TODO: Look into using this and being very specific
     'padding-line-between-statements': [
-        'error',
-        {
-            blankLine: 'always',
-            prev: '*',
-            next: 'class'
-        },
-        {
-            blankLine: 'always',
-            prev: '*',
-            next: 'function'
-        },
-        {
-            blankLine: 'always',
-            prev: '*',
-            next: 'if'
-        },
-        {
-            blankLine: 'always',
-            prev: '*',
-            next: 'for'
-        },
-        {
-            blankLine: 'always',
-            prev: '*',
-            next: 'while'
-        },
-        {
-            blankLine: 'always',
-            prev: '*',
-            next: 'do'
-        },
-        {
-            blankLine: 'always',
-            prev: '*',
-            next: 'switch'
-        },
-        {
-            blankLine: 'always',
-            prev: '*',
-            next: 'block'
-        },
-        {
-            blankLine: 'always',
-            prev: 'block',
-            next: '*'
-        },
+        'off',
+        // {
+        //     blankLine: 'always',
+        //     prev: '*',
+        //     next: 'class'
+        // },
+        // {
+        //     blankLine: 'always',
+        //     prev: '*',
+        //     next: 'function'
+        // },
+        // {
+        //     blankLine: 'always',
+        //     prev: '*',
+        //     next: 'if'
+        // },
+        // {
+        //     blankLine: 'always',
+        //     prev: '*',
+        //     next: 'for'
+        // },
+        // {
+        //     blankLine: 'always',
+        //     prev: '*',
+        //     next: 'while'
+        // },
+        // {
+        //     blankLine: 'always',
+        //     prev: '*',
+        //     next: 'do'
+        // },
+        // {
+        //     blankLine: 'always',
+        //     prev: '*',
+        //     next: 'switch'
+        // },
+        // {
+        //     blankLine: 'always',
+        //     prev: '*',
+        //     next: 'block'
+        // },
+        // {
+        //     blankLine: 'always',
+        //     prev: 'block',
+        //     next: '*'
+        // },
         // TODO: Causes problems with function overloads
         // {
         //     blankLine: 'always',
         //     prev: '*',
         //     next: 'block-like'
         // },
-        {
-            blankLine: 'always',
-            prev: 'block-like',
-            next: '*'
-        },
-        {
-            blankLine: 'always',
-            prev: '*',
-            next: 'case'
-        },
-        {
-            blankLine: 'always',
-            prev: 'break',
-            next: '*'
-        },
-        {
-            blankLine: 'always',
-            prev: 'continue',
-            next: '*'
-        },
-        {
-            blankLine: 'always',
-            prev: '*',
-            next: 'default'
-        },
-        {
-            blankLine: 'always',
-            prev: '*',
-            next: 'throw'
-        },
-        {
-            blankLine: 'always',
-            prev: '*',
-            next: 'return'
-        },
-        {
-            blankLine: 'always',
-            prev: 'return',
-            next: '*'
-        }
+        // {
+        //     blankLine: 'always',
+        //     prev: 'block-like',
+        //     next: '*'
+        // },
+        // {
+        //     blankLine: 'always',
+        //     prev: '*',
+        //     next: 'case'
+        // },
+        // {
+        //     blankLine: 'always',
+        //     prev: 'break',
+        //     next: '*'
+        // },
+        // {
+        //     blankLine: 'always',
+        //     prev: 'continue',
+        //     next: '*'
+        // },
+        // {
+        //     blankLine: 'always',
+        //     prev: '*',
+        //     next: 'default'
+        // },
+        // {
+        //     blankLine: 'always',
+        //     prev: '*',
+        //     next: 'throw'
+        // },
+        // {
+        //     blankLine: 'always',
+        //     prev: '*',
+        //     next: 'return'
+        // },
+        // {
+        //     blankLine: 'always',
+        //     prev: 'return',
+        //     next: '*'
+        // }
     ],
     'prefer-arrow-callback': [
         'error',
@@ -1460,7 +1460,9 @@ const typescriptEslintRules = {
         'error',
         {
             extendDefaults: true,
-            types: {}
+            types: {
+                'null': `Use 'undefined' instead of 'null'`
+            }
         }
     ],
     '@typescript-eslint/brace-style': [
@@ -1482,7 +1484,7 @@ const typescriptEslintRules = {
         'error',
         {
             assertionStyle: 'angle-bracket',
-            objectLiteralTypeAssertions: 'never'
+            objectLiteralTypeAssertions: 'allow-as-parameter'
         }
     ],
     '@typescript-eslint/consistent-type-definitions': [
@@ -1825,14 +1827,14 @@ const typescriptEslintRules = {
         'error',
         'all',
         {
-            conditionalAssign: false,
-            enforceForArrowConditionals: false,
-            enforceForFunctionPrototypeMethods: false,
-            enforceForNewInMemberExpressions: false,
-            enforceForSequenceExpressions: false,
+            conditionalAssign: true,
+            enforceForArrowConditionals: true,
+            enforceForFunctionPrototypeMethods: true,
+            enforceForNewInMemberExpressions: true,
+            enforceForSequenceExpressions: true,
             ignoreJSX: 'none',
-            nestedBinaryExpressions: true,
-            returnAssign: false
+            nestedBinaryExpressions: false,
+            returnAssign: true
         }
     ],
     '@typescript-eslint/no-extra-semi': [
@@ -1866,12 +1868,9 @@ const typescriptEslintRules = {
     '@typescript-eslint/no-implied-eval': [
         'error'
     ],
+    // Allow inferable types for readability
     '@typescript-eslint/no-inferrable-types': [
-        'error',
-        {
-            ignoreParameters: false,
-            ignoreProperties: false
-        }
+        'off'
     ],
     '@typescript-eslint/no-invalid-this': [
         'error',
@@ -1973,13 +1972,13 @@ const typescriptEslintRules = {
     '@typescript-eslint/no-type-alias': [
         'error',
         {
-            allowAliases: 'never',
-            allowCallbacks: 'never',
-            allowConditionalTypes: 'never',
-            allowConstructors: 'never',
-            allowLiterals: 'never',
-            allowMappedTypes: 'never',
-            allowTupleTypes: 'never'
+            allowAliases: 'always',
+            allowCallbacks: 'always',
+            allowConditionalTypes: 'always',
+            allowConstructors: 'always',
+            allowLiterals: 'in-unions-and-intersections',
+            allowMappedTypes: 'always',
+            allowTupleTypes: 'always'
         }
     ],
     '@typescript-eslint/no-unnecessary-boolean-literal-compare': [
@@ -2198,7 +2197,13 @@ const typescriptEslintRules = {
         'error',
         {
             after: true,
-            before: false
+            before: false,
+            overrides: {
+                arrow: {
+                    before: true,
+                    fter: true
+                }
+            }
         }
     ],
     '@typescript-eslint/typedef': [
@@ -2228,11 +2233,7 @@ const eslintPluginNodeRules = {
         }
     ],
     'node/file-extension-in-import': [
-        'error',
-        'never',
-        {
-            '.json': 'always'
-        }
+        'off'
     ],
     // TODO: Look into using this rule
     'node/global-require': [
