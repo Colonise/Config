@@ -1,5 +1,12 @@
 Changelog
 
+## [3.7.4](https://github.com/Colonise/Config/compare/v3.7.3...v3.7.4) (2020-09-21)
+
+
+### Bug Fixes
+
+* **eslint:** typo in @typescript-eslint/type-annotation-spacing ([040b4d6](https://github.com/Colonise/Config/commit/040b4d6fe0d93999f89554cc3458ad44c0200277))
+
 ## [3.7.3](https://github.com/Colonise/Config/compare/v3.7.2...v3.7.3) (2020-09-21)
 
 
