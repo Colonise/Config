@@ -1,5 +1,7 @@
 Changelog
 
+## [3.7.1](https://github.com/Colonise/Config/compare/v3.7.0...v3.7.1) (2020-09-21)
+
 # [3.7.0](https://github.com/Colonise/Config/compare/v3.6.3...v3.7.0) (2020-09-20)
 
 
