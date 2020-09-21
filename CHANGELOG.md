@@ -1,5 +1,12 @@
 Changelog
 
+## [3.7.3](https://github.com/Colonise/Config/compare/v3.7.2...v3.7.3) (2020-09-21)
+
+
+### Bug Fixes
+
+* **eslint:** improved rules ([19d183c](https://github.com/Colonise/Config/commit/19d183c454f7f5b5355540a33e8aa629977bbbe6))
+
 ## [3.7.2](https://github.com/Colonise/Config/compare/v3.7.1...v3.7.2) (2020-09-21)
 
 
