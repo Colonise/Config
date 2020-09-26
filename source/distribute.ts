@@ -10,8 +10,9 @@ import {
     absoluteDistributeDefaultFilesGlob,
     absoluteDistributeEssentialDirectory,
     absoluteDistributePackageJsonPath,
-    absoluteRootCopyToDistributeFilePaths,
     absoluteRootDirectory,
+    absoluteRootEssentialColoniseConfigFilePaths,
+    absoluteRootEssentialFilePaths,
     absoluteRootForceOverwriteDefaultFilePaths,
     renamedPrefix
 } from './variables';
@@ -33,9 +34,10 @@ function copyFilesToDistributeDirectory(): void {
     if (isColoniseConfig()) {
         copyFiles(absoluteDefaultFilesGlob, absoluteDefaultDirectory, absoluteDistributeDefaultDirectory);
         copyFiles(absoluteDefaultForceOverwriteFilePaths, absoluteDefaultDirectory, absoluteDistributeDefaultDirectory);
+        copyFiles(absoluteRootEssentialColoniseConfigFilePaths, absoluteRootDirectory, absoluteDistributeEssentialDirectory);
     }
 
-    copyFiles(absoluteRootCopyToDistributeFilePaths, absoluteRootDirectory, absoluteDistributeEssentialDirectory);
+    copyFiles(absoluteRootEssentialFilePaths, absoluteRootDirectory, absoluteDistributeEssentialDirectory);
 }
 
 /**
