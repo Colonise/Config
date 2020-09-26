@@ -1,8 +1,8 @@
 import del from 'del';
 import {
-    absoluteRootBuildDirectory,
-    absoluteRootCoverageDirectory,
-    absoluteRootDistributeDirectory
+    absoluteBuildDirectory,
+    absoluteCoverageDirectory,
+    absoluteDistributeDirectory
 } from './variables';
 import {
     log,
@@ -18,15 +18,15 @@ function cleanDirectory(directoryPath: string): string[] {
 }
 
 export function cleanBuildDirectory(): string[] {
-    return cleanDirectory(absoluteRootBuildDirectory);
+    return cleanDirectory(absoluteBuildDirectory);
 }
 
 export function cleanDistributeDirectory(): string[] {
-    return cleanDirectory(absoluteRootDistributeDirectory);
+    return cleanDirectory(absoluteDistributeDirectory);
 }
 
 export function cleanCoverageDirectory(): string[] {
-    return cleanDirectory(absoluteRootCoverageDirectory);
+    return cleanDirectory(absoluteCoverageDirectory);
 }
 
 export function clean(): string[] {

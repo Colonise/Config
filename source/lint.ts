@@ -1,7 +1,7 @@
 import { CLIEngine } from 'eslint';
 import {
     absoluteRootEslintRCPath,
-    absoluteRootSourceTypeScriptFilesGlob
+    absoluteSourceTypeScriptFilesGlob
 } from './variables';
 import {
     executeCommand,
@@ -51,9 +51,8 @@ export function lintTypeScript(): void {
     reportMissingLintRules(eslintConfig);
 
     executeCommand('eslint', [
-        // '--fix',
         '--cache',
-        absoluteRootSourceTypeScriptFilesGlob
+        absoluteSourceTypeScriptFilesGlob
     ]);
 }
 

@@ -2,8 +2,9 @@ import * as fs from 'fs';
 import * as path from 'path';
 import { default as rootPath } from 'app-root-path';
 import {
-    absoluteCurrentDirectory,
-    relativeDefaultDirectory,
+    absoluteCurrentDefaultDirectory,
+    absoluteCurrentDefaultFilesGlob,
+    absoluteRootForceOverwriteFilePaths,
     renamedPrefix
 } from './variables';
 import {
@@ -14,15 +15,11 @@ import {
 } from './helpers';
 
 function unrenameDistributeDefaultFiles(): void {
-    const currentDefaultDirectory = path.join(absoluteCurrentDirectory, relativeDefaultDirectory);
-
-    if (!fs.existsSync(currentDefaultDirectory)) {
-        throw new Error(`Could not find default configuration path '${currentDefaultDirectory}'.`);
+    if (!fs.existsSync(absoluteCurrentDefaultDirectory)) {
+        throw new Error(`Could not find default configuration path '${absoluteCurrentDefaultDirectory}'.`);
     }
 
-    const currentDefaultFilesGlob = path.join(currentDefaultDirectory, '/**/*');
-
-    const defaultFilePaths = getFilePaths(currentDefaultFilesGlob);
+    const defaultFilePaths = getFilePaths(absoluteCurrentDefaultFilesGlob);
 
     for (const defaultFilePath of defaultFilePaths) {
         const parsedPath = path.parse(defaultFilePath);
@@ -36,23 +33,26 @@ function unrenameDistributeDefaultFiles(): void {
 }
 
 function copyDefaultFilesToRoot(): void {
-    const currentDefaultDirectory = path.join(absoluteCurrentDirectory, relativeDefaultDirectory);
-
-    if (!fs.existsSync(currentDefaultDirectory)) {
-        throw new Error(`Could not find default configuration path '${currentDefaultDirectory}'.`);
+    if (!fs.existsSync(absoluteCurrentDefaultDirectory)) {
+        throw new Error(`Could not find default configuration path '${absoluteCurrentDefaultDirectory}'.`);
     }
 
-    const currentDefaultFilesGlob = path.join(currentDefaultDirectory, '/**/*');
-
-    const absoluteDefaultFilePaths = getFilePaths(currentDefaultFilesGlob);
+    const absoluteDefaultFilePaths = getFilePaths(absoluteCurrentDefaultFilesGlob);
 
     for (const absoluteDefaultFilePath of absoluteDefaultFilePaths) {
-        const relativeFilePath = absoluteDefaultFilePath.replace(currentDefaultDirectory, '');
+        const relativeFilePath = absoluteDefaultFilePath.replace(absoluteCurrentDefaultDirectory, '');
 
         const absoluteFilePath = path.join(rootPath.path, relativeFilePath);
 
         if (fs.existsSync(absoluteFilePath)) {
-            warn(`Failed to copy file '${relativeFilePath}' because it already exists. A manual update may be required.`);
+            if (absoluteRootForceOverwriteFilePaths.includes(absoluteFilePath)) {
+                log(`Copying and overwriting file '${relativeFilePath}' to '${absoluteFilePath}'.`);
+
+                fs.copyFileSync(absoluteDefaultFilePath, absoluteFilePath);
+            }
+            else {
+                warn(`Failed to copy file '${relativeFilePath}' because it already exists. A manual update may be required.`);
+            }
         }
         else {
             const directoryPath = path.dirname(absoluteFilePath);
@@ -61,7 +61,7 @@ function copyDefaultFilesToRoot(): void {
 
             log(`Copying file '${relativeFilePath}' to '${absoluteFilePath}'.`);
 
-            fs.copyFileSync(absoluteDefaultFilePath, absoluteFilePath);
+            fs.copyFileSync(absoluteDefaultFilePath, absoluteFilePath, fs.constants.COPYFILE_EXCL);
         }
     }
 }
