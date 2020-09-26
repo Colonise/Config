@@ -22,6 +22,10 @@ export function wasCalledFromCLI(otherModule: NodeModule): boolean {
     return require.main === otherModule;
 }
 
+export function isColoniseConfig(): boolean {
+    return process.env.COLONISE_PACKAGE_NAME === 'Config';
+}
+
 export function getFilePaths(pattern: string): string[];
 export function getFilePaths(patterns: string[]): string[];
 export function getFilePaths(patternOrPatterns: string | string[]): string[] {
