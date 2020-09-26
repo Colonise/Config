@@ -1,5 +1,12 @@
 Changelog
 
+## [3.9.1](https://github.com/Colonise/Config/compare/v3.9.0...v3.9.1) (2020-09-26)
+
+
+### Bug Fixes
+
+* properly copy default files when distributing ([4fda8f5](https://github.com/Colonise/Config/commit/4fda8f535f0320dd072d63b556274cbdfd18b7a5))
+
 # [3.9.0](https://github.com/Colonise/Config/compare/v3.8.0...v3.9.0) (2020-09-26)
 
 
