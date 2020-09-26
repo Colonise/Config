@@ -1,5 +1,17 @@
 Changelog
 
+# [3.10.0](https://github.com/Colonise/Config/compare/v3.9.1...v3.10.0) (2020-09-26)
+
+
+### Bug Fixes
+
+* accidentally copy wrong files on distribute ([dd8e059](https://github.com/Colonise/Config/commit/dd8e0590c73cee7423533b7ee7c9cbc70bc07063))
+
+
+### Features
+
+* include NYC and ignore files ([fa6a592](https://github.com/Colonise/Config/commit/fa6a59215bcc26870f75a5759afdabfdd30481d0))
+
 ## [3.9.1](https://github.com/Colonise/Config/compare/v3.9.0...v3.9.1) (2020-09-26)
 
 
