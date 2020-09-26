@@ -4,7 +4,7 @@ import { default as rootPath } from 'app-root-path';
 import {
     absoluteCurrentDefaultDirectory,
     absoluteCurrentDefaultFilesGlob,
-    absoluteRootForceOverwriteFilePaths,
+    absoluteDefaultForceOverwriteFilePaths,
     renamedPrefix
 } from './variables';
 import {
@@ -45,7 +45,7 @@ function copyDefaultFilesToRoot(): void {
         const absoluteFilePath = path.join(rootPath.path, relativeFilePath);
 
         if (fs.existsSync(absoluteFilePath)) {
-            if (absoluteRootForceOverwriteFilePaths.includes(absoluteFilePath)) {
+            if (absoluteDefaultForceOverwriteFilePaths.includes(absoluteFilePath)) {
                 log(`Copying and overwriting file '${relativeFilePath}' to '${absoluteFilePath}'.`);
 
                 fs.copyFileSync(absoluteDefaultFilePath, absoluteFilePath);

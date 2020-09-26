@@ -11,8 +11,8 @@ import {
     absoluteDistributeEssentialDirectory,
     absoluteDistributePackageJsonPath,
     absoluteRootDirectory,
-    absoluteRootEssentialFilePaths,
-    absoluteRootForceOverwriteFilePaths,
+    absoluteRootCopyToDistributeFilePaths,
+    absoluteRootForceOverwriteDefaultFilePaths,
     renamedPrefix
 } from './variables';
 import {
@@ -23,13 +23,13 @@ import {
 } from './helpers';
 
 function copyOverwritableFilesToDefaultDirectory(): void {
-    copyFiles(absoluteRootForceOverwriteFilePaths, absoluteRootDirectory, absoluteDefaultDirectory);
+    copyFiles(absoluteRootForceOverwriteDefaultFilePaths, absoluteRootDirectory, absoluteDefaultDirectory);
 }
 
 function copyFilesToDistributeDirectory(): void {
     copyFiles(absoluteDefaultFilesGlob, absoluteDefaultDirectory, absoluteDistributeDefaultDirectory);
     copyFiles(absoluteDefaultForceOverwriteFilePaths, absoluteDefaultDirectory, absoluteDistributeDefaultDirectory);
-    copyFiles(absoluteRootEssentialFilePaths, absoluteRootDirectory, absoluteDistributeEssentialDirectory);
+    copyFiles(absoluteRootCopyToDistributeFilePaths, absoluteRootDirectory, absoluteDistributeEssentialDirectory);
 }
 
 /**
