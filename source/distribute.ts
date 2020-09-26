@@ -28,7 +28,7 @@ function copyOverwritableFilesToDefaultDirectory(): void {
 
 function copyFilesToDistributeDirectory(): void {
     copyFiles(absoluteDefaultFilesGlob, absoluteDefaultDirectory, absoluteDistributeDefaultDirectory);
-    copyFiles(absoluteDefaultForceOverwriteFilePaths, absoluteRootDirectory, absoluteDistributeDefaultDirectory);
+    copyFiles(absoluteDefaultForceOverwriteFilePaths, absoluteDefaultDirectory, absoluteDistributeDefaultDirectory);
     copyFiles(absoluteRootEssentialFilePaths, absoluteRootDirectory, absoluteDistributeEssentialDirectory);
 }
 
