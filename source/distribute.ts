@@ -3,14 +3,16 @@ import * as path from 'path';
 import { buildTypeScriptDistribute } from './build';
 import { cleanDistributeDirectory } from './clean';
 import {
-    absoluteRootDefaultDirectory,
-    absoluteRootDefaultFilesGlob,
+    absoluteDefaultDirectory,
+    absoluteDefaultFilesGlob,
+    absoluteDefaultForceOverwriteFilePaths,
+    absoluteDistributeDefaultDirectory,
+    absoluteDistributeDefaultFilesGlob,
+    absoluteDistributeEssentialDirectory,
+    absoluteDistributePackageJsonPath,
     absoluteRootDirectory,
-    absoluteRootDistributeDefaultDirectory,
-    absoluteRootDistributeDefaultFilesGlob,
-    absoluteRootDistributeEssentialDirectory,
-    absoluteRootDistributePackageJsonPath,
-    absoluteRootEssentialFilesGlobs,
+    absoluteRootEssentialFilePaths,
+    absoluteRootForceOverwriteFilePaths,
     renamedPrefix
 } from './variables';
 import {
@@ -20,20 +22,21 @@ import {
     wasCalledFromCLI
 } from './helpers';
 
-interface PackageJson {
-    scripts?: { [key: string]: string; };
+function copyOverwritableFilesToDefaultDirectory(): void {
+    copyFiles(absoluteRootForceOverwriteFilePaths, absoluteRootDirectory, absoluteDefaultDirectory);
 }
 
 function copyFilesToDistributeDirectory(): void {
-    copyFiles(absoluteRootDefaultFilesGlob, absoluteRootDefaultDirectory, absoluteRootDistributeDefaultDirectory);
-    copyFiles(absoluteRootEssentialFilesGlobs, absoluteRootDirectory, absoluteRootDistributeEssentialDirectory);
+    copyFiles(absoluteDefaultFilesGlob, absoluteDefaultDirectory, absoluteDistributeDefaultDirectory);
+    copyFiles(absoluteDefaultForceOverwriteFilePaths, absoluteRootDirectory, absoluteDistributeDefaultDirectory);
+    copyFiles(absoluteRootEssentialFilePaths, absoluteRootDirectory, absoluteDistributeEssentialDirectory);
 }
 
 /**
  * Rename all default files because NPM ignores some files by default and cannot be overrided.
  */
 function renameDistributeDefaultFiles(): void {
-    const distributeDefaultFilePaths = getFilePaths(absoluteRootDistributeDefaultFilesGlob);
+    const distributeDefaultFilePaths = getFilePaths(absoluteDistributeDefaultFilesGlob);
 
     for (const defaultFilePath of distributeDefaultFilePaths) {
         const parsedPath = path.parse(defaultFilePath);
@@ -47,9 +50,13 @@ function renameDistributeDefaultFiles(): void {
 }
 
 function packageJsonAddInstallScriptToDistribute(): void {
+    interface PackageJson {
+        scripts?: { [key: string]: string; };
+    }
+
     // Only add install script to Config package
     if (process.env.COLONISE_PACKAGE_NAME === 'Config') {
-        const packageJsonString = fs.readFileSync(absoluteRootDistributePackageJsonPath, 'utf8');
+        const packageJsonString = fs.readFileSync(absoluteDistributePackageJsonPath, 'utf8');
         const packageJsonData = <PackageJson>JSON.parse(packageJsonString);
 
         packageJsonData.scripts = packageJsonData.scripts ?? {};
@@ -58,11 +65,12 @@ function packageJsonAddInstallScriptToDistribute(): void {
         // eslint-disable-next-line @typescript-eslint/no-magic-numbers
         const modifiedPackageJsonString = JSON.stringify(packageJsonData, undefined, 4);
 
-        fs.writeFileSync(absoluteRootDistributePackageJsonPath, modifiedPackageJsonString);
+        fs.writeFileSync(absoluteDistributePackageJsonPath, modifiedPackageJsonString);
     }
 }
 
 export function distributeFiles(): void {
+    copyOverwritableFilesToDefaultDirectory();
     copyFilesToDistributeDirectory();
     renameDistributeDefaultFiles();
     packageJsonAddInstallScriptToDistribute();

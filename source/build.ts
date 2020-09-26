@@ -4,11 +4,11 @@ import { cleanBuildDirectory } from './clean';
 import {
     absoluteRootDirectory,
     absoluteRootGeneratedTsconfigJsonPath,
-    absoluteRootSourceDeclarationFilesGlob,
-    absoluteRootSourceDirectory,
-    absoluteRootSourceTestFilesGlob,
-    absoluteRootSourceTypeScriptFilesGlob,
-    absoluteRootTsconfigJsonPath
+    absoluteRootTSConfigJsonPath,
+    absoluteSourceDeclarationFilesGlob,
+    absoluteSourceDirectory,
+    absoluteSourceTestFilesGlob,
+    absoluteSourceTypeScriptFilesGlob
 } from './variables';
 import {
     copyFiles,
@@ -18,21 +18,21 @@ import {
     wasCalledFromCLI
 } from './helpers';
 
-interface TSConfig {
-    files?: string[];
-}
-
 function generateTsconfig(includeTestFiles = false): void {
-    const tsconfigString = fs.readFileSync(absoluteRootTsconfigJsonPath, 'utf8');
+    interface TSConfig {
+        files?: string[];
+    }
+
+    const tsconfigString = fs.readFileSync(absoluteRootTSConfigJsonPath, 'utf8');
     const tsconfigData = <TSConfig>JSON.parse(tsconfigString);
 
     const filesGlob = includeTestFiles
         ? [
-            absoluteRootSourceTypeScriptFilesGlob
+            absoluteSourceTypeScriptFilesGlob
         ]
         : [
-            absoluteRootSourceTypeScriptFilesGlob,
-            `!${absoluteRootSourceTestFilesGlob}`
+            absoluteSourceTypeScriptFilesGlob,
+            `!${absoluteSourceTestFilesGlob}`
         ];
 
     const files = getFilePaths(filesGlob);
@@ -66,7 +66,7 @@ function buildTypeScript(outputDirectoryPath: string, includeTestFiles = false):
         outputDirectoryPath
     ]);
 
-    copyFiles(absoluteRootSourceDeclarationFilesGlob, absoluteRootSourceDirectory, outputDirectoryPath);
+    copyFiles(absoluteSourceDeclarationFilesGlob, absoluteSourceDirectory, outputDirectoryPath);
 }
 
 export function buildTypeScriptBuild(): void {
