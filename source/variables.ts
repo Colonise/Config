@@ -12,10 +12,14 @@ const relativeDefaultDirectory = path.normalize('./default');
 const relativeDistributeDirectory = path.normalize('./distribute');
 const relativeCoverageDirectory = path.normalize('./coverage');
 
+const relativeEslintIgnorePath = path.normalize('./.eslintignore');
 const relativeEslintRCPath = path.normalize('./.eslintrc.js');
-const relativeEslintPath = path.normalize('./eslint.js');
+const relativeGitIgnorePath = path.normalize('./.gitignore');
+const relativeNPMIgnorePath = path.normalize('./.npmignore');
+const relativeESLintPath = path.normalize('./eslint.js');
 const relativeLicensePath = path.normalize('./LICENSE');
 const relativeNYCConfigJsPath = path.normalize('./nyc.config.js');
+const relativeNYCJsPath = path.normalize('./nyc.js');
 const relativePackageJsonPath = path.normalize('./package.json');
 const relativeReadmeMarkdownPath = path.normalize('./README.md');
 const relativeSemanticReleaseConfigJsPath = path.normalize('./release.config.js');
@@ -36,10 +40,14 @@ export const absoluteDefaultDirectory = path.join(absoluteRootDirectory, relativ
 export const absoluteDistributeDirectory = path.join(absoluteRootDirectory, relativeDistributeDirectory);
 export const absoluteCoverageDirectory = path.join(absoluteRootDirectory, relativeCoverageDirectory);
 
-export const absoluteRootEslintRCPath = path.join(absoluteRootDirectory, relativeEslintRCPath);
-export const absoluteRootEslintPath = path.join(absoluteRootDirectory, relativeEslintPath);
+export const absoluteRooEslintIgnorePath = path.join(absoluteRootDirectory, relativeEslintIgnorePath);
+export const absoluteRootESLintRCPath = path.join(absoluteRootDirectory, relativeEslintRCPath);
+export const absoluteRooGitIgnorePath = path.join(absoluteRootDirectory, relativeGitIgnorePath);
+export const absoluteRooNPMIgnorePath = path.join(absoluteRootDirectory, relativeNPMIgnorePath);
+export const absoluteRootESLintPath = path.join(absoluteRootDirectory, relativeESLintPath);
 export const absoluteRootLicensePath = path.join(absoluteRootDirectory, relativeLicensePath);
 export const absoluteRootNYCConfigJsPath = path.join(absoluteRootDirectory, relativeNYCConfigJsPath);
+export const absoluteRootNYCJsPath = path.join(absoluteRootDirectory, relativeNYCJsPath);
 export const absoluteRootPackageJsonPath = path.join(absoluteRootDirectory, relativePackageJsonPath);
 export const absoluteRootReadmeMarkdownPath = path.join(absoluteRootDirectory, relativeReadmeMarkdownPath);
 export const absoluteRootSemanticReleaseConfigJsPath = path.join(absoluteRootDirectory, relativeSemanticReleaseConfigJsPath);
@@ -51,15 +59,25 @@ export const absoluteRootVSCodeSettingsJsonPath = path.join(absoluteRootDirector
 export const absoluteRootDocumentationAssetsColonise256PngPath = path.join(absoluteRootDirectory, relativeDocumentationAssetsColonise256PngPath);
 
 export const absoluteRootEssentialFilePaths = [
+    absoluteRooEslintIgnorePath,
+    absoluteRootESLintRCPath,
+    absoluteRooGitIgnorePath,
+    absoluteRooNPMIgnorePath,
+    absoluteRootESLintPath,
+    absoluteRootNYCConfigJsPath,
+    absoluteRootNYCJsPath,
     absoluteRootPackageJsonPath,
     absoluteRootTSConfigJsonPath,
-    absoluteRootEslintPath,
     absoluteRootLicensePath,
-    absoluteRootReadmeMarkdownPath
+    absoluteRootReadmeMarkdownPath,
+    absoluteRootSemanticReleaseConfigJsPath
 ];
 
 export const absoluteRootForceOverwriteFilePaths = [
+    absoluteRootESLintRCPath,
+    absoluteRootNYCJsPath,
     absoluteRootLicensePath,
+    absoluteRootSemanticReleaseConfigJsPath,
     absoluteRootGitHubDependabotYmlPath,
     absoluteRootGitHubWorkflowsNodejsMasterYmlPath,
     absoluteRootVSCodeSettingsJsonPath,

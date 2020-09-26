@@ -1,6 +1,6 @@
 import { CLIEngine } from 'eslint';
 import {
-    absoluteRootEslintRCPath,
+    absoluteRootESLintRCPath,
     absoluteSourceTypeScriptFilesGlob
 } from './variables';
 import {
@@ -46,7 +46,7 @@ export function lintTypeScript(): void {
     log('Linting TypeScript files.');
 
     // eslint-disable-next-line @typescript-eslint/no-require-imports
-    const eslintConfig = <CLIEngine.Options>require(absoluteRootEslintRCPath);
+    const eslintConfig = <CLIEngine.Options>require(absoluteRootESLintRCPath);
 
     reportMissingLintRules(eslintConfig);
 
