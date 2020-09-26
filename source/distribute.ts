@@ -10,25 +10,31 @@ import {
     absoluteDistributeDefaultFilesGlob,
     absoluteDistributeEssentialDirectory,
     absoluteDistributePackageJsonPath,
-    absoluteRootDirectory,
     absoluteRootCopyToDistributeFilePaths,
+    absoluteRootDirectory,
     absoluteRootForceOverwriteDefaultFilePaths,
     renamedPrefix
 } from './variables';
 import {
     copyFiles,
     getFilePaths,
+    isColoniseConfig,
     log,
     wasCalledFromCLI
 } from './helpers';
 
 function copyOverwritableFilesToDefaultDirectory(): void {
-    copyFiles(absoluteRootForceOverwriteDefaultFilePaths, absoluteRootDirectory, absoluteDefaultDirectory);
+    if (isColoniseConfig()) {
+        copyFiles(absoluteRootForceOverwriteDefaultFilePaths, absoluteRootDirectory, absoluteDefaultDirectory);
+    }
 }
 
 function copyFilesToDistributeDirectory(): void {
-    copyFiles(absoluteDefaultFilesGlob, absoluteDefaultDirectory, absoluteDistributeDefaultDirectory);
-    copyFiles(absoluteDefaultForceOverwriteFilePaths, absoluteDefaultDirectory, absoluteDistributeDefaultDirectory);
+    if (isColoniseConfig()) {
+        copyFiles(absoluteDefaultFilesGlob, absoluteDefaultDirectory, absoluteDistributeDefaultDirectory);
+        copyFiles(absoluteDefaultForceOverwriteFilePaths, absoluteDefaultDirectory, absoluteDistributeDefaultDirectory);
+    }
+
     copyFiles(absoluteRootCopyToDistributeFilePaths, absoluteRootDirectory, absoluteDistributeEssentialDirectory);
 }
 
@@ -55,7 +61,7 @@ function packageJsonAddInstallScriptToDistribute(): void {
     }
 
     // Only add install script to Config package
-    if (process.env.COLONISE_PACKAGE_NAME === 'Config') {
+    if (isColoniseConfig()) {
         const packageJsonString = fs.readFileSync(absoluteDistributePackageJsonPath, 'utf8');
         const packageJsonData = <PackageJson>JSON.parse(packageJsonString);
 
