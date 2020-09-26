@@ -1,5 +1,12 @@
 Changelog
 
+# [3.9.0](https://github.com/Colonise/Config/compare/v3.8.0...v3.9.0) (2020-09-26)
+
+
+### Features
+
+* add default tsconfig.json file to source folder ([2078668](https://github.com/Colonise/Config/commit/2078668a702b7b44a57f0835757fd865ea7fac11))
+
 # [3.8.0](https://github.com/Colonise/Config/compare/v3.7.5...v3.8.0) (2020-09-26)
 
 
