@@ -58,17 +58,20 @@ export const absoluteRootGitHubWorkflowsNodejsMasterYmlPath = path.join(absolute
 export const absoluteRootVSCodeSettingsJsonPath = path.join(absoluteRootDirectory, relativeVSCodeSettingsJsonPath);
 export const absoluteRootDocumentationAssetsColonise256PngPath = path.join(absoluteRootDirectory, relativeDocumentationAssetsColonise256PngPath);
 
-export const absoluteRootCopyToDistributeFilePaths = [
+export const absoluteRootEssentialFilePaths = [
+    absoluteRootPackageJsonPath,
+    absoluteRootLicensePath,
+    absoluteRootReadmeMarkdownPath
+];
+
+export const absoluteRootEssentialColoniseConfigFilePaths = [
     absoluteRooEslintIgnorePath,
     absoluteRootESLintRCPath,
     absoluteRooGitIgnorePath,
     absoluteRooNPMIgnorePath,
     absoluteRootESLintPath,
     absoluteRootNYCJsPath,
-    absoluteRootPackageJsonPath,
-    absoluteRootTSConfigJsonPath,
-    absoluteRootLicensePath,
-    absoluteRootReadmeMarkdownPath
+    absoluteRootTSConfigJsonPath
 ];
 
 export const absoluteRootForceOverwriteDefaultFilePaths = [
