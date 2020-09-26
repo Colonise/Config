@@ -1,5 +1,17 @@
 Changelog
 
+# [3.8.0](https://github.com/Colonise/Config/compare/v3.7.5...v3.8.0) (2020-09-26)
+
+
+### Bug Fixes
+
+* delete gpg from default folder ([a5b2424](https://github.com/Colonise/Config/commit/a5b2424b0dff6e044d90a67b44fe847c6d580b9e))
+
+
+### Features
+
+* overwrite default files when needed ([d7b2d84](https://github.com/Colonise/Config/commit/d7b2d84838f3d4ff62994510c2cf931f331f00c6))
+
 ## [3.7.5](https://github.com/Colonise/Config/compare/v3.7.4...v3.7.5) (2020-09-26)
 
 ## [3.7.4](https://github.com/Colonise/Config/compare/v3.7.3...v3.7.4) (2020-09-21)
