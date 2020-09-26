@@ -1,5 +1,12 @@
 Changelog
 
+## [3.10.1](https://github.com/Colonise/Config/compare/v3.10.0...v3.10.1) (2020-09-26)
+
+
+### Bug Fixes
+
+* only copy default files in config package ([a711c30](https://github.com/Colonise/Config/commit/a711c30298115b13536d0c676476c5034cfd5b20))
+
 # [3.10.0](https://github.com/Colonise/Config/compare/v3.9.1...v3.10.0) (2020-09-26)
 
 
