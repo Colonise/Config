@@ -1,5 +1,12 @@
 Changelog
 
+## [3.10.2](https://github.com/Colonise/Config/compare/v3.10.1...v3.10.2) (2020-09-26)
+
+
+### Bug Fixes
+
+* separate essential files from config essential files ([42a0e39](https://github.com/Colonise/Config/commit/42a0e3952bd453ad28e4536918f8d0a3d324fa66))
+
 ## [3.10.1](https://github.com/Colonise/Config/compare/v3.10.0...v3.10.1) (2020-09-26)
 
 
