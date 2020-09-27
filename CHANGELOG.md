@@ -1,5 +1,12 @@
 Changelog
 
+## [3.10.5](https://github.com/Colonise/Config/compare/v3.10.4...v3.10.5) (2020-09-27)
+
+
+### Bug Fixes
+
+* **coverage:** properly export nyc config ([a624ed1](https://github.com/Colonise/Config/commit/a624ed1318f0cb872a7b33182c0828eabeec9002))
+
 ## [3.10.4](https://github.com/Colonise/Config/compare/v3.10.3...v3.10.4) (2020-09-27)
 
 
