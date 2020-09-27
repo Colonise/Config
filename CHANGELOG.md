@@ -1,5 +1,12 @@
 Changelog
 
+## [3.10.9](https://github.com/Colonise/Config/compare/v3.10.8...v3.10.9) (2020-09-27)
+
+
+### Bug Fixes
+
+* **eslint:** remove base no-useless-constructor ([79692d8](https://github.com/Colonise/Config/commit/79692d875077113a6dbdb5b9861f044bde163796))
+
 ## [3.10.8](https://github.com/Colonise/Config/compare/v3.10.7...v3.10.8) (2020-09-27)
 
 
