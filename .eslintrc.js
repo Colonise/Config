@@ -999,8 +999,9 @@ const eslintRules = {
     'no-useless-concat': [
         'error'
     ],
+    // Replaced by @typescript-eslint/no-useless-constructor
     'no-useless-constructor': [
-        'error'
+        'off'
     ],
     'no-useless-escape': [
         'error'
