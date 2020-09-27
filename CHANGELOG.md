@@ -1,5 +1,12 @@
 Changelog
 
+## [3.10.4](https://github.com/Colonise/Config/compare/v3.10.3...v3.10.4) (2020-09-27)
+
+
+### Bug Fixes
+
+* build from /generated instead of /source ([3c476ea](https://github.com/Colonise/Config/commit/3c476ea93ea535a83af8a3f458327119286f2708))
+
 ## [3.10.3](https://github.com/Colonise/Config/compare/v3.10.2...v3.10.3) (2020-09-27)
 
 
