@@ -1,5 +1,14 @@
 Changelog
 
+## [3.10.7](https://github.com/Colonise/Config/compare/v3.10.6...v3.10.7) (2020-09-27)
+
+
+### Bug Fixes
+
+* **eslint:** add .eslintignore to default ([d73fcfb](https://github.com/Colonise/Config/commit/d73fcfb43d60586bbf858880a8b10e83c049df29))
+* **eslint:** re-order @typescript-eslint/member-ordering ([69df080](https://github.com/Colonise/Config/commit/69df0802c16bf907e27081d210c40c78a2f01e2b))
+* **eslint:** turn off no-duplicate imports ([f561fd9](https://github.com/Colonise/Config/commit/f561fd9b74b33bf050b82f8df99cf6a686c66abf))
+
 ## [3.10.6](https://github.com/Colonise/Config/compare/v3.10.5...v3.10.6) (2020-09-27)
 
 
