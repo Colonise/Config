@@ -528,11 +528,9 @@ const eslintRules = {
     'no-duplicate-case': [
         'error'
     ],
+    // This fails on import and import type from same file
     'no-duplicate-imports': [
-        'error',
-        {
-            includeExports: true
-        }
+        'off'
     ],
     'no-else-return': [
         'error',
