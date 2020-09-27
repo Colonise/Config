@@ -30,6 +30,18 @@ const relativeGitHubWorkflowsNodejsMasterYmlPath = path.normalize('./.github/wor
 const relativeVSCodeSettingsJsonPath = path.normalize('./.vscode/settings.json');
 const relativeDocumentationAssetsColonise256PngPath = path.normalize('./documentation/assets/colonise256.png');
 
+export const relativeForceOverwriteFilePaths = [
+    relativeEslintRCPath,
+    relativeLicensePath,
+    relativeNYCConfigJsPath,
+    relativeSemanticReleaseConfigJsPath,
+    relativeTSConfigJsonPath,
+    relativeGitHubDependabotYmlPath,
+    relativeGitHubWorkflowsNodejsMasterYmlPath,
+    relativeVSCodeSettingsJsonPath,
+    relativeDocumentationAssetsColonise256PngPath
+];
+
 // Absolute Root
 
 export const absoluteRootDirectory = RootPath.path;
@@ -106,29 +118,11 @@ export const absoluteSourceDeclarationFilesGlob = path.join(absoluteSourceDirect
 
 // Absolute Default
 
-const absoluteDefaultEslintRCPath = path.join(absoluteDefaultDirectory, relativeEslintRCPath);
-const absoluteDefaultLicensePath = path.join(absoluteDefaultDirectory, relativeLicensePath);
-const absoluteDefaultNYCConfigJsPath = path.join(absoluteDefaultDirectory, relativeNYCConfigJsPath);
-const absoluteDefaultSemanticReleaseConfigJsPath = path.join(absoluteDefaultDirectory, relativeSemanticReleaseConfigJsPath);
-const absoluteDefaultTSConfigJsonPath = path.join(absoluteDefaultDirectory, relativeTSConfigJsonPath);
-const absoluteDefaultGitHubDependabotYmlPath = path.join(absoluteDefaultDirectory, relativeGitHubDependabotYmlPath);
-const absoluteDefaultGitHubWorkflowsNodejsMasterYmlPath = path.join(absoluteDefaultDirectory, relativeGitHubWorkflowsNodejsMasterYmlPath);
-const absoluteDefaultVSCodeSettingsJsonPath = path.join(absoluteDefaultDirectory, relativeVSCodeSettingsJsonPath);
-const absoluteDefaultDocumentationAssetsColonise256PngPath = path.join(absoluteDefaultDirectory, relativeDocumentationAssetsColonise256PngPath);
-
 export const absoluteDefaultFilesGlob = `${absoluteDefaultDirectory}/**/*`;
 
-export const absoluteDefaultForceOverwriteFilePaths = [
-    absoluteDefaultEslintRCPath,
-    absoluteDefaultLicensePath,
-    absoluteDefaultNYCConfigJsPath,
-    absoluteDefaultSemanticReleaseConfigJsPath,
-    absoluteDefaultTSConfigJsonPath,
-    absoluteDefaultGitHubDependabotYmlPath,
-    absoluteDefaultGitHubWorkflowsNodejsMasterYmlPath,
-    absoluteDefaultVSCodeSettingsJsonPath,
-    absoluteDefaultDocumentationAssetsColonise256PngPath
-];
+export const absoluteDefaultForceOverwriteFilePaths = relativeForceOverwriteFilePaths.map(
+    relativeFilePath => path.join(absoluteDefaultDirectory, relativeFilePath)
+);
 
 // Absolute Distribute
 
