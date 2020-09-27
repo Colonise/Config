@@ -25,7 +25,7 @@ export function wasCalledFromCLI(otherModule: NodeModule): boolean {
 export function isColoniseConfig(): boolean {
     try {
         // eslint-disable-next-line @typescript-eslint/no-require-imports
-        require('@colonise/config');
+        require('@colonise/config/package.json');
 
         return process.env.COLONISE_PACKAGE_NAME === 'Config';
     }
