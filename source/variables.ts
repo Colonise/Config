@@ -92,6 +92,7 @@ export const absoluteCurrentDefaultFilesGlob = path.join(absoluteCurrentDefaultD
 
 export const absoluteGeneratedTSConfigJsonPath = path.join(absoluteGeneratedDirectory, relativeTSConfigJsonPath);
 
+export const absoluteGeneratedTestFilesGlob = path.join(absoluteGeneratedDirectory, '/**/*.spec.ts');
 export const absoluteGeneratedTypeScriptFilesGlob = path.join(absoluteGeneratedDirectory, '/**/*.ts');
 export const absoluteGeneratedDeclarationFilesGlob = path.join(absoluteGeneratedDirectory, '/**/*.d.ts');
 
