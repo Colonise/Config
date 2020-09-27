@@ -1,5 +1,12 @@
 Changelog
 
+## [3.10.3](https://github.com/Colonise/Config/compare/v3.10.2...v3.10.3) (2020-09-27)
+
+
+### Bug Fixes
+
+* properly export declaration files ([8df0602](https://github.com/Colonise/Config/commit/8df0602edaeeadf59612c26b99d8fe0d9889fea8))
+
 ## [3.10.2](https://github.com/Colonise/Config/compare/v3.10.1...v3.10.2) (2020-09-26)
 
 
