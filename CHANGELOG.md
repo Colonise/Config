@@ -1,5 +1,12 @@
 Changelog
 
+## [3.10.6](https://github.com/Colonise/Config/compare/v3.10.5...v3.10.6) (2020-09-27)
+
+
+### Bug Fixes
+
+* **distribute:** properly detect if is currently config ([d4a3e22](https://github.com/Colonise/Config/commit/d4a3e223e2b731de474af336498576e25f643898))
+
 ## [3.10.5](https://github.com/Colonise/Config/compare/v3.10.4...v3.10.5) (2020-09-27)
 
 
