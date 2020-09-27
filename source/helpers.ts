@@ -23,7 +23,15 @@ export function wasCalledFromCLI(otherModule: NodeModule): boolean {
 }
 
 export function isColoniseConfig(): boolean {
-    return process.env.COLONISE_PACKAGE_NAME === 'Config';
+    try {
+        // eslint-disable-next-line @typescript-eslint/no-require-imports
+        require('@colonise/config');
+
+        return process.env.COLONISE_PACKAGE_NAME === 'Config';
+    }
+    catch {
+        return true;
+    }
 }
 
 export function getFilePaths(pattern: string): string[];
