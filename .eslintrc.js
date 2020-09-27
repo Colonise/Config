@@ -1589,19 +1589,19 @@ const typescriptEslintRules = {
                 'protected-static-method',
                 'private-static-method',
                 'public-abstract-field',
-                'protected-abstract-field',
-                'private-abstract-field',
                 'public-instance-field',
+                'protected-abstract-field',
                 'protected-instance-field',
+                'private-abstract-field',
                 'private-instance-field',
                 'public-constructor',
                 'protected-constructor',
                 'private-constructor',
                 'public-abstract-method',
-                'protected-abstract-method',
-                'private-abstract-method',
                 'public-instance-method',
+                'protected-abstract-method',
                 'protected-instance-method',
+                'private-abstract-method',
                 'private-instance-method'
             ]
         }
