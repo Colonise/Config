@@ -7,6 +7,7 @@ export const renamedPrefix = '_RENAMED_';
 
 const relativeCurrentDirectory = __dirname.includes('node_modules') ? './node_modules/@colonise/config' : './';
 const relativeSourceDirectory = path.normalize('./source');
+const relativeGeneratedDirectory = path.normalize('./generated');
 const relativeBuildDirectory = path.normalize('./build');
 const relativeDefaultDirectory = path.normalize('./default');
 const relativeDistributeDirectory = path.normalize('./distribute');
@@ -23,7 +24,6 @@ const relativeNYCJsPath = path.normalize('./nyc.js');
 const relativePackageJsonPath = path.normalize('./package.json');
 const relativeReadmeMarkdownPath = path.normalize('./README.md');
 const relativeSemanticReleaseConfigJsPath = path.normalize('./release.config.js');
-const relativeGeneratedTsconfigJsonPath = path.normalize('./tsconfig.generated.json');
 const relativeTSConfigJsonPath = path.normalize('./tsconfig.json');
 const relativeGitHubDependabotYmlPath = path.normalize('./.github/dependabot.yml');
 const relativeGitHubWorkflowsNodejsMasterYmlPath = path.normalize('./.github/workflows/nodejs-master.yml');
@@ -35,6 +35,7 @@ const relativeDocumentationAssetsColonise256PngPath = path.normalize('./document
 export const absoluteRootDirectory = RootPath.path;
 export const absoluteCurrentDirectory = path.join(absoluteRootDirectory, relativeCurrentDirectory);
 export const absoluteSourceDirectory = path.join(absoluteRootDirectory, relativeSourceDirectory);
+export const absoluteGeneratedDirectory = path.join(absoluteRootDirectory, relativeGeneratedDirectory);
 export const absoluteBuildDirectory = path.join(absoluteRootDirectory, relativeBuildDirectory);
 export const absoluteDefaultDirectory = path.join(absoluteRootDirectory, relativeDefaultDirectory);
 export const absoluteDistributeDirectory = path.join(absoluteRootDirectory, relativeDistributeDirectory);
@@ -51,7 +52,6 @@ export const absoluteRootNYCJsPath = path.join(absoluteRootDirectory, relativeNY
 export const absoluteRootPackageJsonPath = path.join(absoluteRootDirectory, relativePackageJsonPath);
 export const absoluteRootReadmeMarkdownPath = path.join(absoluteRootDirectory, relativeReadmeMarkdownPath);
 export const absoluteRootSemanticReleaseConfigJsPath = path.join(absoluteRootDirectory, relativeSemanticReleaseConfigJsPath);
-export const absoluteRootGeneratedTsconfigJsonPath = path.join(absoluteRootDirectory, relativeGeneratedTsconfigJsonPath);
 export const absoluteRootTSConfigJsonPath = path.join(absoluteRootDirectory, relativeTSConfigJsonPath);
 export const absoluteRootGitHubDependabotYmlPath = path.join(absoluteRootDirectory, relativeGitHubDependabotYmlPath);
 export const absoluteRootGitHubWorkflowsNodejsMasterYmlPath = path.join(absoluteRootDirectory, relativeGitHubWorkflowsNodejsMasterYmlPath);
@@ -88,15 +88,22 @@ export const absoluteCurrentDefaultDirectory = path.join(absoluteCurrentDirector
 
 export const absoluteCurrentDefaultFilesGlob = path.join(absoluteCurrentDefaultDirectory, '/**/*');
 
+// Absolute Generated
+
+export const absoluteGeneratedTSConfigJsonPath = path.join(absoluteGeneratedDirectory, relativeTSConfigJsonPath);
+
+export const absoluteGeneratedTypeScriptFilesGlob = path.join(absoluteGeneratedDirectory, '/**/*.ts');
+export const absoluteGeneratedDeclarationFilesGlob = path.join(absoluteGeneratedDirectory, '/**/*.d.ts');
+
 // Absolute Source
+
+export const absoluteSourceTSConfigJsonPath = path.join(absoluteSourceDirectory, relativeTSConfigJsonPath);
 
 export const absoluteSourceTestFilesGlob = path.join(absoluteSourceDirectory, '/**/*.spec.ts');
 export const absoluteSourceTypeScriptFilesGlob = path.join(absoluteSourceDirectory, '/**/*.ts');
 export const absoluteSourceDeclarationFilesGlob = path.join(absoluteSourceDirectory, '/**/*.d.ts');
 
 // Absolute Default
-
-export const absoluteDefaultFilesGlob = `${absoluteDefaultDirectory}/**/*`;
 
 const absoluteDefaultEslintRCPath = path.join(absoluteDefaultDirectory, relativeEslintRCPath);
 const absoluteDefaultLicensePath = path.join(absoluteDefaultDirectory, relativeLicensePath);
@@ -107,6 +114,8 @@ const absoluteDefaultGitHubDependabotYmlPath = path.join(absoluteDefaultDirector
 const absoluteDefaultGitHubWorkflowsNodejsMasterYmlPath = path.join(absoluteDefaultDirectory, relativeGitHubWorkflowsNodejsMasterYmlPath);
 const absoluteDefaultVSCodeSettingsJsonPath = path.join(absoluteDefaultDirectory, relativeVSCodeSettingsJsonPath);
 const absoluteDefaultDocumentationAssetsColonise256PngPath = path.join(absoluteDefaultDirectory, relativeDocumentationAssetsColonise256PngPath);
+
+export const absoluteDefaultFilesGlob = `${absoluteDefaultDirectory}/**/*`;
 
 export const absoluteDefaultForceOverwriteFilePaths = [
     absoluteDefaultEslintRCPath,
@@ -132,6 +141,5 @@ export const absoluteDistributePackageJsonPath = path.join(
     absoluteDistributeDirectory,
     relativePackageJsonPath
 );
-export const absoluteDistributeDefaultFilesGlob = `${absoluteDistributeDefaultDirectory}/**/*`;
 
-// Install
+export const absoluteDistributeDefaultFilesGlob = `${absoluteDistributeDefaultDirectory}/**/*`;

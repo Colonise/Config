@@ -61,8 +61,8 @@ typings/
 .next
 
 # Build
+generated/
 build/
-tsconfig.generated.json
 
 # Distribute
 distribute/
