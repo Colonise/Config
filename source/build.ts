@@ -3,7 +3,9 @@ import * as path from 'path';
 import {
     absoluteGeneratedDeclarationFilesGlob,
     absoluteGeneratedDirectory,
+    absoluteGeneratedTestFilesGlob,
     absoluteGeneratedTSConfigJsonPath,
+    absoluteGeneratedTypeScriptFilesGlob,
     absoluteRootDirectory,
     absoluteSourceDirectory,
     absoluteSourceTestFilesGlob,
@@ -57,7 +59,7 @@ function generateCode(includeTestFiles = false): void {
     const tsconfigData = <TSConfig>JSON.parse(tsconfigString);
 
     const baseGeneratedFilesGlob = [
-        absoluteSourceTypeScriptFilesGlob
+        absoluteGeneratedTypeScriptFilesGlob
     ];
 
     const generatedFilesGlobs = includeTestFiles
@@ -66,7 +68,7 @@ function generateCode(includeTestFiles = false): void {
         ]
         : [
             ...baseGeneratedFilesGlob,
-            `!${absoluteSourceTestFilesGlob}`
+            `!${absoluteGeneratedTestFilesGlob}`
         ];
 
     const generatedFilePaths = getFilePaths(generatedFilesGlobs);
