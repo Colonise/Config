@@ -1556,7 +1556,11 @@ const typescriptEslintRules = {
         {
             after: true,
             before: true,
-            overrides: {}
+            overrides: {
+                'this': {
+                    before: false
+                }
+            }
         }
     ],
     '@typescript-eslint/lines-between-class-members': [
