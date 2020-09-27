@@ -1,5 +1,12 @@
 Changelog
 
+## [3.10.8](https://github.com/Colonise/Config/compare/v3.10.7...v3.10.8) (2020-09-27)
+
+
+### Bug Fixes
+
+* **eslint:** @typescript-eslint/keyword-spacing for ([88a8784](https://github.com/Colonise/Config/commit/88a8784c62341a62ddc97d6499c1f959957151ef))
+
 ## [3.10.7](https://github.com/Colonise/Config/compare/v3.10.6...v3.10.7) (2020-09-27)
 
 
