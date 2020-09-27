@@ -1,5 +1,12 @@
 Changelog
 
+## [3.10.10](https://github.com/Colonise/Config/compare/v3.10.9...v3.10.10) (2020-09-27)
+
+
+### Bug Fixes
+
+* **install:** properly copy and overwrite files ([a9e3462](https://github.com/Colonise/Config/commit/a9e34621ffe66544c3adcf4cd94c9abcb60044b8))
+
 ## [3.10.9](https://github.com/Colonise/Config/compare/v3.10.8...v3.10.9) (2020-09-27)
 
 
