@@ -1,15 +1,19 @@
 import * as fs from 'fs';
 import * as path from 'path';
-import { cleanBuildDirectory } from './clean';
 import {
+    absoluteGeneratedDeclarationFilesGlob,
+    absoluteGeneratedDirectory,
+    absoluteGeneratedTSConfigJsonPath,
     absoluteRootDirectory,
-    absoluteRootGeneratedTsconfigJsonPath,
-    absoluteRootTSConfigJsonPath,
-    absoluteSourceDeclarationFilesGlob,
     absoluteSourceDirectory,
     absoluteSourceTestFilesGlob,
+    absoluteSourceTSConfigJsonPath,
     absoluteSourceTypeScriptFilesGlob
 } from './variables';
+import {
+    cleanBuildDirectory,
+    cleanGeneratedDirectory
+} from './clean';
 import {
     copyFiles,
     executeCommand,
@@ -18,24 +22,54 @@ import {
     wasCalledFromCLI
 } from './helpers';
 
-function generateTsconfig(includeTestFiles = false): void {
+function generateCode(includeTestFiles = false): void {
     interface TSConfig {
         files?: string[];
+        include?: string[];
     }
 
-    const tsconfigString = fs.readFileSync(absoluteRootTSConfigJsonPath, 'utf8');
-    const tsconfigData = <TSConfig>JSON.parse(tsconfigString);
+    cleanGeneratedDirectory();
 
-    const filesGlob = includeTestFiles
+    const baseSourceFilesGlob = [
+        absoluteSourceTypeScriptFilesGlob
+    ];
+
+    const sourceFilesGlobs = includeTestFiles
         ? [
-            absoluteSourceTypeScriptFilesGlob
+            ...baseSourceFilesGlob
         ]
         : [
-            absoluteSourceTypeScriptFilesGlob,
+            ...baseSourceFilesGlob,
             `!${absoluteSourceTestFilesGlob}`
         ];
 
-    const files = getFilePaths(filesGlob);
+    copyFiles(sourceFilesGlobs, absoluteSourceDirectory, absoluteGeneratedDirectory);
+
+    const declarationFilePaths = getFilePaths(absoluteGeneratedDeclarationFilesGlob);
+
+    for (const declarationFilePath of declarationFilePaths) {
+        const renamedFilePath = declarationFilePath.replace(/\.d\.ts$/u, '.ts');
+
+        fs.renameSync(declarationFilePath, renamedFilePath);
+    }
+
+    const tsconfigString = fs.readFileSync(absoluteSourceTSConfigJsonPath, 'utf8');
+    const tsconfigData = <TSConfig>JSON.parse(tsconfigString);
+
+    const baseGeneratedFilesGlob = [
+        absoluteSourceTypeScriptFilesGlob
+    ];
+
+    const generatedFilesGlobs = includeTestFiles
+        ? [
+            ...baseGeneratedFilesGlob
+        ]
+        : [
+            ...baseGeneratedFilesGlob,
+            `!${absoluteSourceTestFilesGlob}`
+        ];
+
+    const generatedFilePaths = getFilePaths(generatedFilesGlobs);
 
     if (Array.isArray(tsconfigData.files)) {
         tsconfigData.files = tsconfigData.files.map(file => path.join(absoluteRootDirectory, file));
@@ -44,29 +78,28 @@ function generateTsconfig(includeTestFiles = false): void {
         tsconfigData.files = [];
     }
 
-    tsconfigData.files = tsconfigData.files.concat(files);
+    tsconfigData.files = tsconfigData.files.concat(generatedFilePaths);
+    tsconfigData.include = undefined;
 
     // eslint-disable-next-line @typescript-eslint/no-magic-numbers
     const modifiedTsconfigData = JSON.stringify(tsconfigData, undefined, 4);
 
-    fs.writeFileSync(absoluteRootGeneratedTsconfigJsonPath, modifiedTsconfigData);
+    fs.writeFileSync(absoluteGeneratedTSConfigJsonPath, modifiedTsconfigData);
 }
 
 function buildTypeScript(outputDirectoryPath: string, includeTestFiles = false): void {
-    log(`Generating TSConfig file to '${absoluteRootGeneratedTsconfigJsonPath}'.`);
+    log(`Generating TSConfig file to '${absoluteGeneratedTSConfigJsonPath}'.`);
 
-    generateTsconfig(includeTestFiles);
+    generateCode(includeTestFiles);
 
     log(`Building TypeScript files to '${outputDirectoryPath}' directory.`);
 
     executeCommand('tsc', [
         '--project',
-        absoluteRootGeneratedTsconfigJsonPath,
+        absoluteGeneratedTSConfigJsonPath,
         '--outDir',
         outputDirectoryPath
     ]);
-
-    copyFiles(absoluteSourceDeclarationFilesGlob, absoluteSourceDirectory, outputDirectoryPath);
 }
 
 export function buildTypeScriptBuild(): void {

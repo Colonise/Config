@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-magic-numbers */
+/* eslint-disable @typescript-eslint/no-magic-numbers, spaced-comment */
 
 const { CLIEngine } = require('eslint');
 
@@ -2388,7 +2388,7 @@ const config = {
     },
     parser: '@typescript-eslint/parser',
     parserOptions: {
-        project: './tsconfig.generated.json',
+        project: './source/tsconfig.json',
         sourceType: 'module',
         warnOnUnsupportedTypeScriptVersion: true
     },

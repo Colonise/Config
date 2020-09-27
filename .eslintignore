@@ -14,5 +14,6 @@ default/
 
 # Build
 build/
+generated/
 distribute/
 documentation/

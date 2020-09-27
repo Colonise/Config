@@ -2,7 +2,8 @@ import del from 'del';
 import {
     absoluteBuildDirectory,
     absoluteCoverageDirectory,
-    absoluteDistributeDirectory
+    absoluteDistributeDirectory,
+    absoluteGeneratedDirectory
 } from './variables';
 import {
     log,
@@ -15,6 +16,10 @@ function cleanDirectory(directoryPath: string): string[] {
     const result = del.sync(directoryPath);
 
     return result;
+}
+
+export function cleanGeneratedDirectory(): string[] {
+    return cleanDirectory(absoluteGeneratedDirectory);
 }
 
 export function cleanBuildDirectory(): string[] {
@@ -31,6 +36,7 @@ export function cleanCoverageDirectory(): string[] {
 
 export function clean(): string[] {
     return [
+        ...cleanGeneratedDirectory(),
         ...cleanBuildDirectory(),
         ...cleanDistributeDirectory(),
         ...cleanCoverageDirectory()
