@@ -1,5 +1,12 @@
 Changelog
 
+## [3.10.11](https://github.com/Colonise/Config/compare/v3.10.10...v3.10.11) (2020-09-29)
+
+
+### Bug Fixes
+
+* **default:** package.json, and ignore files ([0f4bee8](https://github.com/Colonise/Config/commit/0f4bee88babddcc65ccb6d5d0a6d885d01086833))
+
 ## [3.10.10](https://github.com/Colonise/Config/compare/v3.10.9...v3.10.10) (2020-09-27)
 
 
