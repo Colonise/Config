@@ -3,8 +3,7 @@ source/
 
 # Build
 build/
-tsconfig.json
-.eslintrc.js
+generated/
 
 # Test
 coverage/
