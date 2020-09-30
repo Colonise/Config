@@ -1548,9 +1548,9 @@ const typescriptEslintRules = {
         'error',
         4
     ],
+    // Strict mode let's us struct if/else chains will set the variable
     '@typescript-eslint/init-declarations': [
-        'error',
-        'always'
+        'off'
     ],
     '@typescript-eslint/keyword-spacing': [
         'error',
