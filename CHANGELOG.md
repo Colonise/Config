@@ -1,5 +1,7 @@
 Changelog
 
+## [3.10.13](https://github.com/Colonise/Config/compare/v3.10.12...v3.10.13) (2020-09-30)
+
 ## [3.10.12](https://github.com/Colonise/Config/compare/v3.10.11...v3.10.12) (2020-09-30)
 
 
