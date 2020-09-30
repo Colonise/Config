@@ -1,5 +1,12 @@
 Changelog
 
+## [3.10.12](https://github.com/Colonise/Config/compare/v3.10.11...v3.10.12) (2020-09-30)
+
+
+### Bug Fixes
+
+* **eslint:** @typescript-eslint/init-declarations ([45b6d2f](https://github.com/Colonise/Config/commit/45b6d2f947e0531d1f3d9407f07f24a4fe8ec037))
+
 ## [3.10.11](https://github.com/Colonise/Config/compare/v3.10.10...v3.10.11) (2020-09-29)
 
 
