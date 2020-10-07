@@ -12,7 +12,7 @@
 
 ### Overview
 
-TODO
+Simply put, this repository is designed to be used by all packages that we make with TypeScript in the Colonise organisation.
 
 ### Documentation
 
