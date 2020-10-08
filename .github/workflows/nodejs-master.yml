@@ -152,6 +152,8 @@ jobs:
         with:
           gpg-private-key: ${{ secrets.GPG_PRIVATE_KEY }}
           passphrase: ${{ secrets.GPG_PASSPHRASE }}
+          git-committer-name: ${{ secrets.GIT_NAME }}
+          git-committer-email: ${{ secrets.GIT_EMAIL }}
           git-user-signingkey: true
           git-commit-gpgsign: true
           git-tag-gpgsign: true
