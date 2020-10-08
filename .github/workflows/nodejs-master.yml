@@ -148,6 +148,7 @@ jobs:
         run: zip -r build.zip ./distribute/
 
       - name: Import GPG key
+        id: import_gpg
         uses: crazy-max/ghaction-import-gpg@v3.0.1
         with:
           gpg-private-key: ${{ secrets.GPG_PRIVATE_KEY }}
@@ -158,6 +159,13 @@ jobs:
           git-commit-gpgsign: true
           git-tag-gpgsign: true
           git-push-gpgsign: true
+
+      - name: GPG user IDs
+        run: |
+          echo "fingerprint: ${{ steps.import_gpg.outputs.fingerprint }}"
+          echo "keyid:       ${{ steps.import_gpg.outputs.keyid }}"
+          echo "name:        ${{ steps.import_gpg.outputs.name }}"
+          echo "email:       ${{ steps.import_gpg.outputs.email }}"
 
       - name: Run Semantic Release
         run: npx semantic-release
