@@ -154,7 +154,6 @@ jobs:
           passphrase: ${{ secrets.GPG_PASSPHRASE }}
           git-user-signingkey: true
           git-commit-gpgsign: true
-          git-tag-gpgsign: true
 
       - name: Run Semantic Release
         run: npx semantic-release
