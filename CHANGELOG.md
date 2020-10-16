@@ -1,5 +1,18 @@
 Changelog
 
+# [3.11.0](https://github.com/Colonise/Config/compare/v3.10.15...v3.11.0) (2020-10-16)
+
+
+### Bug Fixes
+
+* **release:** remove git tag signing ([e08bb88](https://github.com/Colonise/Config/commit/e08bb880df52cdf82b16fe7120e21bd07b6af38e))
+* **release:** remove signed push ([ef01067](https://github.com/Colonise/Config/commit/ef0106737cb6019d80746ea8c786ae2397298af1))
+
+
+### Features
+
+* **gpg:** start signing commits again ([baf1b1b](https://github.com/Colonise/Config/commit/baf1b1b5276a5e1907efc199829588849689b90e))
+
 # [3.11.0](https://github.com/Colonise/Config/compare/v3.10.15...v3.11.0) (2020-10-15)
 
 
