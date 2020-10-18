@@ -1618,22 +1618,23 @@ const typescriptEslintRules = {
     '@typescript-eslint/naming-convention': [
         'error',
         {
-            format: [
-                'camelCase'
-            ],
-            leadingUnderscore: 'forbid',
             selector: 'default',
-            trailingUnderscore: 'forbid'
-        },
-        {
             format: [
                 'camelCase'
             ],
             leadingUnderscore: 'forbid',
-            selector: 'variable',
             trailingUnderscore: 'forbid'
         },
         {
+            selector: 'variable',
+            format: [
+                'camelCase'
+            ],
+            leadingUnderscore: 'forbid',
+            trailingUnderscore: 'forbid'
+        },
+        {
+            selector: 'variable',
             format: [
                 'PascalCase'
             ],
@@ -1643,130 +1644,135 @@ const typescriptEslintRules = {
                 'has',
                 'can',
                 'did',
-                'will'
+                'will',
+                'result'
             ],
-            selector: 'variable',
             types: [
                 'boolean'
             ]
         },
         {
-            format: [
-                'camelCase'
-            ],
-            leadingUnderscore: 'forbid',
             selector: 'function',
-            trailingUnderscore: 'forbid'
-        },
-        {
             format: [
                 'camelCase'
             ],
             leadingUnderscore: 'forbid',
+            trailingUnderscore: 'forbid'
+        },
+        {
             selector: 'parameter',
-            trailingUnderscore: 'forbid'
-        },
-        {
             format: [
                 'camelCase'
             ],
-            leadingUnderscore: 'forbid',
-            selector: 'property',
-            trailingUnderscore: 'forbid'
-        },
-        {
-            format: [
-                'camelCase'
-            ],
-            leadingUnderscore: 'allow',
-            modifiers: [
-                'private',
-                'protected'
-            ],
-            selector: 'property',
-            trailingUnderscore: 'forbid'
-        },
-        {
-            format: [
-                'camelCase'
-            ],
-            leadingUnderscore: 'forbid',
-            selector: 'parameterProperty',
-            trailingUnderscore: 'forbid'
-        },
-        {
-            format: [
-                'camelCase'
-            ],
-            leadingUnderscore: 'allow',
-            modifiers: [
-                'private',
-                'protected'
-            ],
-            selector: 'parameterProperty',
-            trailingUnderscore: 'forbid'
-        },
-        {
-            format: [
-                'camelCase'
-            ],
-            leadingUnderscore: 'forbid',
-            selector: 'method',
-            trailingUnderscore: 'forbid'
-        },
-        {
-            format: [
-                'camelCase'
-            ],
-            leadingUnderscore: 'forbid',
-            selector: 'accessor',
-            trailingUnderscore: 'forbid'
-        },
-        {
-            format: [
-                'PascalCase'
-            ],
-            leadingUnderscore: 'forbid',
-            selector: 'enumMember',
-            trailingUnderscore: 'forbid'
-        },
-        {
-            format: [
-                'PascalCase'
-            ],
-            leadingUnderscore: 'forbid',
-            selector: 'class',
-            trailingUnderscore: 'forbid'
-        },
-        {
             custom: {
-                match: false,
-                regex: '^I[A-Z]'
+                regex: '^_?',
+                match: true
+            },
+            leadingUnderscore: 'forbid',
+            trailingUnderscore: 'forbid'
+        },
+        {
+            selector: 'property',
+            format: [
+                'camelCase'
+            ],
+            leadingUnderscore: 'forbid',
+            trailingUnderscore: 'forbid'
+        },
+        {
+            selector: 'property',
+            format: [
+                'camelCase'
+            ],
+            leadingUnderscore: 'allow',
+            modifiers: [
+                'private',
+                'protected'
+            ],
+            trailingUnderscore: 'forbid'
+        },
+        {
+            selector: 'parameterProperty',
+            format: [
+                'camelCase'
+            ],
+            leadingUnderscore: 'forbid',
+            trailingUnderscore: 'forbid'
+        },
+        {
+            selector: 'parameterProperty',
+            format: [
+                'camelCase'
+            ],
+            leadingUnderscore: 'allow',
+            modifiers: [
+                'private',
+                'protected'
+            ],
+            trailingUnderscore: 'forbid'
+        },
+        {
+            selector: 'method',
+            format: [
+                'camelCase'
+            ],
+            leadingUnderscore: 'forbid',
+            trailingUnderscore: 'forbid'
+        },
+        {
+            selector: 'accessor',
+            format: [
+                'camelCase'
+            ],
+            leadingUnderscore: 'forbid',
+            trailingUnderscore: 'forbid'
+        },
+        {
+            selector: 'enumMember',
+            format: [
+                'PascalCase'
+            ],
+            leadingUnderscore: 'forbid',
+            trailingUnderscore: 'forbid'
+        },
+        {
+            selector: 'class',
+            format: [
+                'PascalCase'
+            ],
+            leadingUnderscore: 'forbid',
+            trailingUnderscore: 'forbid'
+        },
+        {
+            selector: 'interface',
+            custom: {
+                regex: '^I[A-Z]',
+                match: false
             },
             format: [
                 'PascalCase'
             ],
             leadingUnderscore: 'forbid',
-            selector: 'interface',
             trailingUnderscore: 'forbid'
         },
         {
-            format: [
-                'PascalCase'
-            ],
-            leadingUnderscore: 'forbid',
             selector: 'typeAlias',
-            trailingUnderscore: 'forbid'
-        },
-        {
             format: [
                 'PascalCase'
             ],
             leadingUnderscore: 'forbid',
-            selector: 'enum',
             trailingUnderscore: 'forbid'
         },
         {
+            selector: 'enum',
+            format: [
+                'PascalCase'
+            ],
+            leadingUnderscore: 'forbid',
+            trailingUnderscore: 'forbid'
+        },
+        {
+            selector: 'typeParameter',
             format: [
                 'PascalCase'
             ],
@@ -1774,7 +1780,6 @@ const typescriptEslintRules = {
             prefix: [
                 'T'
             ],
-            selector: 'typeParameter',
             trailingUnderscore: 'forbid'
         }
     ],
