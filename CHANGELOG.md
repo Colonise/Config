@@ -1,5 +1,12 @@
 Changelog
 
+## [3.12.1](https://github.com/Colonise/Config/compare/v3.12.0...v3.12.1) (2020-10-18)
+
+
+### Bug Fixes
+
+* **eslint:** @typescript-eslint/naming-convention ([fb1eae1](https://github.com/Colonise/Config/commit/fb1eae125656c477b41ceb5e4a07dba3b04e822d))
+
 # [3.12.0](https://github.com/Colonise/Config/compare/v3.11.0...v3.12.0) (2020-10-18)
 
 
