@@ -1,5 +1,12 @@
 Changelog
 
+# [3.12.0](https://github.com/Colonise/Config/compare/v3.11.0...v3.12.0) (2020-10-18)
+
+
+### Features
+
+* **npm:** re-order package.json parts ([4225396](https://github.com/Colonise/Config/commit/42253964c65de8ce396aab2f2bf9aec3a0434a1c))
+
 # [3.11.0](https://github.com/Colonise/Config/compare/v3.10.15...v3.11.0) (2020-10-16)
 
 
