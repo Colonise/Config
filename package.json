@@ -2,20 +2,17 @@
     "name": "@colonise/config",
     "version": "0.0.0",
     "description": "Shareable config for all Colonise packages",
-    "engines": {
-        "node": ">=10.0.0"
-    },
+    "keywords": [],
+    "author": "Patrick Stanford",
+    "license": "MIT",
     "repository": {
         "type": "git",
         "url": "git+https://github.com/Colonise/Config.git"
     },
-    "keywords": [],
-    "author": "Patrick Stanford",
-    "license": "MIT",
+    "homepage": "https://github.com/Colonise/Config#readme",
     "bugs": {
         "url": "https://github.com/Colonise/Config/issues"
     },
-    "homepage": "https://github.com/Colonise/Config#readme",
     "main": "index.js",
     "typings": "index.d.ts",
     "files": [

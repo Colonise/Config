@@ -2,6 +2,17 @@
     "name": "@colonise/changeme",
     "version": "0.0.0",
     "description": "TODO",
+    "keywords": [],
+    "author": "Patrick Stanford",
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/Colonise/CHANGEME.git"
+    },
+    "homepage": "https://github.com/Colonise/CHANGEME#readme",
+    "bugs": {
+        "url": "https://github.com/Colonise/CHANGEME/issues"
+    },
     "main": "index.js",
     "typings": "index.d.ts",
     "files": [
@@ -15,17 +26,6 @@
         "coverage": "colonise-config coverage",
         "distribute": "colonise-config distribute"
     },
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/Colonise/CHANGEME.git"
-    },
-    "keywords": [],
-    "author": "Patrick Stanford",
-    "license": "MIT",
-    "bugs": {
-        "url": "https://github.com/Colonise/CHANGEME/issues"
-    },
-    "homepage": "https://github.com/Colonise/CHANGEME#readme",
     "devDependencies": {
         "@colonise/config": "latest"
     },
