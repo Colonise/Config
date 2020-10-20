@@ -1,5 +1,12 @@
 Changelog
 
+## [3.12.4](https://github.com/Colonise/Config/compare/v3.12.3...v3.12.4) (2020-10-20)
+
+
+### Bug Fixes
+
+* **eslint:** no-mixed-operators ([0b3bacd](https://github.com/Colonise/Config/commit/0b3bacdb9b57082ba8f4b8eaab3f6d8109fdf4eb))
+
 ## [3.12.3](https://github.com/Colonise/Config/compare/v3.12.2...v3.12.3) (2020-10-20)
 
 
