@@ -1649,7 +1649,9 @@ const typescriptEslintRules = {
             ],
             types: [
                 'boolean'
-            ]
+            ],
+            leadingUnderscore: 'forbid',
+            trailingUnderscore: 'forbid'
         },
         {
             selector: 'function',
@@ -1664,11 +1666,7 @@ const typescriptEslintRules = {
             format: [
                 'camelCase'
             ],
-            custom: {
-                regex: '^_?',
-                match: true
-            },
-            leadingUnderscore: 'forbid',
+            leadingUnderscore: 'allow',
             trailingUnderscore: 'forbid'
         },
         {
@@ -1684,11 +1682,11 @@ const typescriptEslintRules = {
             format: [
                 'camelCase'
             ],
-            leadingUnderscore: 'allow',
             modifiers: [
                 'private',
                 'protected'
             ],
+            leadingUnderscore: 'allow',
             trailingUnderscore: 'forbid'
         },
         {
@@ -1704,11 +1702,11 @@ const typescriptEslintRules = {
             format: [
                 'camelCase'
             ],
-            leadingUnderscore: 'allow',
             modifiers: [
                 'private',
                 'protected'
             ],
+            leadingUnderscore: 'allow',
             trailingUnderscore: 'forbid'
         },
         {
@@ -1776,10 +1774,10 @@ const typescriptEslintRules = {
             format: [
                 'PascalCase'
             ],
-            leadingUnderscore: 'forbid',
             prefix: [
                 'T'
             ],
+            leadingUnderscore: 'forbid',
             trailingUnderscore: 'forbid'
         }
     ],
