@@ -1,5 +1,12 @@
 Changelog
 
+## [3.12.3](https://github.com/Colonise/Config/compare/v3.12.2...v3.12.3) (2020-10-20)
+
+
+### Bug Fixes
+
+* **eslint:** @typescript-eslint/member-ordering ([170ebb0](https://github.com/Colonise/Config/commit/170ebb0215f095cfe0d7b8f8ecf580fd57fc998d))
+
 ## [3.12.2](https://github.com/Colonise/Config/compare/v3.12.1...v3.12.2) (2020-10-20)
 
 
