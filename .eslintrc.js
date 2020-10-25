@@ -925,16 +925,9 @@ const eslintRules = {
     'no-undefined': [
         'off'
     ],
+    // Replaced by @typescript-eslint/naming-convention
     'no-underscore-dangle': [
-        'error',
-        {
-            allow: [],
-            allowAfterThis: false,
-            allowAfterSuper: false,
-            allowAfterThisConstructor: false,
-            enforceInMethodNames: false,
-            allowFunctionParams: true
-        }
+        'off'
     ],
     'no-unexpected-multiline': [
         'error'
