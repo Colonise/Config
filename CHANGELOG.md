@@ -1,5 +1,13 @@
 Changelog
 
+## [3.12.5](https://github.com/Colonise/Config/compare/v3.12.4...v3.12.5) (2020-10-25)
+
+
+### Bug Fixes
+
+* **install:** do not force overwrite .eslintrc.js ([af3b6c7](https://github.com/Colonise/Config/commit/af3b6c724f10021d6a5181d4ab65cf4aab579933))
+* **eslint:** turn off no-underscore-dangle ([355c1ab](https://github.com/Colonise/Config/commit/355c1ab689374e9d78823b008ed66a0615d3ca1a))
+
 ## [3.12.4](https://github.com/Colonise/Config/compare/v3.12.3...v3.12.4) (2020-10-20)
 
 
