@@ -1,7 +1,6 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import { buildTypeScriptDistribute } from './build';
-import { cleanDistributeDirectory } from './clean';
 import {
     absoluteDefaultDirectory,
     absoluteDefaultFilesGlob,
@@ -85,7 +84,6 @@ export function distributeFiles(): void {
 }
 
 export function distribute(): void {
-    cleanDistributeDirectory();
     buildTypeScriptDistribute();
     distributeFiles();
 }

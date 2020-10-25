@@ -7,6 +7,8 @@ import {
 } from './helpers';
 
 export function coverageTypeScriptBuild(): void {
+    cleanCoverageDirectory();
+
     log('Checking coverage of TypeScript unit tests.');
 
     executeCommand('nyc', [
@@ -17,7 +19,6 @@ export function coverageTypeScriptBuild(): void {
 }
 
 export function coverage(): void {
-    cleanCoverageDirectory();
     build();
     coverageTypeScriptBuild();
 }

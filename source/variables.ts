@@ -25,6 +25,7 @@ const relativePackageJsonPath = path.normalize('./package.json');
 const relativeReadmeMarkdownPath = path.normalize('./README.md');
 const relativeSemanticReleaseConfigJsPath = path.normalize('./release.config.js');
 const relativeTSConfigJsonPath = path.normalize('./tsconfig.json');
+const relativeTSConfigGeneratedJsonPath = path.normalize('./tsconfig.generated.json');
 const relativeGitHubDependabotYmlPath = path.normalize('./.github/dependabot.yml');
 const relativeGitHubWorkflowsNodejsMasterYmlPath = path.normalize('./.github/workflows/nodejs-master.yml');
 const relativeVSCodeSettingsJsonPath = path.normalize('./.vscode/settings.json');
@@ -86,6 +87,8 @@ export const absoluteRootEssentialColoniseConfigFilePaths = [
 ];
 
 export const absoluteRootForceOverwriteDefaultFilePaths = [
+    absoluteRooGitIgnorePath,
+    absoluteRooNPMIgnorePath,
     absoluteRootLicensePath,
     absoluteRootGitHubDependabotYmlPath,
     absoluteRootGitHubWorkflowsNodejsMasterYmlPath,
@@ -110,6 +113,8 @@ export const absoluteGeneratedDeclarationFilesGlob = path.join(absoluteGenerated
 // Absolute Source
 
 export const absoluteSourceTSConfigJsonPath = path.join(absoluteSourceDirectory, relativeTSConfigJsonPath);
+
+export const absoluteSourceTSConfigGeneratedJsonPath = path.join(absoluteSourceDirectory, relativeTSConfigGeneratedJsonPath);
 
 export const absoluteSourceTestFilesGlob = path.join(absoluteSourceDirectory, '/**/*.spec.ts');
 export const absoluteSourceTypeScriptFilesGlob = path.join(absoluteSourceDirectory, '/**/*.ts');
