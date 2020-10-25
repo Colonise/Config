@@ -1,5 +1,17 @@
 Changelog
 
+# [3.13.0](https://github.com/Colonise/Config/compare/v3.12.5...v3.13.0) (2020-10-25)
+
+
+### Bug Fixes
+
+* **default:** nodejs-master github workflow ([db62be7](https://github.com/Colonise/Config/commit/db62be7d3d332f6107d57fd67959e0a2c4b0705d))
+
+
+### Features
+
+* **build:** only create generated folder if needed ([2e3f13e](https://github.com/Colonise/Config/commit/2e3f13e4747ae882e6e7dbd6d48adab5c75c1c4e))
+
 ## [3.12.5](https://github.com/Colonise/Config/compare/v3.12.4...v3.12.5) (2020-10-25)
 
 
