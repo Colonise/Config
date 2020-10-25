@@ -31,7 +31,6 @@ const relativeVSCodeSettingsJsonPath = path.normalize('./.vscode/settings.json')
 const relativeDocumentationAssetsColonise256PngPath = path.normalize('./documentation/assets/colonise256.png');
 
 export const relativeForceOverwriteFilePaths = [
-    relativeEslintRCPath,
     relativeLicensePath,
     relativeNYCConfigJsPath,
     relativeSemanticReleaseConfigJsPath,
