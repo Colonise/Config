@@ -48,7 +48,7 @@
         "@typescript-eslint/eslint-plugin": "^4.15.0",
         "@typescript-eslint/parser": "^4.15.0",
         "app-root-path": "^3.0.0",
-        "chai": "^4.2.0",
+        "chai": "^4.3.0",
         "cross-spawn": "^7.0.3",
         "del": "^6.0.0",
         "eslint": "^7.20.0",
