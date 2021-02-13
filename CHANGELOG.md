@@ -1,5 +1,7 @@
 Changelog
 
+## [3.13.4](https://github.com/Colonise/Config/compare/v3.13.3...v3.13.4) (2021-02-13)
+
 ## [3.13.3](https://github.com/Colonise/Config/compare/v3.13.2...v3.13.3) (2021-02-13)
 
 ## [3.13.2](https://github.com/Colonise/Config/compare/v3.13.1...v3.13.2) (2021-02-13)
