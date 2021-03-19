@@ -1,5 +1,12 @@
 Changelog
 
+# [3.14.0](https://github.com/Colonise/Config/compare/v3.13.4...v3.14.0) (2021-03-19)
+
+
+### Features
+
+* update all packages ([e1b3606](https://github.com/Colonise/Config/commit/e1b3606cc41928a738bfe1529c69906870801342))
+
 ## [3.13.4](https://github.com/Colonise/Config/compare/v3.13.3...v3.13.4) (2021-02-13)
 
 ## [3.13.3](https://github.com/Colonise/Config/compare/v3.13.2...v3.13.3) (2021-02-13)
