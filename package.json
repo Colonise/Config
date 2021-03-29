@@ -51,7 +51,7 @@
         "chai": "^4.3.4",
         "cross-spawn": "^7.0.3",
         "del": "^6.0.0",
-        "eslint": "^7.22.0",
+        "eslint": "^7.23.0",
         "eslint-plugin-node": "^11.1.0",
         "globby": "^11.0.2",
         "mocha": "^8.3.2",
