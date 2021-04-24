@@ -1,5 +1,12 @@
 Changelog
 
+## [3.14.1](https://github.com/Colonise/Config/compare/v3.14.0...v3.14.1) (2021-04-24)
+
+
+### Bug Fixes
+
+* add publishConfig to package.json ([bddc223](https://github.com/Colonise/Config/commit/bddc223df9183898f2b44f42349089c41a5ea2e6))
+
 # [3.14.0](https://github.com/Colonise/Config/compare/v3.13.4...v3.14.0) (2021-03-19)
 
 
