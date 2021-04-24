@@ -13,6 +13,9 @@
     "bugs": {
         "url": "https://github.com/Colonise/Config/issues"
     },
+    "publishConfig": {
+        "access": "public"
+    },
     "main": "index.js",
     "typings": "index.d.ts",
     "files": [
