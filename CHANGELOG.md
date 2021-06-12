@@ -1,5 +1,13 @@
 Changelog
 
+## [3.14.2](https://github.com/Colonise/Config/compare/v3.14.1...v3.14.2) (2021-06-12)
+
+
+### Bug Fixes
+
+* **lint:** add 'id' to id-length exceptions ([f19c5dd](https://github.com/Colonise/Config/commit/f19c5ddc1d6371ab83ce5c9def70b3105864a10c))
+* linting lint ([da8da67](https://github.com/Colonise/Config/commit/da8da67cb357b89cd289fd67c93f51f50e360383))
+
 ## [3.14.1](https://github.com/Colonise/Config/compare/v3.14.0...v3.14.1) (2021-04-24)
 
 
