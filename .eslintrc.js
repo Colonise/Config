@@ -256,7 +256,8 @@ const eslintRules = {
             exceptions: [
                 'i',
                 'x',
-                'y'
+                'y',
+                'id'
             ]
         }
     ],
