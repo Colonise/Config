@@ -45,7 +45,7 @@ export function reportMissingLintRules(cliOptions: CLIEngine.Options): void {
 export function lintTypeScript(): void {
     log('Linting TypeScript files.');
 
-    // eslint-disable-next-line @typescript-eslint/no-require-imports
+    // eslint-disable-next-line @typescript-eslint/no-var-requires, @typescript-eslint/no-require-imports
     const eslintConfig = <CLIEngine.Options>require(absoluteRootESLintRCPath);
 
     reportMissingLintRules(eslintConfig);
