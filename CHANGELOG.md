@@ -1,5 +1,17 @@
 Changelog
 
+# [3.16.0](https://github.com/Colonise/Config/compare/v3.15.0...v3.16.0) (2022-04-16)
+
+
+### Bug Fixes
+
+* **watch:** allow cli to call watch command ([44103ba](https://github.com/Colonise/Config/commit/44103baf126029553eb0fcc062ea44eab820a898))
+
+
+### Features
+
+* **migrate:** allow automatically migrating configuration ([aab43fb](https://github.com/Colonise/Config/commit/aab43fb11a00340904545007b97ed7349b3f6aab))
+
 # [3.15.0](https://github.com/Colonise/Config/compare/v3.14.2...v3.15.0) (2022-04-16)
 
 
