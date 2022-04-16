@@ -1,5 +1,6 @@
-import * as fs from 'fs';
-import * as path from 'path';
+import * as fs from 'node:fs';
+import * as path from 'node:path';
+import * as url from 'node:url';
 import globby from 'globby';
 import spawn from 'cross-spawn';
 
@@ -18,15 +19,12 @@ export function error(message: string): void {
     console.error(message);
 }
 
-export function wasCalledFromCLI(otherModule: NodeModule): boolean {
-    return require.main === otherModule;
+export function wasCalledFromCLI(importMetaUrl: string): boolean {
+    return importMetaUrl.includes(url.pathToFileURL(process.argv[1]).href);
 }
 
 export function isColoniseConfig(): boolean {
     try {
-        // eslint-disable-next-line @typescript-eslint/no-require-imports
-        require('@colonise/config/package.json');
-
         return process.env.COLONISE_PACKAGE_NAME === 'Config';
     }
     catch {

@@ -1,11 +1,11 @@
-import * as path from 'path';
+import * as path from 'node:path';
 import RootPath from 'app-root-path';
 
 export const renamedPrefix = '_RENAMED_';
 
 // Relative
 
-const relativeCurrentDirectory = __dirname.includes('node_modules') ? './node_modules/@colonise/config' : './';
+const relativeCurrentDirectory = import.meta.url.includes('node_modules') ? './node_modules/@colonise/config' : './';
 const relativeSourceDirectory = path.normalize('./source');
 const relativeGeneratedDirectory = path.normalize('./generated');
 const relativeBuildDirectory = path.normalize('./build');
@@ -77,13 +77,17 @@ export const absoluteRootEssentialFilePaths = [
 ];
 
 export const absoluteRootEssentialColoniseConfigFilePaths = [
-    absoluteRooEslintIgnorePath,
+    // AbsoluteRooEslintIgnorePath,
     absoluteRootESLintRCPath,
-    absoluteRooGitIgnorePath,
-    absoluteRooNPMIgnorePath,
+
+    /*
+     * AbsoluteRooGitIgnorePath,
+     * absoluteRooNPMIgnorePath,
+     */
     absoluteRootESLintPath,
-    absoluteRootNYCJsPath,
-    absoluteRootTSConfigJsonPath
+    absoluteRootNYCJsPath
+
+    // AbsoluteRootTSConfigJsonPath
 ];
 
 export const absoluteRootForceOverwriteDefaultFilePaths = [

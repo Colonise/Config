@@ -63,6 +63,7 @@ typings/
 # Build
 /generated/
 /build/
+/build-temp/
 /source/tsconfig.generated.json
 
 # Distribute

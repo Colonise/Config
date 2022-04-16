@@ -1,5 +1,5 @@
-import * as fs from 'fs';
-import * as path from 'path';
+import * as fs from 'node:fs';
+import * as path from 'node:path';
 import {
     absoluteGeneratedDeclarationFilesGlob,
     absoluteGeneratedDirectory,
@@ -12,12 +12,12 @@ import {
     absoluteSourceTSConfigGeneratedJsonPath,
     absoluteSourceTSConfigJsonPath,
     absoluteSourceTypeScriptFilesGlob
-} from './variables';
+} from './variables.js';
 import {
     cleanBuildDirectory,
     cleanDistributeDirectory,
     cleanGeneratedDirectory
-} from './clean';
+} from './clean.js';
 import {
     copyFiles,
     executeCommand,
@@ -25,7 +25,7 @@ import {
     log,
     warn,
     wasCalledFromCLI
-} from './helpers';
+} from './helpers.js';
 
 interface TSConfig {
     files?: string[];
@@ -173,6 +173,6 @@ export function build(): void {
     buildTypeScriptBuild();
 }
 
-if (wasCalledFromCLI(module)) {
+if (wasCalledFromCLI(import.meta.url)) {
     build();
 }

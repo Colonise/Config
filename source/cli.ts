@@ -1,16 +1,16 @@
 #!/usr/bin/env node
 
-import { build } from './build';
-import { clean } from './clean';
-import { coverage } from './coverage';
-import { distribute } from './distribute';
-import { install } from './install';
-import { lint } from './lint';
+import { build } from './build.js';
+import { clean } from './clean.js';
+import { coverage } from './coverage.js';
+import { distribute } from './distribute.js';
+import { install } from './install.js';
+import { lint } from './lint.js';
 // eslint-disable-next-line @typescript-eslint/no-shadow
-import { test } from './test';
-import { wasCalledFromCLI } from './helpers';
+import { test } from './test.js';
+import { wasCalledFromCLI } from './helpers.js';
 
-if (wasCalledFromCLI(module)) {
+if (wasCalledFromCLI(import.meta.url)) {
     const [
         ,
         ,

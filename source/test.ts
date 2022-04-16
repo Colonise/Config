@@ -1,9 +1,9 @@
-import { build } from './build';
+import { build } from './build.js';
 import {
     executeCommand,
     log,
     wasCalledFromCLI
-} from './helpers';
+} from './helpers.js';
 
 export function testTypeScriptBuild(): void {
     log('Running TypeScript unit tests.');
@@ -20,6 +20,6 @@ export function test(): void {
     testTypeScriptBuild();
 }
 
-if (wasCalledFromCLI(module)) {
+if (wasCalledFromCLI(import.meta.url)) {
     test();
 }

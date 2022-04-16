@@ -4,11 +4,11 @@ import {
     absoluteCoverageDirectory,
     absoluteDistributeDirectory,
     absoluteGeneratedDirectory
-} from './variables';
+} from './variables.js';
 import {
     log,
     wasCalledFromCLI
-} from './helpers';
+} from './helpers.js';
 
 function cleanDirectory(directoryPath: string): string[] {
     log(`Cleaning directory '${directoryPath}'.`);
@@ -43,6 +43,6 @@ export function clean(): string[] {
     ];
 }
 
-if (wasCalledFromCLI(module)) {
+if (wasCalledFromCLI(import.meta.url)) {
     clean();
 }

@@ -25,12 +25,14 @@
         "colonise-config": "./cli.js"
     },
     "scripts": {
-        "clean": "ts-node ./source/clean",
-        "build": "ts-node ./source/build",
-        "lint": "ts-node ./source/lint",
-        "test": "ts-node ./source/test",
-        "coverage": "ts-node ./source/coverage",
-        "distribute": "ts-node ./source/distribute"
+        "__BUILD__": "tsc --project ./source/tsconfig.json --outDir ./build-temp",
+        "__RUN__": "node ./build-temp/build.js",
+        "clean": "node ./build/clean.js",
+        "build": "node ./build/build.js",
+        "lint": "node ./build/lint.js",
+        "test": "node ./build/test.js",
+        "coverage": "node ./build/coverage.js",
+        "distribute": "node ./build/distribute.js"
     },
     "devDependencies": {
         "@types/app-root-path": "^1.2.4",
@@ -60,7 +62,7 @@
         "mocha": "^8.3.2",
         "nyc": "^15.1.0",
         "semantic-release": "^17.4.2",
-        "ts-node": "^9.1.1",
+        "ts-node": "^10.7.0",
         "tslib": "^2.1.0",
         "typescript": "^4.2.3"
     }

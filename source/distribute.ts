@@ -1,6 +1,6 @@
-import * as fs from 'fs';
-import * as path from 'path';
-import { buildTypeScriptDistribute } from './build';
+import * as fs from 'node:fs';
+import * as path from 'node:path';
+import { buildTypeScriptDistribute } from './build.js';
 import {
     absoluteDefaultDirectory,
     absoluteDefaultFilesGlob,
@@ -14,14 +14,14 @@ import {
     absoluteRootEssentialFilePaths,
     absoluteRootForceOverwriteDefaultFilePaths,
     renamedPrefix
-} from './variables';
+} from './variables.js';
 import {
     copyFiles,
     getFilePaths,
     isColoniseConfig,
     log,
     wasCalledFromCLI
-} from './helpers';
+} from './helpers.js';
 
 function copyOverwritableFilesToDefaultDirectory(): void {
     if (isColoniseConfig()) {
@@ -88,6 +88,6 @@ export function distribute(): void {
     distributeFiles();
 }
 
-if (wasCalledFromCLI(module)) {
+if (wasCalledFromCLI(import.meta.url)) {
     distribute();
 }

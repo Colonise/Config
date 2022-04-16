@@ -1,7 +1,5 @@
 /* eslint-disable @typescript-eslint/no-magic-numbers, spaced-comment */
 
-const { CLIEngine } = require('eslint');
-
 const eslintRules = {
     'accessor-pairs': [
         'warn',
@@ -2423,4 +2421,4 @@ const config = {
     }
 };
 
-module.exports = config;
+export default config;

@@ -1,18 +1,18 @@
-import * as fs from 'fs';
-import * as path from 'path';
+import * as fs from 'node:fs';
+import * as path from 'node:path';
 import { default as rootPath } from 'app-root-path';
 import {
     absoluteCurrentDefaultDirectory,
     absoluteCurrentDefaultFilesGlob,
     relativeForceOverwriteFilePaths,
     renamedPrefix
-} from './variables';
+} from './variables.js';
 import {
     getFilePaths,
     log,
     warn,
     wasCalledFromCLI
-} from './helpers';
+} from './helpers.js';
 
 function unrenameDistributeDefaultFiles(): void {
     if (!fs.existsSync(absoluteCurrentDefaultDirectory)) {
@@ -71,6 +71,6 @@ export function install(): void {
     copyDefaultFilesToRoot();
 }
 
-if (wasCalledFromCLI(module)) {
+if (wasCalledFromCLI(import.meta.url)) {
     install();
 }

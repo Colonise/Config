@@ -1,10 +1,10 @@
-import { build } from './build';
-import { cleanCoverageDirectory } from './clean';
+import { build } from './build.js';
+import { cleanCoverageDirectory } from './clean.js';
 import {
     executeCommand,
     log,
     wasCalledFromCLI
-} from './helpers';
+} from './helpers.js';
 
 export function coverageTypeScriptBuild(): void {
     cleanCoverageDirectory();
@@ -23,6 +23,6 @@ export function coverage(): void {
     coverageTypeScriptBuild();
 }
 
-if (wasCalledFromCLI(module)) {
+if (wasCalledFromCLI(import.meta.url)) {
     coverage();
 }

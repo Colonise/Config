@@ -2,13 +2,14 @@ import { CLIEngine } from 'eslint';
 import {
     absoluteRootESLintRCPath,
     absoluteSourceTypeScriptFilesGlob
-} from './variables';
+} from './variables.js';
 import {
+    error,
     executeCommand,
     log,
     warn,
     wasCalledFromCLI
-} from './helpers';
+} from './helpers.js';
 
 export function reportMissingLintRules(cliOptions: CLIEngine.Options): void {
     const options = { ...cliOptions };
@@ -42,24 +43,24 @@ export function reportMissingLintRules(cliOptions: CLIEngine.Options): void {
     }
 }
 
-export function lintTypeScript(): void {
+export async function lintTypeScript(): Promise<void> {
     log('Linting TypeScript files.');
 
     // eslint-disable-next-line @typescript-eslint/no-var-requires, @typescript-eslint/no-require-imports
-    const eslintConfig = <CLIEngine.Options>require(absoluteRootESLintRCPath);
+    const eslintConfig = await <Promise<CLIEngine.Options>>import(`file://${absoluteRootESLintRCPath}`);
 
     reportMissingLintRules(eslintConfig);
 
-    executeCommand('eslint', [
+    executeCommand('node ./node_modules/eslint/bin/eslint.js', [
         '--cache',
         absoluteSourceTypeScriptFilesGlob
     ]);
 }
 
 export function lint(): void {
-    lintTypeScript();
+    lintTypeScript().catch(error);
 }
 
-if (wasCalledFromCLI(module)) {
+if (wasCalledFromCLI(import.meta.url)) {
     lint();
 }
