@@ -1,16 +1,14 @@
 import * as fs from 'fs';
 import * as path from 'path';
-import { default as rootPath } from 'app-root-path';
+import { migrateToLatestVersion } from './migrate';
 import {
     absoluteCurrentDefaultDirectory,
     absoluteCurrentDefaultFilesGlob,
-    relativeForceOverwriteFilePaths,
     renamedPrefix
 } from './variables';
 import {
     getFilePaths,
     log,
-    warn,
     wasCalledFromCLI
 } from './helpers';
 
@@ -26,49 +24,17 @@ function unrenameDistributeDefaultFiles(): void {
         const unrenamedFileName = parsedPath.base.replace(renamedPrefix, '');
         const unrenamedFilePath = path.join(parsedPath.dir, unrenamedFileName);
 
-        log(`Unrenaming file '${defaultFilePath}'.`);
+        if (defaultFilePath !== unrenamedFilePath && fs.existsSync(defaultFilePath)) {
+            log(`Unrenaming file '${defaultFilePath}'.`);
 
-        fs.renameSync(defaultFilePath, unrenamedFilePath);
-    }
-}
-
-function copyDefaultFilesToRoot(): void {
-    if (!fs.existsSync(absoluteCurrentDefaultDirectory)) {
-        throw new Error(`Could not find default configuration path '${absoluteCurrentDefaultDirectory}'.`);
-    }
-
-    const absoluteDefaultFilePaths = getFilePaths(absoluteCurrentDefaultFilesGlob);
-
-    for (const absoluteDefaultFilePath of absoluteDefaultFilePaths) {
-        const relativeFilePath = absoluteDefaultFilePath.replace(`${absoluteCurrentDefaultDirectory}\\`, '');
-
-        const absoluteFilePath = path.join(rootPath.path, relativeFilePath);
-
-        if (fs.existsSync(absoluteFilePath)) {
-            if (relativeForceOverwriteFilePaths.includes(relativeFilePath)) {
-                log(`Copying and overwriting file '${relativeFilePath}' to '${absoluteFilePath}'.`);
-
-                fs.copyFileSync(absoluteDefaultFilePath, absoluteFilePath);
-            }
-            else {
-                warn(`Failed to copy file '${relativeFilePath}' because it already exists. A manual update may be required.`);
-            }
-        }
-        else {
-            const directoryPath = path.dirname(absoluteFilePath);
-
-            fs.mkdirSync(directoryPath, { recursive: true });
-
-            log(`Copying file '${relativeFilePath}' to '${absoluteFilePath}'.`);
-
-            fs.copyFileSync(absoluteDefaultFilePath, absoluteFilePath, fs.constants.COPYFILE_EXCL);
+            fs.renameSync(defaultFilePath, unrenamedFilePath);
         }
     }
 }
 
 export function install(): void {
     unrenameDistributeDefaultFiles();
-    copyDefaultFilesToRoot();
+    migrateToLatestVersion();
 }
 
 if (wasCalledFromCLI(module)) {

@@ -6,6 +6,7 @@ import { coverage } from './coverage';
 import { distribute } from './distribute';
 import { install } from './install';
 import { lint } from './lint';
+import { migrateToLatestVersion } from './migrate';
 // eslint-disable-next-line @typescript-eslint/no-shadow
 import { test } from './test';
 import { wasCalledFromCLI } from './helpers';
@@ -49,6 +50,10 @@ if (wasCalledFromCLI(module)) {
 
         case 'install':
             install();
+            break;
+
+        case 'migrate':
+            migrateToLatestVersion();
             break;
 
         default:

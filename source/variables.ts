@@ -13,6 +13,7 @@ const relativeDefaultDirectory = path.normalize('./default');
 const relativeDistributeDirectory = path.normalize('./distribute');
 const relativeCoverageDirectory = path.normalize('./coverage');
 
+const relstiveColoniseJsonPath = path.normalize('./.colonise.json');
 const relativeEslintIgnorePath = path.normalize('./.eslintignore');
 const relativeEslintRCPath = path.normalize('./.eslintrc.js');
 const relativeGitIgnorePath = path.normalize('./.gitignore');
@@ -53,10 +54,11 @@ export const absoluteDefaultDirectory = path.join(absoluteRootDirectory, relativ
 export const absoluteDistributeDirectory = path.join(absoluteRootDirectory, relativeDistributeDirectory);
 export const absoluteCoverageDirectory = path.join(absoluteRootDirectory, relativeCoverageDirectory);
 
-export const absoluteRooEslintIgnorePath = path.join(absoluteRootDirectory, relativeEslintIgnorePath);
+export const absoluteRootColoniseJsonPath = path.join(absoluteRootDirectory, relstiveColoniseJsonPath);
+export const absoluteRootEslintIgnorePath = path.join(absoluteRootDirectory, relativeEslintIgnorePath);
 export const absoluteRootESLintRCPath = path.join(absoluteRootDirectory, relativeEslintRCPath);
-export const absoluteRooGitIgnorePath = path.join(absoluteRootDirectory, relativeGitIgnorePath);
-export const absoluteRooNPMIgnorePath = path.join(absoluteRootDirectory, relativeNPMIgnorePath);
+export const absoluteRootGitIgnorePath = path.join(absoluteRootDirectory, relativeGitIgnorePath);
+export const absoluteRootNPMIgnorePath = path.join(absoluteRootDirectory, relativeNPMIgnorePath);
 export const absoluteRootESLintPath = path.join(absoluteRootDirectory, relativeESLintPath);
 export const absoluteRootLicensePath = path.join(absoluteRootDirectory, relativeLicensePath);
 export const absoluteRootNYCConfigJsPath = path.join(absoluteRootDirectory, relativeNYCConfigJsPath);
@@ -77,18 +79,18 @@ export const absoluteRootEssentialFilePaths = [
 ];
 
 export const absoluteRootEssentialColoniseConfigFilePaths = [
-    absoluteRooEslintIgnorePath,
+    absoluteRootEslintIgnorePath,
     absoluteRootESLintRCPath,
-    absoluteRooGitIgnorePath,
-    absoluteRooNPMIgnorePath,
+    absoluteRootGitIgnorePath,
+    absoluteRootNPMIgnorePath,
     absoluteRootESLintPath,
     absoluteRootNYCJsPath,
     absoluteRootTSConfigJsonPath
 ];
 
 export const absoluteRootForceOverwriteDefaultFilePaths = [
-    absoluteRooGitIgnorePath,
-    absoluteRooNPMIgnorePath,
+    absoluteRootGitIgnorePath,
+    absoluteRootNPMIgnorePath,
     absoluteRootLicensePath,
     absoluteRootGitHubDependabotYmlPath,
     absoluteRootGitHubWorkflowsNodejsMasterYmlPath,
