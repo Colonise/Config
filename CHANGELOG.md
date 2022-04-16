@@ -1,5 +1,18 @@
 Changelog
 
+# [3.15.0](https://github.com/Colonise/Config/compare/v3.14.2...v3.15.0) (2022-04-16)
+
+
+### Bug Fixes
+
+* add missed .yml updates in default folder ([7994d32](https://github.com/Colonise/Config/commit/7994d32c9f593c0f0b1610ee20c37bf9f7a12491))
+* lint not running eslint cli ([2b3106b](https://github.com/Colonise/Config/commit/2b3106be2cbe134dc7785a942c66c9f25729f3b9))
+
+
+### Features
+
+* **watch:** add watch command ([71997f2](https://github.com/Colonise/Config/commit/71997f25518016c4440dd963a0b79949217d25af))
+
 ## [3.14.2](https://github.com/Colonise/Config/compare/v3.14.1...v3.14.2) (2021-06-12)
 
 
