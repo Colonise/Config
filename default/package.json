@@ -24,6 +24,7 @@
     "scripts": {
         "clean": "colonise-config clean",
         "build": "colonise-config build",
+        "watch": "colonise-config watch",
         "lint": "colonise-config lint",
         "test": "colonise-config test",
         "coverage": "colonise-config coverage",

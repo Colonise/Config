@@ -27,6 +27,7 @@
     "scripts": {
         "clean": "ts-node ./source/clean",
         "build": "ts-node ./source/build",
+        "watch": "ts-node ./source/watch",
         "lint": "ts-node ./source/lint",
         "test": "ts-node ./source/test",
         "coverage": "ts-node ./source/coverage",
