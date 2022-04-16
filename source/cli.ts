@@ -9,6 +9,7 @@ import { lint } from './lint';
 // eslint-disable-next-line @typescript-eslint/no-shadow
 import { test } from './test';
 import { wasCalledFromCLI } from './helpers';
+import { watch } from './watch';
 
 if (wasCalledFromCLI(module)) {
     const [
@@ -24,6 +25,10 @@ if (wasCalledFromCLI(module)) {
 
         case 'build':
             build();
+            break;
+
+        case 'watch':
+            watch();
             break;
 
         case 'lint':
