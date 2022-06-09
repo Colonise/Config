@@ -36,7 +36,7 @@
     "devDependencies": {
         "@types/app-root-path": "^1.2.4",
         "@types/cross-spawn": "^6.0.2",
-        "@types/eslint": "^7.2.7"
+        "@types/eslint": "^8.4.3"
     },
     "dependencies": {
         "@semantic-release/changelog": "^5.0.1",
@@ -55,7 +55,7 @@
         "chai": "^4.3.4",
         "cross-spawn": "^7.0.3",
         "del": "^6.0.0",
-        "eslint": "^7.22.0",
+        "eslint": "^8.17.0",
         "eslint-plugin-node": "^11.1.0",
         "globby": "^11.0.2",
         "mocha": "^8.3.2",
