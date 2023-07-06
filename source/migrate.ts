@@ -1,5 +1,7 @@
 import * as fs from 'fs';
-import { absoluteRootColoniseJsonPath } from './variables';
+import {
+    absoluteRootColoniseJsonPath, absoluteRootReadmeMarkdownPath
+} from './variables';
 import {
     copyDefaultFilesToRoot,
     error,
@@ -15,15 +17,29 @@ interface ColoniseJSON {
 
 type Migration = () => boolean;
 
-const latestVersion = 1;
+const latestVersion = 2;
 
-const migrations: { [key: number]: Migration; } = {
-    1: () => {
+const migrations: Migration[] = [
+    () => true,
+    () => {
         copyDefaultFilesToRoot();
 
         return true;
+    },
+    () => {
+        if (fs.existsSync(absoluteRootReadmeMarkdownPath)) {
+            const rootReadmeMarkdownContents = fs.readFileSync(absoluteRootReadmeMarkdownPath).toString();
+
+            const newRootReadmMarkdowneContents = rootReadmeMarkdownContents
+                .replace(/\[build-badge\]: https:\/\/img.shields.io\/github\/workflow\/status\/colonise\/(\w+)\/Node.js%20CI/gu, '[build-badge]: https://img.shields.io/github/actions/workflow/status/colonise/$1/nodejs-master.yml?branch=master')
+                .replace(/\[build-url\]: https:\/\/github.com\/Colonise\/(\w+)\/actions\?query=workflow%3A%22Node.js\+CI%22/gu, '[build-url]: https://github.com/Colonise/$1/actions/workflows/nodejs-master.yml?query=workflow%3A%22Node.js+CI%22');
+
+            fs.writeFileSync(absoluteRootReadmeMarkdownPath, newRootReadmMarkdowneContents);
+        }
+
+        return true;
     }
-};
+];
 
 export function migrate(fromVersion: number, toVersion: number): void {
     log(`Migrating from ${fromVersion} to ${toVersion}.`);
@@ -44,6 +60,12 @@ export function migrate(fromVersion: number, toVersion: number): void {
                 log(`Successfully migrated from ${previousVersion} to ${currentVersion}.`);
 
                 previousVersion = currentVersion;
+
+                const coloniseJson: ColoniseJSON = {
+                    version: toVersion
+                };
+
+                writeJSON(absoluteRootColoniseJsonPath, coloniseJson);
             }
             else {
                 throw new Error();
@@ -55,46 +77,22 @@ export function migrate(fromVersion: number, toVersion: number): void {
             return;
         }
     }
-
-    const coloniseJson: ColoniseJSON = {
-        version: toVersion
-    };
-
-    writeJSON(absoluteRootColoniseJsonPath, coloniseJson);
 }
 
 export function migrateToLatestVersion(): void {
-    let coloniseJson: ColoniseJSON;
+    let coloniseJson: ColoniseJSON | undefined;
 
-    try {
-        if (fs.existsSync(absoluteRootColoniseJsonPath)) {
-            coloniseJson = readJSON(absoluteRootColoniseJsonPath);
-        }
-        else {
-            log('Detected new installation. If this was a mistake, manually run \'colonise-config migrate\'.');
-
-            copyDefaultFilesToRoot();
-
-            coloniseJson = {
-                version: latestVersion
-            };
-
-            writeJSON(absoluteRootColoniseJsonPath, coloniseJson);
-
-            return;
-        }
-    }
-    catch (_error: unknown) {
-        error('Failed to start migrations.');
-
-        return;
+    if (fs.existsSync(absoluteRootColoniseJsonPath)) {
+        coloniseJson = readJSON(absoluteRootColoniseJsonPath);
     }
 
-    if (coloniseJson.version === latestVersion) {
+    const currentVersion = coloniseJson?.version ?? 0;
+
+    if (currentVersion === latestVersion) {
         log('No need to migrate, already on latest version.');
     }
     else {
-        migrate(coloniseJson.version, latestVersion);
+        migrate(currentVersion, latestVersion);
     }
 }
 
