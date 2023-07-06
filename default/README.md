@@ -38,8 +38,8 @@ CHANGEME is part of Colonise's Open Source Software, and is made with love by th
 [colonise-logo]: /documentation/assets/colonise256.png
 [colonise-url]: https://colonise.org/
 
-[build-badge]: https://img.shields.io/github/workflow/status/colonise/CHANGEME/Node.js%20CI
-[build-url]: https://github.com/Colonise/CHANGEME/actions?query=workflow%3A%22Node.js+CI%22
+[build-badge]: https://img.shields.io/github/actions/workflow/status/colonise/CHANGEME/nodejs-master.yml?branch=master
+[build-url]: https://github.com/Colonise/CHANGEME/actions/workflows/nodejs-master.yml?query=workflow%3A%22Node.js+CI%22
 
 [code-climate-coverage-badge]: https://img.shields.io/codeclimate/coverage/Colonise/CHANGEME.svg
 [code-climate-coverage-url]: https://codeclimate.com/github/Colonise/CHANGEME

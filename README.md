@@ -38,8 +38,8 @@ Config is part of Colonise's Open Source Software, and is made with love by the 
 [colonise-logo]: /documentation/assets/colonise256.png
 [colonise-url]: https://colonise.org/
 
-[build-badge]: https://img.shields.io/github/workflow/status/colonise/config/Node.js%20CI
-[build-url]: https://github.com/Colonise/Config/actions?query=workflow%3A%22Node.js+CI%22
+[build-badge]: https://img.shields.io/github/actions/workflow/status/colonise/config/nodejs-master.yml?branch=master
+[build-url]: https://github.com/Colonise/Config/actions/workflows/nodejs-master.yml?query=workflow%3A%22Node.js+CI%22
 
 [code-climate-coverage-badge]: https://img.shields.io/codeclimate/coverage/Colonise/Config.svg
 [code-climate-coverage-url]: https://codeclimate.com/github/Colonise/Config
