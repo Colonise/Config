@@ -1,5 +1,12 @@
 Changelog
 
+## [3.16.1](https://github.com/Colonise/Config/compare/v3.16.0...v3.16.1) (2023-07-06)
+
+
+### Bug Fixes
+
+* Update build badge ([fb60f4a](https://github.com/Colonise/Config/commit/fb60f4a4a597b26275b4cfd67b48a15d8f8ffebd))
+
 # [3.16.0](https://github.com/Colonise/Config/compare/v3.15.0...v3.16.0) (2022-04-16)
 
 
