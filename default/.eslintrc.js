@@ -1,1 +1,1 @@
-module.exports = require('@colonise/config/eslintrc');
+module.exports = require("@colonise/config/eslint");

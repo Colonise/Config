@@ -17,15 +17,9 @@ interface ColoniseJSON {
 
 type Migration = () => boolean;
 
-const latestVersion = 2;
-
 const migrations: Migration[] = [
     () => true,
-    () => {
-        copyDefaultFilesToRoot();
-
-        return true;
-    },
+    () => true,
     () => {
         if (fs.existsSync(absoluteRootReadmeMarkdownPath)) {
             const rootReadmeMarkdownContents = fs.readFileSync(absoluteRootReadmeMarkdownPath).toString();
@@ -38,13 +32,18 @@ const migrations: Migration[] = [
         }
 
         return true;
-    }
+    },
+    () => true
 ];
+
+const latestVersion = migrations.length - 1;
 
 export function migrate(fromVersion: number, toVersion: number): void {
     log(`Migrating from ${fromVersion} to ${toVersion}.`);
 
     let previousVersion = fromVersion;
+
+    copyDefaultFilesToRoot();
 
     for (let currentVersion = fromVersion + 1; currentVersion <= toVersion; currentVersion++) {
         if (!(currentVersion in migrations)) {

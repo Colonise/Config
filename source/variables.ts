@@ -75,7 +75,9 @@ export const absoluteRootDocumentationAssetsColonise256PngPath = path.join(absol
 export const absoluteRootEssentialFilePaths = [
     absoluteRootPackageJsonPath,
     absoluteRootLicensePath,
-    absoluteRootReadmeMarkdownPath
+    absoluteRootReadmeMarkdownPath,
+    absoluteRootESLintRCPath,
+    absoluteRootESLintPath
 ];
 
 export const absoluteRootEssentialColoniseConfigFilePaths = [
