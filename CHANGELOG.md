@@ -1,5 +1,12 @@
 Changelog
 
+# [3.17.0](https://github.com/Colonise/Config/compare/v3.16.1...v3.17.0) (2023-07-06)
+
+
+### Features
+
+* add migration v2 ([71dbf18](https://github.com/Colonise/Config/commit/71dbf18d224b6b65d60258badd6339e105cc2a9a))
+
 ## [3.16.1](https://github.com/Colonise/Config/compare/v3.16.0...v3.16.1) (2023-07-06)
 
 
