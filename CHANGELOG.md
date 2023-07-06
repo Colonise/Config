@@ -1,5 +1,12 @@
 Changelog
 
+## [3.17.1](https://github.com/Colonise/Config/compare/v3.17.0...v3.17.1) (2023-07-06)
+
+
+### Bug Fixes
+
+* linting not working ([91b672d](https://github.com/Colonise/Config/commit/91b672d534e80787d12c9f6c041dc7a3d89ae340))
+
 # [3.17.0](https://github.com/Colonise/Config/compare/v3.16.1...v3.17.0) (2023-07-06)
 
 
