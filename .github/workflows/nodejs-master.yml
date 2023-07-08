@@ -31,7 +31,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3.7.0
         with:
-          node-version: current
+          node-version: latest
 
       - name: Install dependencies
         run: |
@@ -50,7 +50,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [lts, current]
+        node-version: [lts/*, latest]
 
     steps:
       - name: Checkout Repository
@@ -78,7 +78,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [lts, current]
+        node-version: [lts/*, latest]
 
     steps:
       - name: Checkout Repository
@@ -111,7 +111,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3.7.0
         with:
-          node-version: current
+          node-version: latest
 
       - name: Install dependencies
         run: |
@@ -136,7 +136,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3.7.0
         with:
-          node-version: current
+          node-version: latest
 
       - name: Install dependencies
         run: npm ci
