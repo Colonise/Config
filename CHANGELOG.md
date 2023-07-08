@@ -1,5 +1,19 @@
 Changelog
 
+# [3.18.0](https://github.com/Colonise/Config/compare/v3.17.1...v3.18.0) (2023-07-08)
+
+
+### Bug Fixes
+
+* update github action node versions ([0b55cd0](https://github.com/Colonise/Config/commit/0b55cd0917021b997c4d35ba4be97ed894f18425))
+* update node types ([cc75104](https://github.com/Colonise/Config/commit/cc751042d1619053c7233a0d1aaeabb5c7305c99))
+
+
+### Features
+
+* update github actions ([b1d3e48](https://github.com/Colonise/Config/commit/b1d3e48596f1c4df68286e327dc661825d42d356))
+* update to latest typescript/ts-node ([357aa5c](https://github.com/Colonise/Config/commit/357aa5c4d1685cbd792f119fd9d6afb56793ab61))
+
 ## [3.17.1](https://github.com/Colonise/Config/compare/v3.17.0...v3.17.1) (2023-07-06)
 
 
