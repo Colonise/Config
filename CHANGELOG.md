@@ -1,5 +1,12 @@
 Changelog
 
+# [3.19.0](https://github.com/Colonise/Config/compare/v3.18.0...v3.19.0) (2023-07-08)
+
+
+### Features
+
+* update eslint and @typescript/eslint to latest ([9cef8ea](https://github.com/Colonise/Config/commit/9cef8ea0dcf75b0f5496fb97bdf06124c184bf01))
+
 # [3.18.0](https://github.com/Colonise/Config/compare/v3.17.1...v3.18.0) (2023-07-08)
 
 
