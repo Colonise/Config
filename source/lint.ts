@@ -1,4 +1,6 @@
-import { CLIEngine } from 'eslint';
+import type { ESLint } from 'eslint';
+import { Linter } from 'eslint';
+import { rules as typescriptESLintRules } from '@typescript-eslint/eslint-plugin';
 import {
     absoluteRootESLintRCPath,
     absoluteSourceTypeScriptFilesGlob
@@ -10,25 +12,36 @@ import {
     wasCalledFromCLI
 } from './helpers';
 
-export function reportMissingLintRules(cliOptions: CLIEngine.Options): void {
-    const options = { ...cliOptions };
+export function reportMissingAndUnknownRules(eslintOptions: ESLint.Options & {rules: Record<string, unknown>;}): void {
+    const linter = new Linter(eslintOptions);
 
-    delete options.globals;
+    const eslintRuleNames = linter.getRules().keys();
 
-    if (options.rules === undefined) {
-        return;
+    const knownRuleNames = [
+        ...Array.from(eslintRuleNames),
+        ...Object.keys(typescriptESLintRules).map(typescriptESLintRuleName => `@typescript-eslint/${typescriptESLintRuleName}`)
+    ];
+
+    const unknownRuleNames: string[] = [];
+
+    for (const ruleName in eslintOptions.rules) {
+        if (!knownRuleNames.includes(ruleName)) {
+            unknownRuleNames.push(ruleName);
+        }
     }
 
-    const cliEngine = new CLIEngine(options);
+    if (unknownRuleNames.length > 0) {
+        log('');
 
-    const rules = cliEngine.getRules();
-
-    const ruleNames = Array.from(rules.keys());
+        unknownRuleNames.forEach(unknownRuleName => {
+            warn(`Unknown rule '${unknownRuleName}'`);
+        });
+    }
 
     const missingRuleNames: string[] = [];
 
-    for (const ruleName of ruleNames) {
-        if (!(ruleName in options.rules)) {
+    for (const ruleName of knownRuleNames) {
+        if (!(ruleName in eslintOptions.rules)) {
             missingRuleNames.push(ruleName);
         }
     }
@@ -46,9 +59,9 @@ export function lintTypeScript(): void {
     log('Linting TypeScript files.');
 
     // eslint-disable-next-line @typescript-eslint/no-var-requires, @typescript-eslint/no-require-imports
-    const eslintConfig = <CLIEngine.Options>require(absoluteRootESLintRCPath);
+    const eslintConfig = <ESLint.Options & {rules: Record<string, unknown>;}>require(absoluteRootESLintRCPath);
 
-    reportMissingLintRules(eslintConfig);
+    reportMissingAndUnknownRules(eslintConfig);
 
     executeCommand('eslint', [
         '--cache',
