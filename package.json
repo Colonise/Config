@@ -61,7 +61,7 @@
         "nyc": "^15.1.0",
         "semantic-release": "^17.4.2",
         "ts-node": "^10.9.1",
-        "tslib": "^2.6.0",
+        "tslib": "^2.6.2",
         "typescript": "^5.1.6"
     }
 }
